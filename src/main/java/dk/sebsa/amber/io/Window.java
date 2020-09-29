@@ -1,6 +1,8 @@
 package dk.sebsa.amber.io;
 
+import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.math.Color;
+import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.util.Logger;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -32,6 +34,7 @@ public class Window {
 	public static int fps;
 	private static long time;
 	private byte minimized;
+	private static Rect r;
 	
 	
 	// Vars used in Averege frame length calculation
@@ -64,6 +67,10 @@ public class Window {
 			Logger.errorLog("Window", "init", "Unable to initialize GLFW");
 			throw new IllegalStateException("[Window.java/init] Unable to initialize GLFW");
 		}
+		
+		// Set Window Rect
+		r = new Rect(0, 0, width, height);
+
 		// Configure GLFW
 		glfwDefaultWindowHints(); // optional, the current window hints are already the default
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
@@ -83,12 +90,16 @@ public class Window {
 		}
 		// Setup resize callback
         glfwSetFramebufferSizeCallback(windowId, (window, width, height) -> {
-        	if(width == 0 && height == 0 ) minimized = 1;
+        	if(width == 0 && height == 0) minimized = 1;
     		else minimized = 0;
             this.width = width;
             this.height = height;
             this.setResized(true);
+            
+            r.set(0, 0, width, height);
+            
             glViewport(0, 0, width, height);
+            Renderer.updateFBO(width, height);
         });
 		
 		// Get the thread stack and push a new frame
@@ -297,5 +308,9 @@ public class Window {
 	
 	public static double getAfl() {
 		return afl;
+	}
+	
+	public Rect getRect() {
+		return r;
 	}
 }

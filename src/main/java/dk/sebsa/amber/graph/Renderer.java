@@ -19,6 +19,7 @@ public class Renderer {
 	private static Matrix4x4 projection;
 	private static FBO fbo;
 	private static Matrix4x4 ortho;
+	private static List<Rect> areas = new ArrayList<>();
 	
 	public static void init() {
 		float[] square = new float[] {
@@ -94,6 +95,10 @@ public class Renderer {
 		ortho = Matrix4x4.ortho(0, Main.window.getWidth(), Main.window.getHeight(), 0, -1, 1);
 		Main.engineShader.setUniform("projection", ortho);
 		mesh.bind();
+		
+		// Area
+		areas.clear();
+		areas.add(Main.window.getRect().copy());
 	}
 	
 	public static void unprepare() {
@@ -101,8 +106,18 @@ public class Renderer {
 		mesh.unbind();
 	}
 	
-	public static void drawTextureWithTextCoords(Texture tex, Rect r, Rect u) {
-		glDisable(GL_DEPTH_TEST);
+	public static void drawTextureWithTextCoords(Texture tex, Rect drawRect, Rect uvRect) {
+		// Draw areasd
+		Rect a = areas.get(areas.size()-1);
+		Rect r = a.getIntersection(new Rect(drawRect.x + a.x, (drawRect.y + a.y), drawRect.width, drawRect.height));
+		if(r == null) return;
+		
+		// uvreact
+		float x = uvRect.x + ((((r.x - drawRect.x) - a.x) / drawRect.width) * uvRect.width);
+		float y = uvRect.y + ((((r.y - drawRect.y) - a.y) / drawRect.height) * uvRect.height);
+		Rect u = new Rect(x, y, (r.width / drawRect.width) * uvRect.width, (r.height / drawRect.height) * uvRect.height);
+		
+		// Draw
 		tex.bind();
 		
 		Main.engineShader.setUniform("offset", u.x, u.y, u.width, u.height);
@@ -116,6 +131,14 @@ public class Renderer {
 	
 	public static void updateFBO(int width, int height) {
 		fbo = new FBO(width, height);
+	}
+	
+	public static void beginArea(Rect r) {
+		areas.add(r);
+	}
+	
+	public static void endArea() {
+		areas.remove(areas.size()-1);
 	}
 }
 
