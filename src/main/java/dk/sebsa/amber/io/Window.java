@@ -121,11 +121,6 @@ public class Window {
 		// bindings available for use.
 		Logger.infoLog("Window", "init", "Setting up OpenGL");
 		GL.createCapabilities();
-		glEnable(GL_DEPTH_TEST);
-		
-		// Support for transparencies
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		// Culling
 		glEnable(GL_CULL_FACE);

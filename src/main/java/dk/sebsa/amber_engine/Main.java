@@ -2,21 +2,36 @@ package dk.sebsa.amber_engine;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+import java.io.IOException;
+
+import dk.sebsa.amber.Entity;
+import dk.sebsa.amber.entity.Component;
+import dk.sebsa.amber.entity.components.SpriteRenderer;
+import dk.sebsa.amber.graph.Renderer;
+import dk.sebsa.amber.graph.Shader;
+import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.io.DevWindow;
 import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.io.Window;
 import dk.sebsa.amber.math.Color;
-import dk.sebsa.amber.util.Logger;
+import dk.sebsa.amber.math.Rect;
 
 public class Main {
 	public static Window window;
 	public static Input input;
+	public static Shader engineShader;
 	
 	public static void main(String[] args) {
+		// Project loading
+		ProjectManager.init();
+		
+		// Main loop
 		init();
 		
-		start();
-		loop();
+		try {
+			start();
+			loop();
+		} catch (IOException e) { e.printStackTrace(); }
 		
 		cleanup();
 	}
@@ -29,12 +44,25 @@ public class Main {
 		input = new Input(window);
 	}
 	
-	public static void start() {
-		window.init(Color.white());
+	public static void start() throws IOException {
+		window.init(Color.red());
 		input.init();
+		
+		try {
+			AssetManager.loadAllResources();
+		} catch (IOException e1) { e1.printStackTrace(); }
+		
+		Editor.init();
+		Renderer.init();
+
+		engineShader = Shader.findShader("engine");
 	}
 	
-	public static void loop() {
+	public static void loop() throws IOException {		
+		Entity entity = new Entity("Jens");
+		entity.addComponent(new SpriteRenderer());
+		((SpriteRenderer) entity.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("player_idle");;
+		
 		while(!window.shouldClose()) {
 			glfwPollEvents();
 			if(!window.isMinimized()) {
@@ -43,8 +71,13 @@ public class Main {
 				DevWindow.update();
 				input.update();
 				
-				// Other
-				if(input.isButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) Logger.infoLog("Main", "Left Clicking");
+				// Logic
+				Component.updateAll();
+				
+				// Render
+				Component.willRenderAll();
+				Editor.render();
+				Renderer.render(new Rect(0, 0, window.getWidth(), window.getHeight()));
 				
 				// Lates
 				input.late();
@@ -54,9 +87,17 @@ public class Main {
 	}
 	
 	public static void cleanup() {
+		// General cleanup
 		window.cleanup();
 		input.cleanup();
-		//DevWindow.destroyDevWindow();
+		Editor.cleanup();
+		engineShader.cleanup();
+		Renderer.cleanup();
+		
+		// Assets
+		
+		// Other
 		System.gc();
+		
 	}
 }

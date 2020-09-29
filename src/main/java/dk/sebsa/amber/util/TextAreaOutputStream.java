@@ -116,8 +116,14 @@ public class TextAreaOutputStream extends OutputStream {
 	            if(val.charAt(0) == '*') {
 	            	type = 'I';
 	            }
+	            if(val.charAt(0) == 'E') {
+	            	type = 'f';
+	            }
 	            if(type=='E') {
 	            	try { document.insertString(document.getLength(),val.substring(1), errorStyle); }
+	                catch (BadLocationException e){}
+	            } else if(type=='f') {
+	            	try { document.insertString(document.getLength(),val, errorStyle); }
 	                catch (BadLocationException e){}
 	            } else if(type=='D') {
 	            	try { document.insertString(document.getLength(),val.substring(1), debugStyle); }
