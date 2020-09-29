@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class ProjectManager {
 	public static final String workspaceDir = System.getProperty("user.dir") + "/Amber-Workspace/";
-	public static final String editorVersion = "0.0.1-SNAPSHOT";
+	public static final String editorVersion = ProjectManager.class.getPackage().getImplementationVersion();
 	public static byte configInit = 0;
 	private static String projectDir = "";
 	
