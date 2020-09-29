@@ -4,12 +4,9 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import java.io.IOException;
 
-import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
-import dk.sebsa.amber.entity.components.SpriteRenderer;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
-import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.io.DevWindow;
 import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.io.Window;
@@ -45,7 +42,7 @@ public class Main {
 	}
 	
 	public static void start() throws IOException {
-		window.init(Color.red());
+		window.init(Color.white());
 		input.init();
 		
 		try {
@@ -58,11 +55,7 @@ public class Main {
 		engineShader = Shader.findShader("engine");
 	}
 	
-	public static void loop() throws IOException {		
-		Entity entity = new Entity("Jens");
-		entity.addComponent(new SpriteRenderer());
-		((SpriteRenderer) entity.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("player_idle");;
-		
+	public static void loop() throws IOException {
 		while(!window.shouldClose()) {
 			glfwPollEvents();
 			if(!window.isMinimized()) {
@@ -77,7 +70,7 @@ public class Main {
 				// Render
 				Component.willRenderAll();
 				Editor.render();
-				Renderer.render(new Rect(0, 0, window.getWidth(), window.getHeight()));
+				Renderer.render(new Rect(300, 30, window.getWidth()-600, window.getHeight()-30));
 				
 				// Lates
 				input.late();
