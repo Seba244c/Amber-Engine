@@ -91,10 +91,10 @@ public class Main {
 		window.cleanup();
 		input.cleanup();
 		Editor.cleanup();
-		engineShader.cleanup();
 		Renderer.cleanup();
 		
 		// Assets
+		AssetManager.cleanUpAll();
 		
 		// Other
 		System.gc();

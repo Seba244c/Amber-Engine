@@ -127,4 +127,9 @@ public class AssetManager {
 		}
 		return paths;
 	}
+	
+	public static void cleanUpAll() {
+		for(Shader s : Shader.getShaders()) { s.cleanup(); }
+		Texture.cleanup();
+	}
 }
