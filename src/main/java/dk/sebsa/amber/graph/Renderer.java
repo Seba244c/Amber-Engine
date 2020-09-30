@@ -8,6 +8,8 @@ import java.util.Map;
 import static org.lwjgl.opengl.GL11.*;
 
 import dk.sebsa.amber.entity.components.SpriteRenderer;
+import dk.sebsa.amber.graph.text.Font;
+import dk.sebsa.amber.graph.text.Glyph;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Matrix4x4;
 import dk.sebsa.amber.math.Rect;
@@ -15,11 +17,17 @@ import dk.sebsa.amber_engine.Main;
 
 public class Renderer {
 	private static Map<Material, List<SpriteRenderer>> batch = new HashMap<Material, List<SpriteRenderer>>();
-	private static Mesh mesh;
+	private static Mesh guiMesh;
+	private static Mesh mainMesh;
 	private static Matrix4x4 projection;
 	private static FBO fbo;
 	private static Matrix4x4 ortho;
 	private static List<Rect> areas = new ArrayList<>();
+	
+	private static char[] c;
+	public static Font font;
+	private static float tempX;
+	private static int i;
 	
 	public static void init() {
 		float[] square = new float[] {
@@ -30,13 +38,16 @@ public class Renderer {
 				0, 0, 1, 0, 1, 1,
 				1, 1, 0, 1, 0, 0
 		};
-		mesh = new Mesh(square, uv);
-		
+		guiMesh = new Mesh(square, square);
+		mainMesh = new Mesh(square, uv);
 		updateFBO(Main.window.getWidth(), Main.window.getHeight());
+		
+		font = new Font(new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16));
 	}
 	
 	public static void cleanup() {
-		mesh.cleanup();
+		guiMesh.cleanup();
+		mainMesh.cleanup();
 	}
 	
 	public static void addToRender(SpriteRenderer renderer) {
@@ -61,7 +72,7 @@ public class Renderer {
 		
 		projection = Matrix4x4.ortho(-halfW, halfW, halfH, -halfH, -1, 1);
 		
-		mesh.bind();
+		mainMesh.bind();
 		
 		for(Material material : batch.keySet()) {
 			material.bind();
@@ -71,13 +82,13 @@ public class Renderer {
 			List<SpriteRenderer> renderers = batch.get(material);
 			for(SpriteRenderer renderer : renderers) {
 				renderer.setUniforms();
-				mesh.render();
+				mainMesh.render();
 			}
 			
 			material.unbind();
 		}
 		
-		mesh.unbind();
+		mainMesh.unbind();
 		batch.clear();
 		fbo.unBind();
 		
@@ -94,7 +105,7 @@ public class Renderer {
 		Main.engineShader.bind();
 		ortho = Matrix4x4.ortho(0, Main.window.getWidth(), Main.window.getHeight(), 0, -1, 1);
 		Main.engineShader.setUniform("projection", ortho);
-		mesh.bind();
+		guiMesh.bind();
 		
 		// Area
 		areas.clear();
@@ -103,10 +114,14 @@ public class Renderer {
 	
 	public static void unprepare() {
 		Main.engineShader.unbind();
-		mesh.unbind();
+		guiMesh.unbind();
 	}
 	
 	public static void drawTextureWithTextCoords(Texture tex, Rect drawRect, Rect uvRect) {
+		drawTextureWithTextCoords(tex, drawRect, uvRect, Color.white());
+	}
+	
+	public static void drawTextureWithTextCoords(Texture tex, Rect drawRect, Rect uvRect, Color c) {
 		// Draw areasd
 		Rect a = areas.get(areas.size()-1);
 		Rect r = a.getIntersection(new Rect(drawRect.x + a.x, (drawRect.y + a.y), drawRect.width, drawRect.height));
@@ -123,10 +138,25 @@ public class Renderer {
 		Main.engineShader.setUniform("offset", u.x, u.y, u.width, u.height);
 		Main.engineShader.setUniform("pixelScale", r.width, r.height);
 		Main.engineShader.setUniform("screenPos", r.x, r.y);
-		Main.engineShader.setMatColor(Color.white());
+		Main.engineShader.setMatColor(c);
 		
-		mesh.render();
+		guiMesh.render();
 		tex.unbind();
+	}
+	
+	public static void drawLabel(String text, float x, float y, Color color) {
+		Map<Character, Glyph> chars = font.getChars();
+		
+		c = text.toCharArray();
+		tempX = x;
+		for(i = 0; i < c.length; i++) {
+			Glyph glyph = chars.get(c[i]);
+			
+			drawTextureWithTextCoords(font.getTexture(), new Rect(tempX, y, glyph.scale.x, glyph.scale.y), new Rect(glyph.position.x, glyph.position.y, glyph.size.x, glyph.size.y), color);
+
+			tempX += glyph.scale.x;
+		}
+		Texture.resetBound();
 	}
 	
 	public static void updateFBO(int width, int height) {

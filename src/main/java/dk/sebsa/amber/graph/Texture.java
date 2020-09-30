@@ -4,11 +4,14 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.stbi_image_free;
 import static org.lwjgl.stb.STBImage.stbi_load_from_memory;
 import static org.lwjgl.stb.STBImage.stbi_load;
+import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -38,7 +41,8 @@ public class Texture {
 		IntBuffer channelsBuffer = BufferUtils.createIntBuffer(1);
 		
 		// Load texture
-		
+		//stbi_set_flip_vertically_on_load(true);
+
 		ByteBuffer data;
 		if(filename.startsWith("/")) {
 			name = filename.replaceFirst("/", "");
@@ -68,7 +72,7 @@ public class Texture {
 		height = heightBuffer.get();
 		
 		glBindTexture(GL_TEXTURE_2D, id);
-		
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		
@@ -89,9 +93,10 @@ public class Texture {
 	}
 	
 	public void bind() {
-		if(boundTexture!=id)
+		if(boundTexture!=id) {
 			glBindTexture(GL_TEXTURE_2D, id);
-		boundTexture=id;
+			boundTexture=id;
+		}
 	}
 	
 	public void unbind() {

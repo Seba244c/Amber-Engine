@@ -4,9 +4,12 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import java.io.IOException;
 
+import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
+import dk.sebsa.amber.entity.components.SpriteRenderer;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
+import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.io.DevWindow;
 import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.io.Window;
@@ -56,6 +59,11 @@ public class Main {
 	}
 	
 	public static void loop() throws IOException {
+		Entity e = new Entity("Jens");
+		SpriteRenderer sr = new SpriteRenderer();
+		sr.sprite = Sprite.getSprite("player_idle");
+		e.addComponent(sr);
+		
 		while(!window.shouldClose()) {
 			glfwPollEvents();
 			if(!window.isMinimized()) {
@@ -68,6 +76,10 @@ public class Main {
 				Component.updateAll();
 				
 				// Render
+				Renderer.prepare();
+				Renderer.drawLabel("Hello World!", 0, 0, Color.white());
+				Renderer.unprepare();
+				
 				Component.willRenderAll();
 				Editor.render();
 				Renderer.render(new Rect(300, 30, window.getWidth()-600, window.getHeight()-30));
