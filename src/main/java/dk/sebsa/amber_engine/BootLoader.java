@@ -1,5 +1,6 @@
 package dk.sebsa.amber_engine;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class BootLoader {
 	private static JFrame frame;
@@ -85,19 +87,34 @@ public class BootLoader {
 		JButton begin = new JButton("Begin");
 		begin.setBounds(100, 276, 80, 25);
 		
+		JTextArea input = new JTextArea("My Project");
+		input.setBackground(Color.LIGHT_GRAY);
+		input.setForeground(Color.BLUE);
+        
 		begin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String c = e.getActionCommand();
 				if(c.equals("Begin")) {
 					String selectedString = (String) projectBox.getSelectedItem();
-					if(selectedString.equals("New Project")) returnString = "My Project";
+					if(selectedString.equals("New Project")) {
+						begin.setBounds(100, 240, 80, 25);
+						begin.setText("Create");
+						projectBox.setBounds(-100, 0, 1, 1);
+						
+						input.setBounds(70, 276, 150, 25);
+						//input.setText("JI");
+					}
 					else returnString = selectedString;
+				}
+				else if(c.equals("Create")) {
+					returnString = input.getText();
 				}
 			}
 		});
 		panel.add(projectBox);
 		panel.add(begin);
+		panel.add(input);
 		pane.add(panel);
 	}
 }

@@ -1,7 +1,5 @@
 package dk.sebsa.amber.graph;
 
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;

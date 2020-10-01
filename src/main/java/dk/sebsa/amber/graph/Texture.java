@@ -4,15 +4,10 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.stbi_image_free;
 import static org.lwjgl.stb.STBImage.stbi_load_from_memory;
 import static org.lwjgl.stb.STBImage.stbi_load;
-import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
-
 import java.util.List;
 import java.util.regex.Pattern;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
