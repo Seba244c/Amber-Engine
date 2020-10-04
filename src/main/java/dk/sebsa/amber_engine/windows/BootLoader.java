@@ -62,7 +62,7 @@ public class BootLoader {
 	}
 	
 	private static void createPanel() throws IOException {
-		final BufferedImage image = ImageIO.read(BootLoader.class.getResourceAsStream("/textures/BootLoad.png"));
+		final BufferedImage image = ImageIO.read(BootLoader.class.getResourceAsStream("/boot/BootLoad.png"));
 		JPanel panel = new JPanel() {
 			private static final long serialVersionUID = 1L;
 			
