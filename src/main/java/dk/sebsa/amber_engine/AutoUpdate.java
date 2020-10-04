@@ -1,6 +1,7 @@
 package dk.sebsa.amber_engine;
 
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,17 @@ public class AutoUpdate {
 		
 		download = new JSONObject(json);
 		return !ProjectManager.editorVersion.equals(download.getString("newestRelease"));
+	}
+	
+	public static void test() {
+		initWindow();
+		try {
+			Thread.sleep(100000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		frame.dispose();
 	}
 	
 	public static void update() {
@@ -95,7 +107,16 @@ public class AutoUpdate {
 		};
 		panel.setLayout(null);
 		
-		panel.add(new JLabel("Updating Amber Engine", JLabel.CENTER));
+		JLabel h = new JLabel("Updating Amber Engine", JLabel.CENTER);
+		h.setFont(new Font("Serif", Font.PLAIN, 26));
+		h.setBounds(5, 10, 280, 40);
+		
+		JLabel g = new JLabel("From version:\nFrom: "+ProjectManager.editorVersion+", To: " +download.getString("newestRelease"), JLabel.CENTER);
+		h.setFont(new Font("Serif", Font.PLAIN, 18));
+		h.setBounds(5, 50, 280, 40);
+		
+		panel.add(h);
+		panel.add(g);
 		pane.add(panel);
 	}
 	

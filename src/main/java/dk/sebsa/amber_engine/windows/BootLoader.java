@@ -5,15 +5,18 @@ import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -59,14 +62,14 @@ public class BootLoader {
 	}
 	
 	private static void createPanel() throws IOException {
-		//final BufferedImage image = ImageIO.read(BootLoader.class.getResourceAsStream("/textures/BootLoad.png"));
+		final BufferedImage image = ImageIO.read(BootLoader.class.getResourceAsStream("/textures/BootLoad.png"));
 		JPanel panel = new JPanel() {
 			private static final long serialVersionUID = 1L;
 			
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				//if(image != null) g.drawImage(image, 10, 10, 263, 215, null);
+				if(image != null) g.drawImage(image, 10, 10, 263, 215, null);
 			}
 		};
 		panel.setLayout(null);
@@ -94,6 +97,9 @@ public class BootLoader {
 		input.setBackground(Color.decode("#ECECEC"));
 		input.setBorder(BorderFactory.createLineBorder(Color.decode("#728190")));
 		input.setForeground(Color.BLACK);
+		
+		JLabel version = new JLabel(ProjectManager.editorVersion);
+		version.setBounds(10, 220, 100, 20);
         
 		begin.addActionListener(new ActionListener() {
 			@Override
@@ -117,6 +123,7 @@ public class BootLoader {
 			}
 		});
 		panel.add(projectBox);
+		panel.add(version);
 		panel.add(begin);
 		panel.add(input);
 		pane.add(panel);
