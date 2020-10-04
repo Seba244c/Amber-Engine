@@ -30,8 +30,14 @@ public class ProjectManager {
 		new File(projectDir + "shaders/").mkdir();
 		new File(projectDir + "sprites/").mkdir();
 		new File(projectDir + "textures/").mkdir();
+		new File(projectDir + "scenes/").mkdir();
+		new File(projectDir + "sounds/").mkdir();
 		
-		if(newPro) return;
+		if(newPro) {
+			
+		} else {
+			
+		}
 	}
 	
 	public static void initConfig() {

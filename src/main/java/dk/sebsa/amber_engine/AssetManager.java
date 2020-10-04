@@ -18,12 +18,15 @@ import dk.sebsa.amber.graph.Material;
 import dk.sebsa.amber.graph.Shader;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.Texture;
+import dk.sebsa.amber.sound.AudioClip;
 
 enum Asset {
 	Sprite,
 	Shader,
 	Texture,
-	Material
+	Material,
+	//Scene,
+	Sound
 }
 
 public class AssetManager {
@@ -34,16 +37,32 @@ public class AssetManager {
 	private static List<String> shaders = new ArrayList<String>();
 	private static List<String> materials = new ArrayList<String>();
 	private static List<String> sprites = new ArrayList<String>();
+	private static List<String> sounds = new ArrayList<String>();
 	private static int i = 0;
 	
 	public static void loadAllResources() throws IOException {
 		int i = 0;
 		initResourcePaths();
 		
+		// Textures
+		Main.loadingScreen.setStatus("Loading textures", 10);
 		if(!textures.isEmpty()) for(i = 0; i < textures.size(); i++) new Texture(textures.get(i));
+		
+		// Shaders
+		Main.loadingScreen.setStatus("Loading shaders", 30);
 		if(!shaders.isEmpty()) for(i = 0; i < shaders.size(); i++) new Shader(shaders.get(i));
+		
+		// Materials
+		Main.loadingScreen.setStatus("Loading materials", 40);
 		if(!materials.isEmpty()) for(i = 0; i < materials.size(); i++) new Material(materials.get(i));
+		
+		// Sprites
+		Main.loadingScreen.setStatus("Loading sprites", 50);
 		if(!sprites.isEmpty()) for(i = 0; i < sprites.size(); i++) new Sprite(sprites.get(i));
+		
+		// Sounds
+		Main.loadingScreen.setStatus("Loading sounds", 70);
+		if(!sounds.isEmpty()) for(i = 0; i < sounds.size(); i++) new AudioClip(sounds.get(i), Main.sm);
 	}
 	
 	private static void initResourcePaths() {
@@ -59,6 +78,7 @@ public class AssetManager {
 	
 	private static void importFromJar(URL dirUrl) throws UnsupportedEncodingException, IOException {
 		// Loads the engine resources from a jar
+		Main.loadingScreen.setStatus("Loading internal assets", 0);
 		String me = clazz.getName().replace(".", "/") + ".class";
 		dirUrl = cl.getResource(me);
 		
@@ -74,27 +94,35 @@ public class AssetManager {
 				else if(name.startsWith("shaders")) { shaders.add("/" + name.split("/")[1].split("\\.")[0]); }
 				else if(name.startsWith("materials")) { materials.add(name.split("/")[1].split("\\.")[0]); }
 				else if(name.startsWith("sprites")) { sprites.add(name.split("/")[1].split("\\.")[0]); }
+				else if(name.startsWith("sounds")) { sounds.add(name.split("/")[1].split("\\.")[0]); }
 			}
 			jar.close();
 		}
-		
+
+		Main.loadingScreen.setStatus("Loading external assets", 5);
 		textures.addAll(importFromExternalDir("textures", 1));
 		shaders.addAll(importFromExternalDir("shaders", 0));
 		materials.addAll(importFromExternalDir("materials", 0));
 		sprites.addAll(importFromExternalDir("sprites", 0));
+		sounds.addAll(importFromExternalDir("sounds", 1));
 	}
 
 	private static void importFromDir() throws IOException {
 		// Loads engine resources from folders
+		Main.loadingScreen.setStatus("Loading internal assets", 0);
 		textures = importFromLocalDir("textures", 1);
 		shaders = importFromLocalDir("shaders", 0);
 		materials = importFromLocalDir("materials", 0);
 		sprites = importFromLocalDir("sprites", 0);
+		sounds = importFromLocalDir("sounds", 1);
 		
+		// Load other assets from external folders
+		Main.loadingScreen.setStatus("Loading external assets", 5);
 		textures.addAll(importFromExternalDir("textures", 1));
 		shaders.addAll(importFromExternalDir("shaders", 0));
 		materials.addAll(importFromExternalDir("materials", 0));
 		sprites.addAll(importFromExternalDir("sprites", 0));
+		sounds.addAll(importFromExternalDir("sounds", 1));
 	}
 
 	private static List<String> importFromLocalDir(String path, int useExt) throws IOException {
