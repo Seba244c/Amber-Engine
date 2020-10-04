@@ -1,6 +1,7 @@
 package dk.sebsa.amber_engine;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 
 public class AutoUpdate {
 	private static final CloseableHttpClient httpClient = HttpClients.createDefault();
+	private static JSONObject download;
 	
 	public static boolean needUpdate() {
 		String json = "";
@@ -21,8 +23,8 @@ public class AutoUpdate {
 		} catch (IOException e) { e.printStackTrace(); }
 		if(json == null) return false;
 		
-		JSONObject obj = new JSONObject(json);
-		return !ProjectManager.editorVersion.equals(obj.getString("newestRelease"));
+		download = new JSONObject(json);
+		return !ProjectManager.editorVersion.equals(download.getString("newestRelease"));
 	}
 	
 	public static String getHTML(String url) throws IOException {
@@ -34,7 +36,9 @@ public class AutoUpdate {
             HttpEntity entity = response.getEntity();
             
             if (entity != null) { return EntityUtils.toString(entity); }
-        }
+        } catch (UnknownHostException e) {
+			return null;
+		}
 	    return null;
 	}
 	

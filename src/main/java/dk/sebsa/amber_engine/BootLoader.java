@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -88,8 +89,9 @@ public class BootLoader {
 		begin.setBounds(100, 276, 80, 25);
 		
 		JTextArea input = new JTextArea("My Project");
-		input.setBackground(Color.LIGHT_GRAY);
-		input.setForeground(Color.BLUE);
+		input.setBackground(Color.decode("#ECECEC"));
+		input.setBorder(BorderFactory.createLineBorder(Color.decode("#728190")));
+		input.setForeground(Color.BLACK);
         
 		begin.addActionListener(new ActionListener() {
 			@Override
