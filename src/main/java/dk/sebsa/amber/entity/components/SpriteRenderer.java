@@ -26,6 +26,7 @@ public class SpriteRenderer extends Component {
 	}
 	
 	public void onWillRender() {
-		Renderer.addToRender(this);
+		if(sprite != null)
+			Renderer.addToRender(this);
 	}
 }

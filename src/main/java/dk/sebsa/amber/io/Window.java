@@ -137,6 +137,10 @@ public class Window {
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		
+		// Enable transparency
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
 		// Make the window visible
 		glfwShowWindow(windowId);
 		glClearColor(clearColor.r, clearColor.g, clearColor.b, 0.0f);
