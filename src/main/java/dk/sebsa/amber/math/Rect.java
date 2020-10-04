@@ -1,5 +1,7 @@
 package dk.sebsa.amber.math;
 
+import org.joml.Math;
+
 public class Rect {
 	public float x;
 	public float y;

@@ -30,6 +30,20 @@ public class Main {
 	public static Loading loadingScreen;
 	
 	public static void main(String[] args) {
+		// auto update
+		if(!ProjectManager.editorVersion.contains("SNAPSHOT")) {
+			System.out.println("Checking for updates");
+			
+			if(AutoUpdate.needUpdate()) {
+				//TODO UPDATE CODE HERE
+			} else {
+				System.out.println("Already using newest version");
+			}
+			
+		} else {
+			System.out.println("Using dev-version not checking for updates");
+		}
+		
 		// Project loading
 		ProjectManager.init();
 		
@@ -96,12 +110,7 @@ public class Main {
 	public static void loop() throws IOException {
 		Entity e = new Entity("Jens");
 		e.addComponent(new SpriteRenderer());
-		((SpriteRenderer) e.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("player_idle");
-		/*
-		SoundSource sc = new SoundSource(true, false);
-		sc.setClip(AudioClip.getClip("arena1.ogg"));
-		sc.setPosition(new Vector2f(0, 0));
-		sc.play();*/
+		((SpriteRenderer) e.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("test2");
 		
 		while(!window.shouldClose()) {
 			glfwPollEvents();
@@ -128,6 +137,8 @@ public class Main {
 	}
 	
 	public static void cleanup() {
+		AutoUpdate.close();
+		
 		// General cleanup
 		window.cleanup();
 		input.cleanup();

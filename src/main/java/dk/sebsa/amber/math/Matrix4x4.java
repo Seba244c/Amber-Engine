@@ -2,6 +2,8 @@ package dk.sebsa.amber.math;
 
 import java.nio.FloatBuffer;
 
+import org.joml.Math;
+
 public class Matrix4x4 {
 	private float[][] m = new float[4][4];
 	
