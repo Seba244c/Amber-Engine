@@ -18,6 +18,7 @@ import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
+import dk.sebsa.amber_engine.windows.Loading;
 
 public class Main {
 	public static Window window;
@@ -35,7 +36,7 @@ public class Main {
 			System.out.println("Checking for updates");
 			
 			if(AutoUpdate.needUpdate()) {
-				//TODO UPDATE CODE HERE
+				AutoUpdate.update();
 			} else {
 				System.out.println("Already using newest version");
 			}

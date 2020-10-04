@@ -1,4 +1,4 @@
-package dk.sebsa.amber_engine;
+package dk.sebsa.amber_engine.windows;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;

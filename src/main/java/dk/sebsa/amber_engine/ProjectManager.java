@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
+import dk.sebsa.amber_engine.windows.BootLoader;
+
 public class ProjectManager {
 	public static final String workspaceDir = System.getProperty("user.dir") + "/Amber-Workspace/";
 	public static final String editorVersion = ProjectManager.class.getPackage().getImplementationVersion();

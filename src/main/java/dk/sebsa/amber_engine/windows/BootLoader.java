@@ -1,4 +1,4 @@
-package dk.sebsa.amber_engine;
+package dk.sebsa.amber_engine.windows;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -16,6 +16,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import dk.sebsa.amber_engine.ProjectManager;
 
 public class BootLoader {
 	private static JFrame frame;
@@ -42,7 +44,7 @@ public class BootLoader {
 	}
 
 	private static void createWindow() throws IOException {
-		frame = new JFrame("Blackfur Engine");
+		frame = new JFrame("Amber Engine");
 		frame.pack();
 		
 		frame.setSize(300, 350);
@@ -75,7 +77,7 @@ public class BootLoader {
 		List<String> dirs = new ArrayList<String>();
 		
 		for(int i = 0; i < temp.length; i++) {
-			if(!temp[i].getName().equals("null")) dirs.add(temp[i].getName());
+			if(!temp[i].getName().equals("null") && !temp[i].getName().startsWith(".")) dirs.add(temp[i].getName());
 		}
 		dirs.add("New Project");
 		
