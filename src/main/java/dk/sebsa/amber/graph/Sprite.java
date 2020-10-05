@@ -1,6 +1,7 @@
 package dk.sebsa.amber.graph;
 
 import dk.sebsa.amber.math.Rect;
+import dk.sebsa.amber.util.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +27,9 @@ public class Sprite {
 		material = m;
 		this.offset = offset;
 		this.padding = padding;
+		
+		// Add to list
+		sprites.add(this);
 	}
 	
 	public Rect getUV() {
@@ -41,7 +45,7 @@ public class Sprite {
 		
 		try {
 			if(name.startsWith("/")) {
-				InputStreamReader isr =  new InputStreamReader(Sprite.class.getResourceAsStream("/Sprites" + name + ".bfs"));
+				InputStreamReader isr =  new InputStreamReader(Sprite.class.getResourceAsStream("/sprites" + name + ".spr"));
 				br = new BufferedReader(isr);
 				this.name = name.replaceFirst("/", "");
 			} else {

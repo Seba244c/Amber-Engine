@@ -34,6 +34,7 @@ public class ProjectManager {
 		new File(projectDir + "textures/").mkdir();
 		new File(projectDir + "scenes/").mkdir();
 		new File(projectDir + "sounds/").mkdir();
+		new File(projectDir + "sheets/").mkdir();
 		
 		if(newPro) {
 			

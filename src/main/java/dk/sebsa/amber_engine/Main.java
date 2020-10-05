@@ -18,6 +18,7 @@ import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
+import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.windows.Loading;
 
 public class Main {
@@ -111,7 +112,7 @@ public class Main {
 	public static void loop() throws IOException {
 		Entity e = new Entity("Jens");
 		e.addComponent(new SpriteRenderer());
-		((SpriteRenderer) e.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("test2");
+		((SpriteRenderer) e.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("player.test");
 		
 		while(!window.shouldClose()) {
 			glfwPollEvents();
