@@ -20,6 +20,7 @@ import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.SpriteSheet;
 import dk.sebsa.amber.graph.Texture;
 import dk.sebsa.amber.sound.AudioClip;
+import dk.sebsa.amber.util.Logger;
 
 enum Asset {
 	Sprite,
@@ -93,13 +94,14 @@ public class AssetManager {
 			
 			while(entires.hasMoreElements()) {
 				String name = entires.nextElement().getName();
+				
 				if(name.endsWith("/")) continue;
-				else if(name.startsWith("textures")) { textures.add(name.split("/")[1]); }
+				else if(name.startsWith("textures")) { textures.add("/" +name.split("/")[1]); }
 				else if(name.startsWith("shaders")) { shaders.add("/" + name.split("/")[1].split("\\.")[0]); }
-				else if(name.startsWith("materials")) { materials.add(name.split("/")[1].split("\\.")[0]); }
-				else if(name.startsWith("sprites")) { sprites.add(name.split("/")[1].split("\\.")[0]); }
-				else if(name.startsWith("sounds")) { sounds.add(name.split("/")[1].split("\\.")[0]); }
-				else if(name.startsWith("sheets")) { spiteSheets.add(name.split("/")[1].split("\\.")[0]); }
+				else if(name.startsWith("materials")) { materials.add("/" +name.split("/")[1].split("\\.")[0]); }
+				else if(name.startsWith("sprites")) { sprites.add("/" +name.split("/")[1].split("\\.")[0]); }
+				else if(name.startsWith("sounds")) { sounds.add("/" +name.split("/")[1].split("\\.")[0]); }
+				else if(name.startsWith("sheets")) { spiteSheets.add("/" +name.split("/")[1].split("\\.")[0]); }
 			}
 			jar.close();
 		}
@@ -124,7 +126,7 @@ public class AssetManager {
 		spiteSheets = (importFromLocalDir("sheets", 0));
 		
 		// Load other assets from external folders
-		Main.loadingScreen.setStatus("Loading external assets", 5);
+		Main.loadingScreen.setStatus("Loading external assets", 10);
 		textures.addAll(importFromExternalDir("textures", 1));
 		shaders.addAll(importFromExternalDir("shaders", 0));
 		materials.addAll(importFromExternalDir("materials", 0));

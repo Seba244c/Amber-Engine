@@ -1,7 +1,6 @@
 package dk.sebsa.amber.graph;
 
 import dk.sebsa.amber.math.Rect;
-import dk.sebsa.amber.util.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;

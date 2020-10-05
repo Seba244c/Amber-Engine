@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.lwjgl.BufferUtils;
+
+import dk.sebsa.amber.util.Logger;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,8 +39,6 @@ public class Texture {
 		IntBuffer channelsBuffer = BufferUtils.createIntBuffer(1);
 		
 		// Load texture
-		//stbi_set_flip_vertically_on_load(true);
-
 		ByteBuffer data;
 		if(filename.startsWith("/")) {
 			name = filename.replaceFirst("/", "");
@@ -67,11 +68,11 @@ public class Texture {
 		height = heightBuffer.get();
 		
 		glBindTexture(GL_TEXTURE_2D, id);
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		
 		stbi_image_free(data);
 		
 		textureInstances.add(this);
