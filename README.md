@@ -1,12 +1,12 @@
 # Amber-Engine
-A 2d LWJGL engine.
+Amber-Engine is a 2d [LW**JGL**](https://www.lwjgl.org/) engine, building on its internal libary Amber, wich aims to be easy to use and light weight. The engine itself is made with the LW**JGL** libary, using OpenGL, and OpenAL.
+Website: https://seba244c.github.io/Amber-Engine
 
 ## Uses
 
 ## Getting Started
 
 ## Contributing & Mainteners
-[General]
 
 ### Guidelines
 
