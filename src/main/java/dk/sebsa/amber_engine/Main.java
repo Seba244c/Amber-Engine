@@ -7,6 +7,7 @@ import java.io.IOException;
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.components.SpriteRenderer;
+import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
 import dk.sebsa.amber.graph.Sprite;
@@ -109,10 +110,6 @@ public class Main {
 	}
 	
 	public static void loop() throws IOException {
-		Entity e = new Entity("Jens");
-		e.addComponent(new SpriteRenderer());
-		((SpriteRenderer) e.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("BlackGUI.Window");
-		
 		while(!window.shouldClose()) {
 			glfwPollEvents();
 			if(!window.isMinimized()) {

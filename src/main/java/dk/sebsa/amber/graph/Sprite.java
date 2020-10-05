@@ -39,6 +39,14 @@ public class Sprite {
 		return new Rect(offset.x / w, offset.y / h, offset.width / w, offset.height / h);
 	}
 	
+	public Rect getPaddingUV() {
+		if(padding == null) return null;
+		
+		float w = material.texture.getWidth();
+		float h = material.texture.getHeight();
+		return new Rect(padding.x / w, padding.y / h, padding.width / w, padding.height / h);
+	}
+	
 	public Sprite(String name) {
 		BufferedReader br;
 		

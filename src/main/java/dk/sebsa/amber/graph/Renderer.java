@@ -8,8 +8,6 @@ import java.util.Map;
 import static org.lwjgl.opengl.GL11.*;
 
 import dk.sebsa.amber.entity.components.SpriteRenderer;
-import dk.sebsa.amber.graph.text.Font;
-import dk.sebsa.amber.graph.text.Glyph;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Matrix4x4;
 import dk.sebsa.amber.math.Rect;
@@ -24,11 +22,6 @@ public class Renderer {
 	private static Matrix4x4 ortho;
 	private static List<Rect> areas = new ArrayList<>();
 	
-	private static char[] c;
-	public static Font font;
-	private static float tempX;
-	private static int i;
-	
 	public static void init() {
 		float[] square = new float[] {
 				0, 1, 1, 1, 1, 0,
@@ -42,7 +35,7 @@ public class Renderer {
 		mainMesh = new Mesh(square, uv);
 		updateFBO(Main.window.getWidth(), Main.window.getHeight());
 		
-		font = new Font(new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16));
+		GUI.init();
 	}
 	
 	public static void cleanup() {
@@ -142,21 +135,6 @@ public class Renderer {
 		
 		guiMesh.render();
 		tex.unbind();
-	}
-	
-	public static void drawLabel(String text, float x, float y, Color color) {
-		Map<Character, Glyph> chars = font.getChars();
-		
-		c = text.toCharArray();
-		tempX = x;
-		for(i = 0; i < c.length; i++) {
-			Glyph glyph = chars.get(c[i]);
-			
-			drawTextureWithTextCoords(font.getTexture(), new Rect(tempX, y, glyph.scale.x, glyph.scale.y), new Rect(glyph.position.x, glyph.position.y, glyph.size.x, glyph.size.y), color);
-
-			tempX += glyph.scale.x;
-		}
-		Texture.resetBound();
 	}
 	
 	public static void updateFBO(int width, int height) {
