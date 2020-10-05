@@ -3,6 +3,8 @@ package dk.sebsa.amber_engine;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -10,6 +12,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,6 +35,8 @@ public class AutoUpdate {
 	
 	private static JFrame frame;
 	private static Container pane;
+	private static byte userWantUpdate = 0;
+	private static byte con = 0;
 	
 	public static boolean needUpdate() {
 		String json = "";
@@ -49,7 +54,6 @@ public class AutoUpdate {
 		try {
 			Thread.sleep(100000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		frame.dispose();
@@ -59,26 +63,29 @@ public class AutoUpdate {
 		// Window
 		initWindow();
 		
-		// Download
-		Downloader downloader = new Downloader();
-		try {
-			new File(ProjectManager.workspaceDir + ".temp").mkdir();
-			downloader.download(new URL(download.getString("download")), new File(ProjectManager.workspaceDir+".temp/newest.jar"));
-			downloader.download(new URL(download.getString("updater")), new File(ProjectManager.workspaceDir+".temp/updater.jar"));
-		} catch (MalformedURLException | JSONException e) { e.printStackTrace(); }
-		
-		// Close
+		if(userWantUpdate == 1) {
+			// Download
+			Downloader downloader = new Downloader();
+			try {
+				new File(ProjectManager.workspaceDir + ".temp").mkdir();
+				downloader.download(new URL(download.getString("download")), new File(ProjectManager.workspaceDir+".temp/newest.jar"));
+				downloader.download(new URL(download.getString("updater")), new File(ProjectManager.workspaceDir+".temp/updater.jar"));
+			} catch (MalformedURLException | JSONException e) { e.printStackTrace(); }
+			
+			// Close
+			frame.dispose();
+			
+			// Run
+			Runtime rt = Runtime.getRuntime();
+			try {
+				String thisFile = AutoUpdate.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+				String updater = ProjectManager.workspaceDir+".temp/updater.jar";
+				rt.exec("java -jar \"" + updater + "\" \"" + thisFile +"\"");
+			} catch (IOException | URISyntaxException e) { e.printStackTrace(); }
+			
+			System.exit(0);
+		}
 		frame.dispose();
-		
-		// Run
-		Runtime rt = Runtime.getRuntime();
-		try {
-			String thisFile = AutoUpdate.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-			String updater = ProjectManager.workspaceDir+".temp/updater.jar";
-			rt.exec("java -jar \"" + updater + "\" \"" + thisFile +"\"");
-		} catch (IOException | URISyntaxException e) { e.printStackTrace(); }
-		
-		System.exit(0);
 	}
 	
 	private static void initWindow() {
@@ -91,9 +98,6 @@ public class AutoUpdate {
 		pane = frame.getContentPane();
 		
 		createPanel();
-		
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 	}
 	
 	private static void createPanel() {
@@ -107,17 +111,68 @@ public class AutoUpdate {
 		};
 		panel.setLayout(null);
 		
-		JLabel h = new JLabel("Updating Amber Engine", JLabel.CENTER);
+		// Want to update
+		JLabel h = new JLabel("Update avaible", JLabel.CENTER);
 		h.setFont(new Font("Serif", Font.PLAIN, 26));
 		h.setBounds(5, 10, 280, 40);
 		
-		JLabel g = new JLabel("From version:\nFrom: "+ProjectManager.editorVersion+", To: " +download.getString("newestRelease"), JLabel.CENTER);
-		h.setFont(new Font("Serif", Font.PLAIN, 18));
-		h.setBounds(5, 50, 280, 40);
+		JLabel h2 = new JLabel("Wanna Update?", JLabel.CENTER);
+		h2.setFont(new Font("Serif", Font.PLAIN, 20));
+		h2.setBounds(5, 35, 280, 40);
+		
+		JLabel g = new JLabel("<html>From: "+ProjectManager.editorVersion+",<br/>To: " +download.getString("newestRelease") + "</html>", JLabel.CENTER);
+		g.setFont(new Font("Serif", Font.PLAIN, 18));
+		g.setBounds(5, 55, 280, 80);
+		
+		JButton y = new JButton("Yes");
+		y.setBounds(110, 250, 80, 20);
+		JButton n = new JButton("No");
+		n.setBounds(110, 280, 80, 20);
+		
+		y.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String c = e.getActionCommand();
+				if(c.equals("Yes")) {					
+					// Remove YN, remove h2
+					y.setBounds(-10, -10, 1, 1);
+					n.setBounds(-10, -10, 1, 1);
+					h2.setBounds(-10, -10, 1, 1);
+					
+					// Change text
+					h.setText("Updating Amber Engine");
+					
+					userWantUpdate = 1;
+					con = 1;
+				}
+			}
+		});
+		
+		n.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String c = e.getActionCommand();
+				if(c.equals("No")) {
+					con = 1;
+				}
+			}
+		});
 		
 		panel.add(h);
 		panel.add(g);
+		panel.add(y);
+		panel.add(n);
+		panel.add(h2);
 		pane.add(panel);
+		
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+		while(con == 0) {
+			try { Thread.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
+			
+			if(frame == null) break;
+		}
 	}
 	
 	public static String getHTML(String url) throws IOException {
