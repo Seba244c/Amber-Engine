@@ -4,6 +4,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import java.io.IOException;
 
+import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
@@ -16,6 +17,7 @@ import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
+import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.windows.Loading;
 
@@ -59,7 +61,6 @@ public class Main {
 			
 			// Dispose loading screen
 			loadingScreen.close();
-			
 			loop();
 		} catch (IOException e) { e.printStackTrace(); }
 		
@@ -108,6 +109,13 @@ public class Main {
 	}
 	
 	public static void loop() throws IOException {
+		Entity yang = new Entity("Yang");
+		
+		Entity b = new Entity("b"); b.parent(yang);
+		Entity a = new Entity("a"); a.parent(yang);
+		Entity c = new Entity("c"); c.parent(b);
+		
+		Entity ying = new Entity("Ying");
 		while(!window.shouldClose()) {
 			glfwPollEvents();
 			if(!window.isMinimized()) {
