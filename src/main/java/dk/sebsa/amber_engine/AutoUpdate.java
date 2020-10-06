@@ -67,19 +67,19 @@ public class AutoUpdate {
 		return download.getJSONArray("changeLog-" + ProjectManager.editorVersion);
 	}
 	
-	public static JSONArray getUpdateName() {
+	public static String getUpdateName() {
 		if(download == null) {
 			String json = "";
 			try {
 				json = getHTML("https://raw.githubusercontent.com/Seba244c/Amber-Engine/master/download.json");
 			} catch (IOException e) { e.printStackTrace(); }
-			if(json == null) return new JSONArray();
+			if(json == null) return "";
 			
 			download = new JSONObject(json);
 		}
 		
-		if(ProjectManager.editorVersion.contains("-SNAPSHOT")) return download.getJSONArray("name-" + ProjectManager.editorVersion.split("-")[0]);
-		return download.getJSONArray("name-" + ProjectManager.editorVersion);
+		if(ProjectManager.editorVersion.contains("-SNAPSHOT")) return download.getString("name-" + ProjectManager.editorVersion.split("-")[0]);
+		return download.getString("name-" + ProjectManager.editorVersion);
 	}
 	
 	public static void test() {

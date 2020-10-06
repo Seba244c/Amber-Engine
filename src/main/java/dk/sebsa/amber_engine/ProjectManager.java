@@ -46,7 +46,7 @@ public class ProjectManager {
 	public static boolean initConfig() {
 		if(configInit == 1) return false;
 		configInit = 1;
-		boolean bool = true; //TODO CHANGE THIS TO FALSE WHEN DONE CODING OR I WILL KILL YOU SEB
+		boolean bool = false;
 		
 		File configFile = new File(workspaceDir + "config.properties");
 		
