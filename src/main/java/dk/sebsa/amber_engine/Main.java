@@ -5,6 +5,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import java.io.IOException;
 
 import dk.sebsa.amber.entity.Component;
+import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
 import dk.sebsa.amber.io.DevWindow;
@@ -15,6 +16,7 @@ import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
+import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.windows.Loading;
 
 public class Main {
@@ -93,7 +95,6 @@ public class Main {
 		} catch (Exception e1) { e1.printStackTrace(); }
 		
 		loadingScreen.setStatus("Initializing, Renderer", 85);
-		Editor.init();
 		Renderer.init(input);
 
 		// Set loading text
@@ -102,6 +103,7 @@ public class Main {
 		// Load all assets
 		AssetManager.loadAllResources();
 		
+		Editor.init();
 		engineShader = Shader.findShader("engine");
 	}
 	
@@ -119,9 +121,13 @@ public class Main {
 				sm.updateListenerPosition(new Vector2f(0, 0));
 				
 				// Render
-				Component.willRenderAll();
 				Editor.render();
-				Renderer.render(new Rect(300, 30, window.getWidth()-600, window.getHeight()-30));
+				Renderer.render(new Rect(300, 30, window.getWidth()-600, window.getHeight()-430));
+				
+				Renderer.prepare();
+				Component.willRenderAll();
+				GUI.drawPopup();
+				Renderer.unprepare();
 				
 				// Lates
 				input.late();

@@ -1,5 +1,6 @@
 package dk.sebsa.amber.graph;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -26,6 +27,8 @@ public class GUI {
 	public static Color textColor = Color.white();
 	
 	private static Input input;
+	
+	private static Popup popup;
 	
 	public static void init(Input inp) {
 		font = new Font(new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16));
@@ -132,29 +135,40 @@ public class GUI {
 		return c;
 	}
 	
-	public static boolean button(String text, Rect r, String normalStyle, String hoverStyle, Press type) {
-		return button(text, r, Sprite.getSprite(sheet+"."+normalStyle), Sprite.getSprite(sheet+"."+hoverStyle), type);
+	public static boolean button(String text, Rect r, String normalStyle, String hoverStyle, Press type, boolean center) {
+		return button(text, r, Sprite.getSprite(sheet+"."+normalStyle), Sprite.getSprite(sheet+"."+hoverStyle), type, center);
 	}
 	
-	public static boolean button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, Press type) {
-		Press t = button(text, r, normalStyle, hoverStyle);
+	public static boolean button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, Press type, boolean center) {
+		Press t = button(text, r, normalStyle, hoverStyle, center);
 		if(t.equals(type)) {
 			return true;
 		}
 		return false;
 	}
 	
-	private static Press button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle) {
+	private static Press button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, boolean center) {
 		Rect rf = r.copy();
 		Rect a = Renderer.area;
 		rf.addPosition(a);
 		
+		float x = 0;
+		float y = 0;
+		if(center) {
+			x = rf.x + ((rf.width / 2f) - ((float) font.getStringWidth(text) / 2f));
+			y = rf.y + ((rf.height / 2f) - (font.getFontHeight() / 2f));
+		}
+		
 		if(rf.inRect(input.getMousePosition())) {
 			Rect p = box(r, hoverStyle);
-			if(p!=null)
-				label(text, p.x, p.y);
-			else
-				label(text, r.x, r.y);
+			if(center)
+				label(text, x, y);
+			else {
+				if(p!=null)
+					label(text, p.x, p.y);
+				else
+					label(text, r.x, r.y);
+			}
 			
 			if(input.isButtonPressed(0)) return Press.pressed;
 			else if(input.isButtonDown(0)) return Press.down;
@@ -168,5 +182,23 @@ public class GUI {
 				label(text, r.x, r.y);
 		}
 		return Press.not;
+	}
+	
+	public static void setPopup(Rect nameRect, List<String> list, Consumer<String> func) {
+		popup = new Popup(nameRect, list, func, input);
+	}
+	
+	public static void drawPopup() {
+		if(popup != null)  {
+			popup = popup.draw();
+		}
+	}
+	
+	public static boolean hasPopup() {
+		return popup != null;
+	}
+	
+	public static void removePopup() {
+		popup = null;
 	}
 }
