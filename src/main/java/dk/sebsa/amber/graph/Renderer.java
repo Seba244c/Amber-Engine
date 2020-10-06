@@ -8,6 +8,7 @@ import java.util.Map;
 import static org.lwjgl.opengl.GL11.*;
 
 import dk.sebsa.amber.entity.components.SpriteRenderer;
+import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Matrix4x4;
 import dk.sebsa.amber.math.Rect;
@@ -21,8 +22,9 @@ public class Renderer {
 	private static FBO fbo;
 	private static Matrix4x4 ortho;
 	private static List<Rect> areas = new ArrayList<>();
+	public static Rect area;
 	
-	public static void init() {
+	public static void init(Input input) {
 		float[] square = new float[] {
 				0, 1, 1, 1, 1, 0,
 				1, 0, 0, 0, 0, 1
@@ -35,7 +37,7 @@ public class Renderer {
 		mainMesh = new Mesh(square, uv);
 		updateFBO(Main.window.getWidth(), Main.window.getHeight());
 		
-		GUI.init();
+		GUI.init(input);
 	}
 	
 	public static void cleanup() {
@@ -103,6 +105,7 @@ public class Renderer {
 		// Area
 		areas.clear();
 		areas.add(Main.window.getRect().copy());
+		area = areas.get(areas.size()-1);
 	}
 	
 	public static void unprepare() {
@@ -143,10 +146,12 @@ public class Renderer {
 	
 	public static void beginArea(Rect r) {
 		areas.add(r);
+		area = r;
 	}
 	
 	public static void endArea() {
 		areas.remove(areas.size()-1);
+		area = areas.get(areas.size()-1);
 	}
 }
 

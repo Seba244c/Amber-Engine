@@ -20,7 +20,6 @@ import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.SpriteSheet;
 import dk.sebsa.amber.graph.Texture;
 import dk.sebsa.amber.sound.AudioClip;
-import dk.sebsa.amber.util.Logger;
 
 enum Asset {
 	Sprite,

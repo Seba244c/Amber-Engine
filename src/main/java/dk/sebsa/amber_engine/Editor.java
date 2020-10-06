@@ -3,6 +3,7 @@ package dk.sebsa.amber_engine;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.math.Rect;
+import dk.sebsa.amber.util.Logger;
 
 public class Editor {	
 	public static void init() {

@@ -9,8 +9,6 @@ import java.util.regex.Pattern;
 
 import org.lwjgl.BufferUtils;
 
-import dk.sebsa.amber.util.Logger;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

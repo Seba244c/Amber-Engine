@@ -5,10 +5,18 @@ import java.util.function.Consumer;
 
 import dk.sebsa.amber.graph.text.Font;
 import dk.sebsa.amber.graph.text.Glyph;
+import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
 
 public class GUI {
+	public enum Press {
+		pressed,
+		down,
+		realesed,
+		not
+	}
+	
 	private static char[] c;
 	public static Font font;
 	private static float tempX;
@@ -17,8 +25,11 @@ public class GUI {
 	public static String sheet = "BlackGUI";
 	public static Color textColor = Color.white();
 	
-	public static void init() {
+	private static Input input;
+	
+	public static void init(Input inp) {
 		font = new Font(new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16));
+		input = inp;
 	}
 	
 	public static void label(String text, float x, float y) {
@@ -119,5 +130,43 @@ public class GUI {
 		
 		//Return the center rectangle
 		return c;
+	}
+	
+	public static boolean button(String text, Rect r, String normalStyle, String hoverStyle, Press type) {
+		return button(text, r, Sprite.getSprite(sheet+"."+normalStyle), Sprite.getSprite(sheet+"."+hoverStyle), type);
+	}
+	
+	public static boolean button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, Press type) {
+		Press t = button(text, r, normalStyle, hoverStyle);
+		if(t.equals(type)) {
+			return true;
+		}
+		return false;
+	}
+	
+	private static Press button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle) {
+		Rect rf = r.copy();
+		Rect a = Renderer.area;
+		rf.addPosition(a);
+		
+		if(rf.inRect(input.getMousePosition())) {
+			Rect p = box(r, hoverStyle);
+			if(p!=null)
+				label(text, p.x, p.y);
+			else
+				label(text, r.x, r.y);
+			
+			if(input.isButtonPressed(0)) return Press.pressed;
+			else if(input.isButtonDown(0)) return Press.down;
+			else if(input.isButtonReleased(0)) return Press.realesed;
+		}
+		else {
+			Rect p = box(r, normalStyle);
+			if(p!=null)
+				label(text, p.x, p.y);
+			else
+				label(text, r.x, r.y);
+		}
+		return Press.not;
 	}
 }

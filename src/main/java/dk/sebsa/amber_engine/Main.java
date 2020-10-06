@@ -4,13 +4,9 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import java.io.IOException;
 
-import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
-import dk.sebsa.amber.entity.components.SpriteRenderer;
-import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
-import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.io.DevWindow;
 import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.io.Window;
@@ -98,7 +94,7 @@ public class Main {
 		
 		loadingScreen.setStatus("Initializing, Renderer", 85);
 		Editor.init();
-		Renderer.init();
+		Renderer.init(input);
 
 		// Set loading text
 		loadingScreen.reset("Loading Project");
