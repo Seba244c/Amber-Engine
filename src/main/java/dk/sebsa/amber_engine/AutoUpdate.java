@@ -47,7 +47,9 @@ public class AutoUpdate {
 			} catch (IOException e) { e.printStackTrace(); }
 			if(json == null) return false;
 			
-			download = new JSONObject(json);
+			try {
+				download = new JSONObject(json);
+			} catch(JSONException e) { e.printStackTrace(); return false; }
 		}
 		return !ProjectManager.editorVersion.equals(download.getString("newestRelease"));
 	}
@@ -60,7 +62,9 @@ public class AutoUpdate {
 			} catch (IOException e) { e.printStackTrace(); }
 			if(json == null) return new JSONArray();
 			
-			download = new JSONObject(json);
+			try {
+				download = new JSONObject(json);
+			} catch(JSONException e) { e.printStackTrace(); return new JSONArray(); }
 		}
 		
 		if(ProjectManager.editorVersion.contains("-SNAPSHOT")) return download.getJSONArray("changeLog-" + ProjectManager.editorVersion.split("-")[0]);
@@ -75,7 +79,9 @@ public class AutoUpdate {
 			} catch (IOException e) { e.printStackTrace(); }
 			if(json == null) return "";
 			
-			download = new JSONObject(json);
+			try {
+				download = new JSONObject(json);
+			} catch(JSONException e) { e.printStackTrace(); return ""; }
 		}
 		
 		if(ProjectManager.editorVersion.contains("-SNAPSHOT")) return download.getString("name-" + ProjectManager.editorVersion.split("-")[0]);

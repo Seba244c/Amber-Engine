@@ -5,7 +5,7 @@
   
   "name-0.0.5": "None",
   "changeLog-0.0.5": [
-    "None"
+    "Added catch for JSONExpetion when dowloading download.json "
    ],
   
   "name-0.0.4": "The World update",
