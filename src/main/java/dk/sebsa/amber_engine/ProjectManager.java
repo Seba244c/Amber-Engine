@@ -59,7 +59,7 @@ public class ProjectManager {
 			
 			if(!editorVersion.equalsIgnoreCase(recordVersion)) {
 				System.out.println("Version changed!");
-				bool = true;
+				if(!editorVersion.contains("-SNAPSHOT")) bool = true;
 			} else System.out.println("Same version");
 			
 			fr.close();

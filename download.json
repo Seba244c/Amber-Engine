@@ -5,7 +5,8 @@
   
   "name-0.0.5": "None",
   "changeLog-0.0.5": [
-    "Added catch for JSONExpetion when dowloading download.json "
+    "Added catch for JSONExpetion when dowloading download.json",
+	"Removed changelog if using SNAPSHOT for first time"
    ],
   
   "name-0.0.4": "The World update",
