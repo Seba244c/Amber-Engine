@@ -11,7 +11,6 @@ import java.util.List;
 
 import static org.lwjgl.stb.STBVorbis.*;
 import org.lwjgl.system.MemoryStack;
-import org.lwjgl.system.MemoryUtil;
 
 import dk.sebsa.amber.util.FileUtils;
 import static org.lwjgl.system.MemoryUtil.*;
@@ -19,7 +18,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class AudioClip {
 	private final int bufferId;
     private ShortBuffer pcm = null;
-    private ByteBuffer vorbis = null;
 	public final String name;
 	
     private static List<AudioClip> audioClips = new ArrayList<AudioClip>();
@@ -46,17 +44,17 @@ public class AudioClip {
     public void cleanup() {
     	alDeleteBuffers(this.bufferId);
         if (pcm != null) {
-            MemoryUtil.memFree(pcm);
+            memFree(pcm);
         }
     }
     
     private ShortBuffer readVorbis(String resource, int bufferSize, STBVorbisInfo info) throws IOException {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            vorbis = FileUtils.ioResourceToByteBuffer(resource, bufferSize);
+        	ByteBuffer vorbis = FileUtils.ioResourceToByteBuffer(resource, bufferSize);
             IntBuffer error = stack.mallocInt(1);
             long decoder = stb_vorbis_open_memory(vorbis, error, null);
             if (decoder == NULL) {
-                throw new RuntimeException("Failed to open Ogg Vorbis file. Error: " + error.get(0));
+                throw new IOException("Failed to open Ogg Vorbis file. Error: " + error.get(0));
             }
 
             stb_vorbis_get_info(decoder, info);
@@ -65,7 +63,7 @@ public class AudioClip {
 
             int lengthSamples = stb_vorbis_stream_length_in_samples(decoder);
 
-            pcm = MemoryUtil.memAllocShort(lengthSamples);
+            pcm = memAllocShort(lengthSamples);
 
             pcm.limit(stb_vorbis_get_samples_short_interleaved(decoder, channels, pcm) * channels);
             stb_vorbis_close(decoder);

@@ -6,7 +6,6 @@ import java.util.List;
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.math.Rect;
-import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.Main;
 import dk.sebsa.amber_engine.editor.Editor;
 

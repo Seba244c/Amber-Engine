@@ -4,7 +4,6 @@ import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.math.Rect;
-import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.Main;
 import dk.sebsa.amber_engine.editor.windows.WorldView;
 

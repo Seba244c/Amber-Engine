@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.lwjgl.glfw.GLFW;
 
+import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.GUI.Press;
@@ -26,14 +27,24 @@ public class Menubar {
 	public Menubar() {
 		box = Sprite.getSprite(GUI.sheet+".Box");
 		
-		add("File", new MenuItem("Export", this::file));
+		//add("File", new MenuItem("New Scene", this::file));
+		//add("File", new MenuItem("Open Scene", this::file));
+		//add("File", new MenuItem("Export", this::file));
 		add("File", new MenuItem("Quit", this::file));
+		
+		add("Asset", new MenuItem("New Entity", this::asset));
+		// add("Asset", new MenuItem("New Sprite", this::asset));
+		// add("Asset", new MenuItem("New SpriteSheet", this::asset));
+		// add("Asset", new MenuItem("New Material", this::asset));
+		// add("Asset", new MenuItem("New Shader", this::asset));
+		// add("Asset", new MenuItem("Import Sound", this::asset));
+		// add("Asset", new MenuItem("Import Texture", this::asset));
 	}
 	
 	public void render() {
 		float w = Main.window.getWidth();
-		if(selected != null) {
-			if(GUI.hasPopup() == false) selected = null;
+		if(selected != null && !GUI.hasPopup()) {
+			selected = null;
 		}
 		GUI.box(new Rect(0, 0, w, 30), box);
 		
@@ -87,7 +98,12 @@ public class Menubar {
 	
 	public void file(MenuItem m) {
 		if(m.name.equals("Quit")) GLFW.glfwSetWindowShouldClose(Main.window.windowId, true);
-		else if(m.name.equals("Export"));
+	}
+	
+	public void asset(MenuItem m) {
+		if(m.name.equals("New Entity")) {
+			Editor.setSelected(new Entity(false));
+		}
 	}
 }
 

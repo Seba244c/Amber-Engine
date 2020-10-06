@@ -17,7 +17,6 @@ import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
-import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.windows.Loading;
 
@@ -115,7 +114,7 @@ public class Main {
 		Entity a = new Entity("a"); a.parent(yang);
 		Entity c = new Entity("c"); c.parent(b);
 		
-		Entity ying = new Entity("Ying");
+		new Entity("Ying");
 		while(!window.shouldClose()) {
 			glfwPollEvents();
 			if(!window.isMinimized()) {

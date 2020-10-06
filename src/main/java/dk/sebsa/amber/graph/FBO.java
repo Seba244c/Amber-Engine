@@ -34,7 +34,7 @@ public class FBO {
 	public final Texture getTexture() { return texture; }
 	
 	public void bindFrameBuffer() {
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+		GL11.glBindTexture(GL_TEXTURE_2D, 0);
 		GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, frameBufferID);
 	}
 	
@@ -45,7 +45,7 @@ public class FBO {
 	private int createTextureAttachment() {
 		int texture = GL11.glGenTextures();
 		
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
+		GL11.glBindTexture(GL_TEXTURE_2D, texture);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (ByteBuffer) null);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

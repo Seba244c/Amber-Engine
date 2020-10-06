@@ -75,16 +75,16 @@ public class AssetManager {
 		
 		try {
 			if(dirUrl != null && protocol.equals("file")) importFromDir();
-			else importFromJar(dirUrl);
+			else importFromJar();
 		} catch (IOException e) { System.out.println("Error loading assets:"); e.printStackTrace(); }
 		
 	}
 	
-	private static void importFromJar(URL dirUrl) throws UnsupportedEncodingException, IOException {
+	private static void importFromJar() throws UnsupportedEncodingException, IOException {
 		// Loads the engine resources from a jar
 		Main.loadingScreen.setStatus("Loading internal assets", 0);
 		String me = clazz.getName().replace(".", "/") + ".class";
-		dirUrl = cl.getResource(me);
+		URL dirUrl = cl.getResource(me);
 		
 		if(dirUrl.getProtocol().equals("jar")) {
 			String jarPath = dirUrl.getPath().substring(5, dirUrl.getPath().indexOf("!"));

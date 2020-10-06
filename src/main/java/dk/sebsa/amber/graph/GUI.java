@@ -152,10 +152,8 @@ public class GUI {
 	}
 	
 	public static boolean button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, Press type, boolean center) {
-		Press t = button(text, r, normalStyle, hoverStyle, center);
-		if(t.equals(type)) {
-			return true;
-		}
+		if(button(text, r, normalStyle, hoverStyle, center).equals(type)) return true;
+		
 		return false;
 	}
 	
