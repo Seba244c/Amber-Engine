@@ -55,7 +55,7 @@ public class Menubar {
 		float index = 0;
 		
 		for(String m : menu.keySet()) {
-			float width = GUI.font.getStringWidth(m) + 10;
+			float width = GUI.defaultFont.getStringWidth(m) + 10;
 			Rect nameRect = new Rect(offset-index, 0, width, 30);
 			if(selected != null && selected.equals(m)) {
 				if(GUI.button(m, nameRect, box, box, Press.pressed, true)) {

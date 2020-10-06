@@ -18,6 +18,7 @@ import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
 import dk.sebsa.amber_engine.editor.Editor;
+import dk.sebsa.amber_engine.windows.Changelog;
 import dk.sebsa.amber_engine.windows.Loading;
 
 public class Main {
@@ -29,6 +30,8 @@ public class Main {
 	public static SoundListener sl;
 	
 	public static Loading loadingScreen;
+	
+	public static boolean changeLog;
 	
 	public static void main(String[] args) {
 		// auto update
@@ -46,7 +49,7 @@ public class Main {
 		}
 		
 		// Project loading
-		ProjectManager.init();
+		changeLog = ProjectManager.init();
 		
 		// Loading screen
 		loadingScreen = new Loading();
@@ -105,6 +108,8 @@ public class Main {
 		
 		Editor.init();
 		engineShader = Shader.findShader("engine");
+		
+		if(changeLog) Changelog.load();
 	}
 	
 	public static void loop() throws IOException {
@@ -117,7 +122,17 @@ public class Main {
 		new Entity("Ying");
 		while(!window.shouldClose()) {
 			glfwPollEvents();
-			if(!window.isMinimized()) {
+			if(changeLog) {
+				window.update();
+				DevWindow.update();
+				input.update();
+				
+				changeLog = Changelog.render();
+				
+				// Lates
+				input.late();
+			}
+			else if(!window.isMinimized()) {
 				// Updates
 				window.update();
 				DevWindow.update();

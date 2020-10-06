@@ -24,6 +24,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,14 +40,46 @@ public class AutoUpdate {
 	private static byte con = 0;
 	
 	public static boolean needUpdate() {
-		String json = "";
-		try {
-			json = getHTML("https://raw.githubusercontent.com/Seba244c/Amber-Engine/master/download.json");
-		} catch (IOException e) { e.printStackTrace(); }
-		if(json == null) return false;
-		
-		download = new JSONObject(json);
+		if(download == null) {
+			String json = "";
+			try {
+				json = getHTML("https://raw.githubusercontent.com/Seba244c/Amber-Engine/master/download.json");
+			} catch (IOException e) { e.printStackTrace(); }
+			if(json == null) return false;
+			
+			download = new JSONObject(json);
+		}
 		return !ProjectManager.editorVersion.equals(download.getString("newestRelease"));
+	}
+	
+	public static JSONArray getChangelog() {
+		if(download == null) {
+			String json = "";
+			try {
+				json = getHTML("https://raw.githubusercontent.com/Seba244c/Amber-Engine/master/download.json");
+			} catch (IOException e) { e.printStackTrace(); }
+			if(json == null) return new JSONArray();
+			
+			download = new JSONObject(json);
+		}
+		
+		if(ProjectManager.editorVersion.contains("-SNAPSHOT")) return download.getJSONArray("changeLog-" + ProjectManager.editorVersion.split("-")[0]);
+		return download.getJSONArray("changeLog-" + ProjectManager.editorVersion);
+	}
+	
+	public static JSONArray getUpdateName() {
+		if(download == null) {
+			String json = "";
+			try {
+				json = getHTML("https://raw.githubusercontent.com/Seba244c/Amber-Engine/master/download.json");
+			} catch (IOException e) { e.printStackTrace(); }
+			if(json == null) return new JSONArray();
+			
+			download = new JSONObject(json);
+		}
+		
+		if(ProjectManager.editorVersion.contains("-SNAPSHOT")) return download.getJSONArray("name-" + ProjectManager.editorVersion.split("-")[0]);
+		return download.getJSONArray("name-" + ProjectManager.editorVersion);
 	}
 	
 	public static void test() {

@@ -19,7 +19,7 @@ public class GUI {
 	}
 	
 	private static char[] c;
-	public static Font font;
+	public static Font defaultFont;
 	private static float tempX;
 	private static int i;
 	
@@ -31,15 +31,15 @@ public class GUI {
 	private static Popup popup;
 	
 	public static void init(Input inp) {
-		font = new Font(new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16));
+		defaultFont = new Font(new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16));
 		input = inp;
 	}
 	
 	public static void label(String text, float x, float y) {
-		label(text, x, y, textColor);
+		label(text, x, y, textColor, defaultFont);
 	}
 	
-	public static void label(String text, float x, float y, Color color) {
+	public static void label(String text, float x, float y, Color color, Font font) {
 		Map<Character, Glyph> chars = font.getChars();
 		
 		c = text.toCharArray();
@@ -165,8 +165,8 @@ public class GUI {
 		float x = 0;
 		float y = 0;
 		if(center) {
-			x = rf.x + ((rf.width / 2f) - ((float) font.getStringWidth(text) / 2f));
-			y = rf.y + ((rf.height / 2f) - (font.getFontHeight() / 2f));
+			x = rf.x + ((rf.width / 2f) - ((float) defaultFont.getStringWidth(text) / 2f));
+			y = rf.y + ((rf.height / 2f) - (defaultFont.getFontHeight() / 2f));
 		}
 		
 		if(rf.inRect(input.getMousePosition())) {

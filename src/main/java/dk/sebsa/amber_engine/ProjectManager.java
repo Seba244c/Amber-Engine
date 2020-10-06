@@ -15,9 +15,9 @@ public class ProjectManager {
 	public static byte configInit = 0;
 	private static String projectDir = "";
 	
-	public static void init() {
+	public static boolean init() {
 		openProject(BootLoader.init());
-		initConfig();
+		return initConfig();
 	}
 	
 	public static String getProjectDir() { return projectDir; }
@@ -43,9 +43,10 @@ public class ProjectManager {
 		}
 	}
 	
-	public static void initConfig() {
-		if(configInit == 1) return;
+	public static boolean initConfig() {
+		if(configInit == 1) return false;
 		configInit = 1;
+		boolean bool = true; //TODO CHANGE THIS TO FALSE WHEN DONE CODING OR I WILL KILL YOU SEB
 		
 		File configFile = new File(workspaceDir + "config.properties");
 		
@@ -58,6 +59,7 @@ public class ProjectManager {
 			
 			if(!editorVersion.equalsIgnoreCase(recordVersion)) {
 				System.out.println("Version changed!");
+				bool = true;
 			} else System.out.println("Same version");
 			
 			fr.close();
@@ -69,6 +71,7 @@ public class ProjectManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return bool;
 	}
 	
 	private static void saveConfig(File configFile) {

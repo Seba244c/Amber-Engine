@@ -27,7 +27,7 @@ public class Popup {
 		// Get widest string inside of list
 		float width = 0;
 		for(i = 0; i < list.size(); i ++) {
-			float w = GUI.font.getStringWidth(list.get(i));
+			float w = GUI.defaultFont.getStringWidth(list.get(i));
 			if(w > width) width = w;
 		}
 		listArea = new Rect(nameArea.x, nameArea.y + nameArea.height - 1, width + 12, list.size() * 28 + 4);
