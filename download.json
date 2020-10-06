@@ -1,5 +1,9 @@
 {
   "newestRelease": "0.0.3",
   "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.0.3.jar",
-  "updater": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/updater/updater-2.jar"
+  "updater": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/updater/updater-2.jar",
+  "changeLog-0.0.4": [
+    "Improved code quility",
+    "Added World Viewer",
+   ]
 }
