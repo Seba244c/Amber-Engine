@@ -156,5 +156,15 @@ public class Font {
 	public static final List<Font> getFonts() {
 		return fonts;
 	}
+	
+	public static void cleanUPAll() {
+		for(int i = 0; i < fonts.size(); i++) {
+			glDeleteTextures(fonts.get(i).texture.getId());
+		}
+	}
+	
+	public void cleanUp() {
+		texture.cleanup();
+	}
 }
 

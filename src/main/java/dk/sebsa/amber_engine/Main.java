@@ -9,6 +9,7 @@ import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
+import dk.sebsa.amber.graph.text.Font;
 import dk.sebsa.amber.io.DevWindow;
 import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.io.Window;
@@ -160,12 +161,13 @@ public class Main {
 	
 	public static void cleanup() {
 		AutoUpdate.close();
-		
+
 		// General cleanup
 		window.cleanup();
 		input.cleanup();
 		Editor.cleanup();
 		Renderer.cleanup();
+		Font.cleanUPAll();
 		
 		// Assets
 		AssetManager.cleanUpAll();
