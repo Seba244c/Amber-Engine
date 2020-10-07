@@ -78,7 +78,7 @@ public class Main {
 		
 		// Create Classes
 		loadingScreen.setStatus("Creating Classes", 10);
-		window = new Window("Amber Engine", 960, 800, true, false);
+		window = new Window("Amber Engine", 960, 800, false, false);
 		input = new Input(window);
 		sm = new SoundManager();
 	}
@@ -124,7 +124,6 @@ public class Main {
 			glfwPollEvents();
 			if(changeLog) {
 				window.update();
-				DevWindow.update();
 				input.update();
 				
 				changeLog = Changelog.render();
@@ -135,7 +134,6 @@ public class Main {
 			else if(!window.isMinimized()) {
 				// Updates
 				window.update();
-				DevWindow.update();
 				input.update();
 				
 				// Logic
@@ -143,12 +141,14 @@ public class Main {
 				sm.updateListenerPosition(new Vector2f(0, 0));
 				
 				// Render
-				Editor.render();
 				Renderer.render(new Rect(300, 30, window.getWidth()-600, window.getHeight()-430));
 				
 				Renderer.prepare();
+				
+				Editor.render();
 				Component.willRenderAll();
 				GUI.drawPopup();
+				
 				Renderer.unprepare();
 				
 				// Lates

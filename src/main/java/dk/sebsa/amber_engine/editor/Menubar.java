@@ -102,7 +102,7 @@ public class Menubar {
 	
 	public void asset(MenuItem m) {
 		if(m.name.equals("New Entity")) {
-			Editor.setSelected(new Entity(false));
+			Editor.setSelected(new Entity(true));
 		}
 	}
 }

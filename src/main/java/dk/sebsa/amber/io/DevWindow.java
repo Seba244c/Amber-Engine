@@ -118,9 +118,9 @@ public class DevWindow {
 		ps.close();
 	}
 	
-	public static void update() {
+	public static void update(int fps, double afl) {
 		try {
-			performanceDocument.replace(0, performanceDocument.getLength(), "Frames Per Second: "+Window.fps+"\nAverege Frame Length: "+aftFormat.format(Window.getAfl())+"s", performanceStyle);
+			performanceDocument.replace(0, performanceDocument.getLength(), "Frames Per Second: "+fps+"\nAverege Frame Length: "+aftFormat.format(afl)+"s", performanceStyle);
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}

@@ -31,16 +31,16 @@ public class Window {
 	private boolean vSync;
 	private boolean isCursorShown = true;
 	private int frames;
-	public static int fps;
+	private int fps;
 	private static long time;
 	private byte minimized;
 	private static Rect r;
 	
 	
 	// Vars used in Averege frame length calculation
-	private static double averegeFrameTime;
-	private static double aft;
-	private static double afl;
+	private double averegeFrameTime;
+	private double aft;
+	private double afl;
 	
 	private boolean showFps;
 
@@ -196,6 +196,7 @@ public class Window {
 			
 			afl = averegeFrameTime/fps/1000;
 			averegeFrameTime = 0;
+			DevWindow.update(fps, afl);
 		}
 	}
 	
@@ -308,10 +309,6 @@ public class Window {
 	
 	public void setShowFps(boolean showFps) {
 		this.showFps = showFps;
-	}
-	
-	public static double getAfl() {
-		return afl;
 	}
 	
 	public Rect getRect() {
