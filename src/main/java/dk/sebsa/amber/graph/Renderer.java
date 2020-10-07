@@ -43,6 +43,7 @@ public class Renderer {
 	public static void cleanup() {
 		guiMesh.cleanup();
 		mainMesh.cleanup();
+		fbo.cleanup();
 	}
 	
 	public static void addToRender(SpriteRenderer renderer) {

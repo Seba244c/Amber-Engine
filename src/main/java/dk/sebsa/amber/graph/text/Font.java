@@ -162,9 +162,5 @@ public class Font {
 			glDeleteTextures(fonts.get(i).texture.getId());
 		}
 	}
-	
-	public void cleanUp() {
-		texture.cleanup();
-	}
 }
 

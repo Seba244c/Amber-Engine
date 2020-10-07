@@ -8,7 +8,8 @@
     "Added catch for JSONExpetion when dowloading download.json",
 	"Removed changelog if using SNAPSHOT for first time",
 	"Omptimized code",
-	"Added cleanup calls to fonts"
+	"Added cleanup calls to fonts",
+	"Removed some memory leaks"
    ],
   
   "name-0.0.4": "The World update",
