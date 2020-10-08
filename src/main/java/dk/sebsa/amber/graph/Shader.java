@@ -14,13 +14,12 @@ import java.util.regex.Pattern;
 
 import org.lwjgl.BufferUtils;
 
+import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Matrix4x4;
 import dk.sebsa.amber.math.Vector2f;
 
-public class Shader {
-	public String name;
-	
+public class Shader extends Asset {	
 	private int program;
 	private int vs;
 	private int fs;

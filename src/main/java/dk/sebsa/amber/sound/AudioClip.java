@@ -12,13 +12,13 @@ import java.util.List;
 import static org.lwjgl.stb.STBVorbis.*;
 import org.lwjgl.system.MemoryStack;
 
+import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.util.FileUtils;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class AudioClip {
+public class AudioClip extends Asset {
 	private final int bufferId;
     private ShortBuffer pcm = null;
-	public final String name;
 	
     private static List<AudioClip> audioClips = new ArrayList<AudioClip>();
 	private static int i;
@@ -77,5 +77,9 @@ public class AudioClip {
     		if(audioClips.get(i).name.equals(name)) return audioClips.get(i);
     	}
     	return null;
+    }
+    
+    public static List<AudioClip> getClips() {
+    	return audioClips;
     }
 }

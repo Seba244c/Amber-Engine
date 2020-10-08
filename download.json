@@ -9,7 +9,10 @@
 	"Removed changelog if using SNAPSHOT for first time",
 	"Omptimized code",
 	"Added cleanup calls to fonts",
-	"Removed some memory leaks"
+	"Removed some memory leaks",
+	"Added inspector v2.0",
+	"Set defeault SpriteRenderer anchor 0.5f, 0.5f",
+	"Added Assets window to editor"
    ],
   
   "name-0.0.4": "The World update",

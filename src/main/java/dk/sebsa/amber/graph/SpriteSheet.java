@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 
+import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.math.Rect;
 
-public class SpriteSheet {
+public class SpriteSheet extends Asset {
 	private Material material;
-	public String name;
 	
 	public SpriteSheet(String name) {
 		BufferedReader br;

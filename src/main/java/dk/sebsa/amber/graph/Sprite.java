@@ -1,5 +1,6 @@
 package dk.sebsa.amber.graph;
 
+import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.math.Rect;
 
 import java.io.BufferedReader;
@@ -12,8 +13,7 @@ import java.util.regex.Pattern;
 import java.io.FileReader;
 import java.io.File;
 
-public class Sprite {
-	public String name;
+public class Sprite extends Asset {
 	public Material material;
 	public Rect offset;
 	public Rect padding;

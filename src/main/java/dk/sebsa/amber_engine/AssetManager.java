@@ -21,17 +21,27 @@ import dk.sebsa.amber.graph.SpriteSheet;
 import dk.sebsa.amber.graph.Texture;
 import dk.sebsa.amber.sound.AudioClip;
 
-enum Asset {
-	Sprite,
-	Shader,
-	Texture,
-	Material,
-	//Scene,
-	Sound,
-	SpriteSheet
-}
-
 public class AssetManager {
+	public enum Asset {
+		Sprite,
+		Shader,
+		Texture,
+		Material,
+		//Scene,
+		Sound,
+		SpriteSheet
+	}
+	
+	public static List<?> typeToList(Asset type) {
+		if(type.equals(Asset.Sprite)) return Sprite.getSprites();
+		else if(type.equals(Asset.Shader)) return Shader.getShaders();
+		else if(type.equals(Asset.Texture)) return Texture.getTextureInstances();
+		else if(type.equals(Asset.Material)) return Material.getMaterials();
+		else if(type.equals(Asset.Sound)) return AudioClip.getClips();
+		//else if(type.equals(Asset.SpriteSheet)) return SpriteSheet.
+		return null;
+	}
+	
 	private static Class<AssetManager> clazz = AssetManager.class;
 	private static ClassLoader cl = clazz.getClassLoader();
 	

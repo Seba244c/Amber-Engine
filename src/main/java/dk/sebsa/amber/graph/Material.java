@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 
+import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.math.Color;
 
-public class Material {
-	public String name;
+public class Material extends Asset {
 	public Texture texture;
 	public Color color;
 	public Shader shader;

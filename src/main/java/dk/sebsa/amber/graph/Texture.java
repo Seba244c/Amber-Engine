@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import org.lwjgl.BufferUtils;
 
+import dk.sebsa.amber.Asset;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,9 +18,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 
-public class Texture {
-	private String name = "";
-	
+public class Texture extends Asset {	
 	private int id;
 	private int width;
 	private int height;

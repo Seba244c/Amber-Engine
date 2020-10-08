@@ -39,6 +39,9 @@ public class Menubar {
 		// add("Asset", new MenuItem("New Shader", this::asset));
 		// add("Asset", new MenuItem("Import Sound", this::asset));
 		// add("Asset", new MenuItem("Import Texture", this::asset));
+		
+		//add("Edit", new MenuItem("Project Settings", this::edit));
+		//add("Edit", new MenuItem("Engine Settings", this::edit));
 	}
 	
 	public void render() {
@@ -104,6 +107,10 @@ public class Menubar {
 		if(m.name.equals("New Entity")) {
 			Editor.setSelected(new Entity(true));
 		}
+	}
+	
+	public void edit(MenuItem m) {
+		// ADD EDIT CODE HERE
 	}
 }
 
