@@ -9,6 +9,9 @@ import dk.sebsa.amber.graph.text.Glyph;
 import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
+import dk.sebsa.amber.math.Vector2f;
+import dk.sebsa.amber.util.Logger;
+import org.lwjgl.util.tinyfd.TinyFileDialogs;
 
 public class GUI {
 	public enum Press {
@@ -210,5 +213,40 @@ public class GUI {
 	
 	public static void removePopup() {
 		popup = null;
+	}
+	
+	public static String textField(Rect r, String name, String v, float padding) {
+		label(name, r.x, r.y);
+		
+		// This is temp has to change
+		if(button(v, new Rect(r.x + padding, r.y, r.width - padding, r.height), "Box", "Box", Press.realesed, false)) {
+			String s = TinyFileDialogs.tinyfd_inputBox("Changing " + name + "!", "What would you like this varible to be?", v);
+			if(s!=null)
+				s = s.replaceAll("\\n", "").replaceAll("\\r", "").replaceAll("\\t", "");
+				if(s==null) return v;
+				if(s != "" && !s.startsWith(" "))
+					return s;
+				else
+					Logger.errorLog("GUI", "textField", "Invalid string! A stringcannot start with a space!");
+		}
+		return v;
+	}
+	
+	public static float floatField(Rect r, String name, Float v, float padding) {
+		String ret = GUI.textField(r, name, String.valueOf(v), padding);
+		float f = v;
+		
+		try { f = Float.parseFloat(ret); }
+		catch (NumberFormatException e) { Logger.errorLog("GUI", "floaltField", "Float field input is inviliad!"); }
+		return f;
+	}
+	
+	public static Vector2f vectorField(Rect r, String name, Vector2f v, float padding) {
+		label(name, r.x, r.y);
+		
+		float half = (r.width - padding) / 2.0f;
+		float x = floatField(new Rect(r.x + padding - 5, r.y, half, r.height), "x", v.x, 10);
+		float y = floatField(new Rect(r.x + padding + half, r.y, half, r.height), "y", v.y, 10);
+		return new Vector2f(x, y);
 	}
 }

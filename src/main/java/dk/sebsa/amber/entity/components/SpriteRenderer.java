@@ -8,7 +8,7 @@ import dk.sebsa.amber.math.Vector2f;
 
 public class SpriteRenderer extends Component {
 	public Sprite sprite;
-	public Vector2f anchor = new Vector2f(0, 0);
+	public Vector2f anchor = new Vector2f(0.5f, 0.5f);
 	
 	public void setUniforms() {
 		sprite.material.shader.setUniform("anchor", anchor);

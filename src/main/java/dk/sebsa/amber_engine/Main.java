@@ -6,9 +6,11 @@ import java.io.IOException;
 
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
+import dk.sebsa.amber.entity.components.SpriteRenderer;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
+import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.text.Font;
 import dk.sebsa.amber.io.DevWindow;
 import dk.sebsa.amber.io.Input;
@@ -120,7 +122,10 @@ public class Main {
 		Entity a = new Entity("a"); a.parent(yang);
 		Entity c = new Entity("c"); c.parent(b);
 		
-		new Entity("Ying");
+		Entity ying = new Entity("Ying");
+		ying.addComponent(new SpriteRenderer());
+		ying.addComponent(new Foo());
+		((SpriteRenderer) ying.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("player.idle");
 		while(!window.shouldClose()) {
 			glfwPollEvents();
 			if(changeLog) {

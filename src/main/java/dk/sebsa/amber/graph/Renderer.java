@@ -146,8 +146,8 @@ public class Renderer {
 	}
 	
 	public static void beginArea(Rect r) {
-		areas.add(r);
-		area = r;
+		areas.add(area.getIntersection(new Rect(area.x + r.x, (area.y + r.y), r.width, r.height)));
+		area = areas.get(areas.size()-1);
 	}
 	
 	public static void endArea() {
