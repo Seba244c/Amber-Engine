@@ -20,9 +20,7 @@ public class Rect {
 	}
 	
 	public boolean intersects(Rect r) {
-		if(x > r.x + r.width || x + width < r.x || y > r.y + r.height || y + height < r.y)
-			return false;
-		return true;
+		return !(x > r.x + r.width || x + width < r.x || y > r.y + r.height || y + height < r.y);
 	}
 	
 	public Rect getIntersection(Rect r) {

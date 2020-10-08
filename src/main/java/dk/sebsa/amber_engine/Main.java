@@ -170,7 +170,6 @@ public class Main {
 		// General cleanup
 		window.cleanup();
 		input.cleanup();
-		Editor.cleanup();
 		Renderer.cleanup();
 		Font.cleanUPAll();
 		

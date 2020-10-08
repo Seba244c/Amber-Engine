@@ -22,6 +22,17 @@ import dk.sebsa.amber.graph.Texture;
 import dk.sebsa.amber.sound.AudioClip;
 
 public class AssetManager {
+	private static Class<AssetManager> clazz = AssetManager.class;
+	private static ClassLoader cl = clazz.getClassLoader();
+	
+	private static List<String> textures = new ArrayList<String>();
+	private static List<String> shaders = new ArrayList<String>();
+	private static List<String> materials = new ArrayList<String>();
+	private static List<String> sprites = new ArrayList<String>();
+	private static List<String> sounds = new ArrayList<String>();
+	private static List<String> spiteSheets = new ArrayList<String>();
+	private static int i = 0;
+	
 	public enum Asset {
 		Sprite,
 		Shader,
@@ -41,17 +52,6 @@ public class AssetManager {
 		//else if(type.equals(Asset.SpriteSheet)) return SpriteSheet.
 		return null;
 	}
-	
-	private static Class<AssetManager> clazz = AssetManager.class;
-	private static ClassLoader cl = clazz.getClassLoader();
-	
-	private static List<String> textures = new ArrayList<String>();
-	private static List<String> shaders = new ArrayList<String>();
-	private static List<String> materials = new ArrayList<String>();
-	private static List<String> sprites = new ArrayList<String>();
-	private static List<String> sounds = new ArrayList<String>();
-	private static List<String> spiteSheets = new ArrayList<String>();
-	private static int i = 0;
 	
 	public static void loadAllResources() throws IOException {
 		int i = 0;

@@ -12,10 +12,6 @@ import dk.sebsa.amber_engine.editor.Editor;
 public class WorldView {
 	private int i;
 	
-	public WorldView() {
-		
-	}
-	
 	public void render(Rect r) {
 		// Render
 		List<Entity> updateList = new ArrayList<Entity>();
@@ -40,7 +36,7 @@ public class WorldView {
 			Rect clickRect = new Rect(0, offsetY, r.width, 20);
 			
 			Object selected = Editor.getSelected();
-			if(selected != null && entity == selected) {
+			if(selected != null && entity.equals(selected)) {
 				GUI.box(clickRect, "Box");
 			}
 			

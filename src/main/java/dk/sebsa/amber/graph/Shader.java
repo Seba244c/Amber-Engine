@@ -124,7 +124,7 @@ public class Shader extends Asset {
 	}
 	
 	public void setMatColor(Color c) {
-		if(!boundColor.Compare(c)) {
+		if(!boundColor.compare(c)) {
 			setUniform("matColor", c);
 			boundColor = c;
 		}

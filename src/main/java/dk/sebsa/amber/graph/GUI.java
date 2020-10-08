@@ -155,9 +155,7 @@ public class GUI {
 	}
 	
 	public static boolean button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, Press type, boolean center) {
-		if(button(text, r, normalStyle, hoverStyle, center).equals(type)) return true;
-		
-		return false;
+		return button(text, r, normalStyle, hoverStyle, center).equals(type);
 	}
 	
 	private static Press button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, boolean center) {
@@ -224,10 +222,10 @@ public class GUI {
 			if(s!=null)
 				s = s.replaceAll("\\n", "").replaceAll("\\r", "").replaceAll("\\t", "");
 				if(s==null) return v;
-				if(s != "" && !s.startsWith(" "))
+				if(!s.equals("") && !s.startsWith(" "))
 					return s;
 				else
-					Logger.errorLog("GUI", "textField", "Invalid string! A stringcannot start with a space!");
+					Logger.errorLog("GUI", "textField", "Invalid string! A string cannot start with a space!");
 		}
 		return v;
 	}

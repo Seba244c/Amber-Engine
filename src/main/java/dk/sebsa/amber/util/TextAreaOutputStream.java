@@ -107,16 +107,16 @@ public class TextAreaOutputStream extends OutputStream {
 	        char type = 'I';
 	        
 	        for(String val: values) {	            
-	            if(val.charAt(0) == '~') {
+	        	if(val.charAt(0) == '~') {
 	            	type = 'E';
 	            }
-	            if(val.charAt(0) == '^') {
+	            else if(val.charAt(0) == '^') {
 	            	type = 'D';
 	            }
-	            if(val.charAt(0) == '*') {
+	            else if(val.charAt(0) == '*') {
 	            	type = 'I';
 	            }
-	            if(val.charAt(0) == 'E') {
+	            else if(val.charAt(0) == 'E') {
 	            	type = 'f';
 	            }
 	            if(type=='E') {

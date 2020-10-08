@@ -37,9 +37,9 @@ public class ProjectManager {
 		new File(projectDir + "sheets/").mkdir();
 		
 		if(newPro) {
-			
+			// Creative projectconfig
 		} else {
-			
+			// Load project config
 		}
 	}
 	

@@ -17,12 +17,12 @@ public class Time {
 	private static long frameStartTime;
 	private static long framePassedTime;
 	
-	static void init() {
+	public static void init() {
 		 lastFrameTime = System.nanoTime();
 		 startTime = lastFrameTime;
 	}
 	
-	static void process() {
+	public static void process() {
 		rawTime = System.nanoTime();
 		time = (float) (TimeUnit.MILLISECONDS.convert(rawTime - startTime, TimeUnit.NANOSECONDS));
 		

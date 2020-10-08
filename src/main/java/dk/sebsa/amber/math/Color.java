@@ -36,7 +36,7 @@ public class Color {
 		return "("+String.valueOf(r)+", "+String.valueOf(g)+", "+String.valueOf(b)+", "+String.valueOf(a)+")";
 	}
 	
-	public boolean Compare(Color c) {
+	public boolean compare(Color c) {
 		return c.r == r && c.g == g && c.b == b && c.a == a;
 	}
 }

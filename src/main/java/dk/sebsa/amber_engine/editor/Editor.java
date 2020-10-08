@@ -46,14 +46,6 @@ public class Editor {
 		GUI.window(new Rect(300, Main.window.getHeight()-400, Main.window.getWidth()-600, 400), "Assets", assets::render, window);
 	}
 	
-	public static void cleanup() {
-		
-	}
-	
-	public static void test(Rect rect) {
-		
-	}
-	
 	public static Object getSelected() {
 		return selected;
 	}
