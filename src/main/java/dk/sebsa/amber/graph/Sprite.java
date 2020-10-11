@@ -65,6 +65,10 @@ public class Sprite extends Asset {
 			
 			// Get material
 			material = Material.getMat(br.readLine().split(" ")[1]);	
+			if(material == null) {
+				br.close();
+				return;
+			}
 				
 			// Get offset
 			String[] o = br.readLine().split(" ")[1].split(",");

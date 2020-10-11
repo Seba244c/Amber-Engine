@@ -22,7 +22,7 @@ public class Changelog {
 	public static void load() {
 		List<Object> list = AutoUpdate.getChangelog().toList();
 		changeLog = new ArrayList<String>();
-		title = new Font(new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 28));
+		title = new Font(new java.awt.Font("OpenSans", java.awt.Font.PLAIN, 28));
 		
 		while(list.size() > 0) {
 			changeLog.add((String) list.get(0));

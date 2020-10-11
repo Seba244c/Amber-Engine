@@ -34,7 +34,7 @@ public class GUI {
 	private static Popup popup;
 	
 	public static void init(Input inp) {
-		defaultFont = new Font(new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16));
+		defaultFont = new Font(new java.awt.Font("OpenSans", java.awt.Font.PLAIN, 16));
 		input = inp;
 	}
 	
@@ -187,10 +187,14 @@ public class GUI {
 		}
 		else {
 			Rect p = box(r, normalStyle);
-			if(p!=null)
-				label(text, p.x, p.y);
-			else
-				label(text, r.x, r.y);
+			if(center)
+				label(text, x, y);
+			else {
+				if(p!=null)
+					label(text, p.x, p.y);
+				else
+					label(text, r.x, r.y);
+			}
 		}
 		return Press.not;
 	}

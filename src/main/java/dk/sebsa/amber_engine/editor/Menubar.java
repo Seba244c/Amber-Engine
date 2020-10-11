@@ -33,12 +33,12 @@ public class Menubar {
 		add("File", new MenuItem("Quit", this::file));
 		
 		add("Asset", new MenuItem("New Entity", this::asset));
-		// add("Asset", new MenuItem("New Sprite", this::asset));
-		// add("Asset", new MenuItem("New SpriteSheet", this::asset));
-		// add("Asset", new MenuItem("New Material", this::asset));
-		// add("Asset", new MenuItem("New Shader", this::asset));
-		// add("Asset", new MenuItem("Import Sound", this::asset));
-		// add("Asset", new MenuItem("Import Texture", this::asset));
+		add("Asset", new MenuItem("New Sprite", this::asset));
+		add("Asset", new MenuItem("New SpriteSheet", this::asset));
+		add("Asset", new MenuItem("New Material", this::asset));
+		add("Asset", new MenuItem("New Shader", this::asset));
+		add("Asset", new MenuItem("Import Sound", this::asset));
+		add("Asset", new MenuItem("Import Texture", this::asset));
 		
 		//add("Edit", new MenuItem("Project Settings", this::edit));
 		//add("Edit", new MenuItem("Engine Settings", this::edit));
@@ -106,6 +106,20 @@ public class Menubar {
 	public void asset(MenuItem m) {
 		if(m.name.equals("New Entity")) {
 			Editor.setSelected(new Entity(true));
+		} else if(m.name.equals("New Sprite")) {
+			
+		} else if(m.name.equals("New Sprite")) {
+			
+		} else if(m.name.equals("New SpriteSheet")) {
+			
+		} else if(m.name.equals("New Material")) {
+			
+		} else if(m.name.equals("New Shader")) {
+			
+		} else if(m.name.equals("Import Texture")) {
+			
+		} else if(m.name.equals("Import Sound")) {
+			
 		}
 	}
 	

@@ -12,7 +12,9 @@
 	"Removed some memory leaks",
 	"Added inspector v2.0",
 	"Set defeault SpriteRenderer anchor 0.5f, 0.5f",
-	"Added Assets window to editor"
+	"Added Assets window to editor",
+	"Added editorVsync, to engine config",
+	"Updated fonts"
    ],
   
   "name-0.0.4": "The World update",

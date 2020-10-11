@@ -15,6 +15,8 @@ public class ProjectManager {
 	public static byte configInit = 0;
 	private static String projectDir = "";
 	
+	public static boolean configEditorVsync = true;
+	
 	public static boolean init() {
 		openProject(BootLoader.init());
 		return initConfig();
@@ -56,6 +58,7 @@ public class ProjectManager {
 			p.load(fr);
 			
 			String recordVersion = p.getProperty("version");
+			configEditorVsync = Boolean.parseBoolean(p.getProperty("editor_vsync"));
 			
 			if(!editorVersion.equalsIgnoreCase(recordVersion)) {
 				System.out.println("Version changed!");
@@ -81,6 +84,7 @@ public class ProjectManager {
 			
 			Properties p = new Properties();
 			p.setProperty("version", editorVersion);
+			p.setProperty("editor_vsync", Boolean.toString(configEditorVsync));
 			
 			FileWriter writer = new FileWriter(configFile);
 			p.store(writer, "Amber Engine Configuration");

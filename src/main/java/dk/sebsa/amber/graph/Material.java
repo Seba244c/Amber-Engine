@@ -43,7 +43,11 @@ public class Material extends Asset {
 			}
 			
 			// Get texture
-			texture = Texture.findTexture(br.readLine().split(" ")[1]);	
+			texture = Texture.findTexture(br.readLine().split(" ")[1]);		
+			if(texture == null) {
+				br.close();
+				return;
+			}
 				
 			// Get color
 			String[] c = br.readLine().split(" ")[1].split(",");
