@@ -14,6 +14,8 @@ import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber_engine.Main;
+import dk.sebsa.amber_engine.windows.EngineRenderer;
+import dk.sebsa.amber_engine.windows.EngineRenderer.windows;
 
 public class Menubar {
 	public Map<String, List<MenuItem>> menu = new LinkedHashMap<String, List<MenuItem>>();
@@ -40,8 +42,8 @@ public class Menubar {
 		add("Asset", new MenuItem("Import Sound", this::asset));
 		add("Asset", new MenuItem("Import Texture", this::asset));
 		
-		//add("Edit", new MenuItem("Project Settings", this::edit));
-		//add("Edit", new MenuItem("Engine Settings", this::edit));
+		add("Edit", new MenuItem("Project Settings", this::edit));
+		add("Edit", new MenuItem("Engine Settings", this::edit));
 	}
 	
 	public void render() {
@@ -124,7 +126,11 @@ public class Menubar {
 	}
 	
 	public void edit(MenuItem m) {
-		// ADD EDIT CODE HERE
+		if(m.name.equals("Project Settings")) {
+			EngineRenderer.setWindow(windows.projectSettings);
+		} else if(m.name.equals("Engine Settings")) {
+			EngineRenderer.setWindow(windows.engineSettings);
+		}
 	}
 }
 

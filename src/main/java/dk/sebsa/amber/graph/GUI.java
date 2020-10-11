@@ -78,11 +78,9 @@ public class GUI {
 	}
 
 	public static boolean toggle(boolean b, float x, int y, Sprite on, Sprite off) {
-		Sprite s;
+		Sprite s = off;
 		if(b)
 			s = on;
-		else 
-			s = off;
 		
 		if(GUI.button("", new Rect(x, y, 15, 15), s, s, Press.realesed, false))
 			return !b;

@@ -12,12 +12,23 @@ public class EngineRenderer {
 	
 	public static enum windows {
 		changelog,
-		main
+		main,
+		engineSettings,
+		projectSettings
 	}
 	
 	public static void renderScreen() {
 		if(currentWindow.equals(windows.changelog)) {
 			boolean bool = Changelog.render();
+			
+			if(bool) currentWindow = windows.main;
+		} else if(currentWindow.equals(windows.engineSettings)) {
+			boolean bool = EngineSettings.render();
+			
+			if(bool) currentWindow = windows.main;
+		} else if(currentWindow.equals(windows.projectSettings)) {
+			boolean bool = ProjectSettings.render();
+			
 			if(bool) currentWindow = windows.main;
 		} else if(!Main.window.isMinimized()) {
 			// Render

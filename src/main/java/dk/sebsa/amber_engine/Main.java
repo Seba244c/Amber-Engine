@@ -22,6 +22,7 @@ import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.windows.Changelog;
 import dk.sebsa.amber_engine.windows.Loading;
 import dk.sebsa.amber_engine.windows.EngineRenderer;
+import dk.sebsa.amber_engine.windows.EngineSettings;
 import dk.sebsa.amber_engine.windows.EngineRenderer.windows;
 
 public class Main {
@@ -81,7 +82,7 @@ public class Main {
 		
 		// Create Classes
 		loadingScreen.setStatus("Creating Classes", 10);
-		window = new Window("Amber Engine", 960, 800, ProjectManager.configEditorVsync, false);
+		window = new Window("Amber Engine", 960, 800, ProjectManager.EconfigEditorVsync, false);
 		input = new Input(window);
 		sm = new SoundManager();
 	}
@@ -102,7 +103,7 @@ public class Main {
 		
 		loadingScreen.setStatus("Initializing, Renderer", 85);
 		Renderer.init(input);
-
+		
 		// Set loading text
 		loadingScreen.reset("Loading Project");
 		
@@ -110,6 +111,7 @@ public class Main {
 		AssetManager.loadAllResources();
 		
 		Editor.init();
+		EngineSettings.init();
 		engineShader = Shader.findShader("engine");
 		
 		if(changeLog) { Changelog.load(); EngineRenderer.setWindow(windows.changelog); }

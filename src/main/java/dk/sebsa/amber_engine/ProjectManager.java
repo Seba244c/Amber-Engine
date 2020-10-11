@@ -14,18 +14,21 @@ public class ProjectManager {
 	public static final String editorVersion = ProjectManager.class.getPackage().getImplementationVersion();
 	public static byte configInit = 0;
 	private static String projectDir = "";
+	private static String projectName = "";
 	
-	public static boolean configEditorVsync = true;
+	public static boolean EconfigEditorVsync = true;
 	
 	public static boolean init() {
 		openProject(BootLoader.init());
-		return initConfig();
+		return initEConfig();
 	}
 	
 	public static String getProjectDir() { return projectDir; }
+	public static String getProjectName() { return projectName; }
 	
 	public static void openProject(String name) {
 		projectDir = workspaceDir + name + "/";
+		projectName = name;
 		
 		File dir = new File(projectDir);
 		Boolean newPro = dir.mkdir();
@@ -45,7 +48,7 @@ public class ProjectManager {
 		}
 	}
 	
-	public static boolean initConfig() {
+	public static boolean initEConfig() {
 		if(configInit == 1) return false;
 		configInit = 1;
 		boolean bool = false;
@@ -58,7 +61,7 @@ public class ProjectManager {
 			p.load(fr);
 			
 			String recordVersion = p.getProperty("version");
-			configEditorVsync = Boolean.parseBoolean(p.getProperty("editor_vsync"));
+			EconfigEditorVsync = Boolean.parseBoolean(p.getProperty("editor_vsync"));
 			
 			if(!editorVersion.equalsIgnoreCase(recordVersion)) {
 				System.out.println("Version changed!");
@@ -67,24 +70,29 @@ public class ProjectManager {
 			
 			fr.close();
 			
-			saveConfig(configFile);
+			saveEConfig(configFile);
 		} catch (FileNotFoundException e) {
 			System.out.println("New User");
-			saveConfig(configFile);
+			saveEConfig(configFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return bool;
 	}
 	
-	private static void saveConfig(File configFile) {
+	public static void saveEConfig() {
+		File configFile = new File(workspaceDir + "config.properties");
+		saveEConfig(configFile);
+	}
+	
+	private static void saveEConfig(File configFile) {
 		try {
 			File dir = new File(workspaceDir);
 			dir.mkdir();
 			
 			Properties p = new Properties();
 			p.setProperty("version", editorVersion);
-			p.setProperty("editor_vsync", Boolean.toString(configEditorVsync));
+			p.setProperty("editor_vsync", Boolean.toString(EconfigEditorVsync));
 			
 			FileWriter writer = new FileWriter(configFile);
 			p.store(writer, "Amber Engine Configuration");
