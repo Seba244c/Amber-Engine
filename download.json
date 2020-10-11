@@ -1,9 +1,9 @@
 {
-  "newestRelease": "0.0.4",
-  "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.0.4.jar",
+  "newestRelease": "0.0.5",
+  "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.0.5.jar",
   "updater": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/updater/updater-2.jar",
   
-  "name-0.0.5": "None",
+  "name-0.0.5": "UI v.1.0",
   "changeLog-0.0.5": [
     "Added catch for JSONExpetion when dowloading download.json",
 	"Removed changelog if using SNAPSHOT for first time",
@@ -14,7 +14,8 @@
 	"Set defeault SpriteRenderer anchor 0.5f, 0.5f",
 	"Added Assets window to editor",
 	"Added editorVsync, to engine config",
-	"Updated fonts"
+	"Updated fonts",
+	"Added Engine Settings Window"
    ],
   
   "name-0.0.4": "The World update",
