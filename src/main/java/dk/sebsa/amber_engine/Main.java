@@ -7,7 +7,6 @@ import java.io.IOException;
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.components.SpriteRenderer;
-import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
 import dk.sebsa.amber.graph.Sprite;
@@ -16,13 +15,14 @@ import dk.sebsa.amber.io.DevWindow;
 import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.io.Window;
 import dk.sebsa.amber.math.Color;
-import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
 import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.windows.Changelog;
 import dk.sebsa.amber_engine.windows.Loading;
+import dk.sebsa.amber_engine.windows.EngineRenderer;
+import dk.sebsa.amber_engine.windows.EngineRenderer.windows;
 
 public class Main {
 	public static Window window;
@@ -112,7 +112,7 @@ public class Main {
 		Editor.init();
 		engineShader = Shader.findShader("engine");
 		
-		if(changeLog) Changelog.load();
+		if(changeLog) { Changelog.load(); EngineRenderer.setWindow(windows.changelog); }
 	}
 	
 	public static void loop() throws IOException {
@@ -128,38 +128,21 @@ public class Main {
 		((SpriteRenderer) ying.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("player.idle");
 		while(!window.shouldClose()) {
 			glfwPollEvents();
-			if(changeLog) {
-				window.update();
-				input.update();
-				
-				changeLog = Changelog.render();
-				
-				// Lates
-				input.late();
-			}
-			else if(!window.isMinimized()) {
-				// Updates
-				window.update();
-				input.update();
-				
-				// Logic
-				Component.updateAll();
-				sm.updateListenerPosition(new Vector2f(0, 0));
-				
-				// Render
-				Renderer.render(new Rect(300, 30, window.getWidth()-600, window.getHeight()-430));
-				
-				Renderer.prepare();
-				
-				Editor.render();
-				Component.willRenderAll();
-				GUI.drawPopup();
-				
-				Renderer.unprepare();
-				
-				// Lates
-				input.late();
-			}
+			
+			// Updates
+			window.update();
+			input.update();
+			
+			// Logic
+			Component.updateAll();
+			sm.updateListenerPosition(new Vector2f(0, 0));
+			
+			// Render
+			EngineRenderer.renderScreen();
+			
+			// Lates
+			input.late();
+			
 			glfwSwapBuffers(window.windowId);
 		}
 	}

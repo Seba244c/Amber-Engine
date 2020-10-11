@@ -42,7 +42,7 @@ public class Changelog {
 		String s = ProjectManager.editorVersion + " - " + AutoUpdate.getUpdateName();
 		
 		GUI.label(s, r.width/2-title.getStringWidth(s)/2, 0, Color.white(), title);
-		close = GUI.toggle(false, r.width-16, 0, null, Sprite.getSprite("BlackGUI.ExitButton"));
+		close = GUI.toggle(false, r.width-16, 0, null, Sprite.getSprite("BlackGUI.XClose"));
 		if(close == false) close = GUI.button("Clsoe Changelog", new Rect(0, r.height-28, r.width, 28), "Button", "ButtonHover", Press.realesed, false);
 		
 		// Labels
