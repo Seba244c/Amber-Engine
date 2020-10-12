@@ -43,14 +43,18 @@ public abstract class Component extends Asset {
 	}
 	
 	public static void updateAll() {
+		Component c;
 		for(i = 0; i < instances.size(); i++) {
-			instances.get(i).update();
+			c = instances.get(i);
+			if(c.isEnabled()) c.update();
 		}
 	}
 	
 	public static void willRenderAll() {
+		Component c;
 		for(i = 0; i < instances.size(); i++) {
-			instances.get(i).onWillRender();
+			c = instances.get(i);
+			if(c.isEnabled()) c.onWillRender();
 		}
 	}
 

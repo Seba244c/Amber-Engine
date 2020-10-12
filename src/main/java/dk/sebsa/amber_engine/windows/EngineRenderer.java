@@ -34,17 +34,18 @@ public class EngineRenderer {
 			
 			if(bool) currentWindow = windows.main;
 		} else if(currentWindow.equals(windows.playmode)) {
+			Renderer.prepare();
+			
+			Editor.menubar.render();
+			Component.willRenderAll();
+			
+			Renderer.unprepare();
+			
 			// Render
 			Renderer.render(new Rect(0, 30, Main.window.getWidth(), Main.window.getHeight()-30));
 			
-			Renderer.prepare();
-			Editor.menubar.render();
-			Component.willRenderAll();			
-			Renderer.unprepare();
-		} else {
-			// Render
-			Renderer.render(new Rect(300, 30, Main.window.getWidth()-600, Main.window.getHeight()-430));
 			
+		} else {
 			Renderer.prepare();
 			
 			Editor.render();
@@ -52,6 +53,9 @@ public class EngineRenderer {
 			GUI.drawPopup();
 			
 			Renderer.unprepare();
+			
+			// Render
+			Renderer.render(new Rect(300, 30, Main.window.getWidth()-600, Main.window.getHeight()-430));
 		}
 	}
 	

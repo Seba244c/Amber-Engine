@@ -77,7 +77,7 @@ public class GUI {
 		Renderer.endArea();
 	}
 
-	public static boolean toggle(boolean b, float x, int y, Sprite on, Sprite off) {
+	public static boolean toggle(boolean b, float x, float y, Sprite on, Sprite off) {
 		Sprite s = off;
 		if(b)
 			s = on;

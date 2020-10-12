@@ -8,7 +8,8 @@
     "Fixed Changelog, instantly closing",
     "Added playmode functionality",
     "Added component importing",
-    "Added components to Asset Browser"
+    "Added components to Asset Browser",
+    "Added component disabling/enabling to inspector"
    ],
   
   "name-0.0.5": "UI v.1.0",

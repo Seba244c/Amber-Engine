@@ -24,9 +24,12 @@ public class Inspector {
 	private List<ComponentAttributes> ca = new ArrayList<ComponentAttributes>();
 	private int offsetY = 0;
 	public Sprite windowStyle;
+	public Sprite on, off;
 	
 	public Inspector() {
 		windowStyle = Editor.window;
+		on = Sprite.getSprite(GUI.sheet+".ToggleOn");
+		off = Sprite.getSprite(GUI.sheet+".ToggleOff");
 	}
 	
 	public void render(Rect r) {
@@ -47,9 +50,10 @@ public class Inspector {
 			// Render components
 			for(i = 0; i < ca.size(); i++) {
 				ComponentAttributes att = ca.get(i);				
-				
+				Component c = (Component) att.component;
 				float h = att.height + (windowStyle.padding.y + windowStyle.padding.height);
 				GUI.window(new Rect(0, offsetY, r.width, h), ((Component) att.component).getName(), this::drawVariables, windowStyle);
+				c.setEnabled(GUI.toggle(c.isEnabled(), r.width-18, offsetY+7f, on, off));
 				offsetY += h + 2;
 			}
 			
