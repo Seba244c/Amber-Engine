@@ -36,6 +36,7 @@ public class Main {
 	public static Loading loadingScreen;
 	
 	public static boolean changeLog;
+	public static boolean inPlayMode = false;
 	
 	public static void main(String[] args) {
 		// auto update
@@ -136,8 +137,10 @@ public class Main {
 			input.update();
 			
 			// Logic
-			Component.updateAll();
-			sm.updateListenerPosition(new Vector2f(0, 0));
+			if(inPlayMode) {
+				Component.updateAll();
+				sm.updateListenerPosition(new Vector2f(0, 0));
+			}
 			
 			// Render
 			EngineRenderer.renderScreen();

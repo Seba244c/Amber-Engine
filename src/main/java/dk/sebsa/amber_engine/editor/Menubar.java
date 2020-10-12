@@ -26,8 +26,14 @@ public class Menubar {
 	private String selected;
 	private Color prevColor;
 	
+	private Sprite playMode;
+	private Sprite stopButton, playButton;
+	
 	public Menubar() {
 		box = Sprite.getSprite(GUI.sheet+".Box");
+		playButton = Sprite.getSprite(GUI.sheet+".PlayButton");
+		stopButton = Sprite.getSprite(GUI.sheet+".StopButton");
+		playMode = playButton;
 		
 		//add("File", new MenuItem("New Scene", this::file));
 		//add("File", new MenuItem("Open Scene", this::file));
@@ -81,6 +87,13 @@ public class Menubar {
 		}
 		
 		GUI.textColor = prevColor;
+		
+		if(GUI.button("", new Rect(Main.window.getWidth()/2-16, 6, 18, 18), playMode, playMode, Press.pressed, false)) {
+			Main.inPlayMode = !Main.inPlayMode;
+			EngineRenderer.togglePlaymode();
+			if(playMode==playButton) playMode = stopButton;
+			else playMode = playButton;
+		}
 	}
 	
 	public void clicked(String v) {
@@ -108,8 +121,6 @@ public class Menubar {
 	public void asset(MenuItem m) {
 		if(m.name.equals("New Entity")) {
 			Editor.setSelected(new Entity(true));
-		} else if(m.name.equals("New Sprite")) {
-			
 		} else if(m.name.equals("New Sprite")) {
 			
 		} else if(m.name.equals("New SpriteSheet")) {

@@ -34,7 +34,7 @@ public class Changelog {
 		Renderer.prepare();
 		GUI.window(Main.window.getRect(), "Amber-Engine, update: " + ProjectManager.editorVersion + ", changelog!", Changelog::render, "Window");
 		Renderer.unprepare();
-		return !close;
+		return close;
 	}
 	
 	private static void render(Rect r) {

@@ -3,6 +3,12 @@
   "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.0.5.jar",
   "updater": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/updater/updater-2.jar",
   
+  "name-0.0.6": "None",
+  "changeLog-0.0.6": [
+    "Fixed Changelog, instantly closing",
+    "Added playmode functionality"
+   ],
+  
   "name-0.0.5": "UI v.1.0",
   "changeLog-0.0.5": [
     "Added catch for JSONExpetion when dowloading download.json",

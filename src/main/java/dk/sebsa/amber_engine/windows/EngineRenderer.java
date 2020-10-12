@@ -13,11 +13,14 @@ public class EngineRenderer {
 	public static enum windows {
 		changelog,
 		main,
+		playmode,
 		engineSettings,
 		projectSettings
 	}
 	
 	public static void renderScreen() {
+		if(Main.window.isMinimized()) return;
+		
 		if(currentWindow.equals(windows.changelog)) {
 			boolean bool = Changelog.render();
 			
@@ -30,7 +33,15 @@ public class EngineRenderer {
 			boolean bool = ProjectSettings.render();
 			
 			if(bool) currentWindow = windows.main;
-		} else if(!Main.window.isMinimized()) {
+		} else if(currentWindow.equals(windows.playmode)) {
+			// Render
+			Renderer.render(new Rect(0, 30, Main.window.getWidth(), Main.window.getHeight()-30));
+			
+			Renderer.prepare();
+			Editor.menubar.render();
+			Component.willRenderAll();			
+			Renderer.unprepare();
+		} else {
 			// Render
 			Renderer.render(new Rect(300, 30, Main.window.getWidth()-600, Main.window.getHeight()-430));
 			
@@ -44,6 +55,10 @@ public class EngineRenderer {
 		}
 	}
 	
+	public static void togglePlaymode() {
+		if(currentWindow.equals(windows.playmode)) currentWindow = windows.main;
+		else currentWindow = windows.playmode;
+	}
 	public static void setWindow(windows window) {
 		currentWindow = window;
 	}
