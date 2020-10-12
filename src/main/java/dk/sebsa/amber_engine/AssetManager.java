@@ -20,6 +20,7 @@ import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.SpriteSheet;
 import dk.sebsa.amber.graph.Texture;
 import dk.sebsa.amber.sound.AudioClip;
+import dk.sebsa.amber_engine.utils.ComponentImporter;
 
 public class AssetManager {
 	private static Class<AssetManager> clazz = AssetManager.class;
@@ -31,6 +32,7 @@ public class AssetManager {
 	private static List<String> sprites = new ArrayList<String>();
 	private static List<String> sounds = new ArrayList<String>();
 	private static List<String> spiteSheets = new ArrayList<String>();
+	private static List<String> scripts = new ArrayList<String>();
 	private static int i = 0;
 	
 	public enum Asset {
@@ -40,7 +42,8 @@ public class AssetManager {
 		Material,
 		//Scene,
 		Sound,
-		SpriteSheet
+		SpriteSheet,
+		Script
 	}
 	
 	public static List<?> typeToList(Asset type) {
@@ -49,6 +52,7 @@ public class AssetManager {
 		else if(type.equals(Asset.Texture)) return Texture.getTextureInstances();
 		else if(type.equals(Asset.Material)) return Material.getMaterials();
 		else if(type.equals(Asset.Sound)) return AudioClip.getClips();
+		else if(type.equals(Asset.Script)) return ComponentImporter.getImportedClasses();
 		//else if(type.equals(Asset.SpriteSheet)) return SpriteSheet.
 		return null;
 	}
@@ -75,7 +79,11 @@ public class AssetManager {
 		if(!spiteSheets.isEmpty()) for(i = 0; i < spiteSheets.size(); i++) new SpriteSheet(spiteSheets.get(i));
 		
 		// Sounds
-		Main.loadingScreen.setStatus("Loading sounds", 70);
+		Main.loadingScreen.setStatus("Loading components", 60);
+		if(!scripts.isEmpty()) for(i = 0; i < scripts.size(); i++) ComponentImporter.importClass(scripts.get(i));
+		
+		// Sounds
+		Main.loadingScreen.setStatus("Loading sounds", 80);
 		if(!sounds.isEmpty()) for(i = 0; i < sounds.size(); i++) new AudioClip(sounds.get(i), Main.sm);
 	}
 	
@@ -106,6 +114,7 @@ public class AssetManager {
 				
 				if(name.endsWith("/")) continue;
 				else if(name.startsWith("textures")) { textures.add("/" +name.split("/")[1]); }
+				else if(name.startsWith("scripts")) { scripts.add("/" +name.split("/")[1]); }
 				else if(name.startsWith("shaders")) { shaders.add("/" + name.split("/")[1].split("\\.")[0]); }
 				else if(name.startsWith("materials")) { materials.add("/" +name.split("/")[1].split("\\.")[0]); }
 				else if(name.startsWith("sprites")) { sprites.add("/" +name.split("/")[1].split("\\.")[0]); }
@@ -117,6 +126,7 @@ public class AssetManager {
 
 		Main.loadingScreen.setStatus("Loading external assets", 10);
 		textures.addAll(importFromExternalDir("textures", 1));
+		scripts.addAll(importFromExternalDir("scripts", 1));
 		shaders.addAll(importFromExternalDir("shaders", 0));
 		materials.addAll(importFromExternalDir("materials", 0));
 		sprites.addAll(importFromExternalDir("sprites", 0));
@@ -128,6 +138,7 @@ public class AssetManager {
 		// Loads engine resources from folders
 		Main.loadingScreen.setStatus("Loading internal assets", 0);
 		textures = importFromLocalDir("textures", 1);
+		scripts = importFromLocalDir("scripts", 1);
 		shaders = importFromLocalDir("shaders", 0);
 		materials = importFromLocalDir("materials", 0);
 		sprites = importFromLocalDir("sprites", 0);
@@ -137,6 +148,7 @@ public class AssetManager {
 		// Load other assets from external folders
 		Main.loadingScreen.setStatus("Loading external assets", 10);
 		textures.addAll(importFromExternalDir("textures", 1));
+		scripts.addAll(importFromExternalDir("scripts", 1));
 		shaders.addAll(importFromExternalDir("shaders", 0));
 		materials.addAll(importFromExternalDir("materials", 0));
 		sprites.addAll(importFromExternalDir("sprites", 0));

@@ -6,7 +6,9 @@
   "name-0.0.6": "None",
   "changeLog-0.0.6": [
     "Fixed Changelog, instantly closing",
-    "Added playmode functionality"
+    "Added playmode functionality",
+    "Added component importing",
+    "Added components to Asset Browser"
    ],
   
   "name-0.0.5": "UI v.1.0",

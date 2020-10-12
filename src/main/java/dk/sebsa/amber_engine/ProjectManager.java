@@ -40,6 +40,7 @@ public class ProjectManager {
 		new File(projectDir + "scenes/").mkdir();
 		new File(projectDir + "sounds/").mkdir();
 		new File(projectDir + "sheets/").mkdir();
+		new File(projectDir + "scripts/").mkdir();
 		
 		if(newPro) {
 			// Creative projectconfig

@@ -1,7 +1,5 @@
 package dk.sebsa.amber;
 
-import java.lang.reflect.InvocationTargetException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -116,24 +114,6 @@ public class Entity {
 	
 	public void removeComponent(Component c) {
 		components.remove(c);
-	}
-	
-	public Component addComponent(String v) {
-		Class<?> cls;
-		try {
-			try { cls = Class.forName(v); }
-			catch (NoClassDefFoundError e){ return null; }
-			
-			try { return addComponent((Component) cls.getConstructor().newInstance()); }
-			catch(InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e)
-			{}
-		} catch (ClassNotFoundException e) {
-			Component c = Component.getComponent(v);
-			if(c != null) return addComponent(c);
-			
-			Logger.errorLog("Entity",  name, "Could not find component!");
-		}
-		return null;
 	}
 	
 	public Component addComponent(Component c) {

@@ -19,6 +19,7 @@ import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
 import dk.sebsa.amber_engine.editor.Editor;
+import dk.sebsa.amber_engine.utils.ComponentImporter;
 import dk.sebsa.amber_engine.windows.Changelog;
 import dk.sebsa.amber_engine.windows.Loading;
 import dk.sebsa.amber_engine.windows.EngineRenderer;
@@ -110,6 +111,7 @@ public class Main {
 		
 		// Load all assets
 		AssetManager.loadAllResources();
+		ComponentImporter.init();
 		
 		Editor.init();
 		EngineSettings.init();
@@ -126,8 +128,8 @@ public class Main {
 		Entity c = new Entity("c"); c.parent(b);
 		
 		Entity ying = new Entity("Ying");
-		ying.addComponent(new SpriteRenderer());
-		ying.addComponent(new Foo());
+		ying.addComponent(ComponentImporter.getComponent("SpriteRenderer"));
+		ying.addComponent(ComponentImporter.getComponent("Foo"));
 		((SpriteRenderer) ying.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("player.idle");
 		while(!window.shouldClose()) {
 			glfwPollEvents();
@@ -164,6 +166,7 @@ public class Main {
 		// Assets
 		AssetManager.cleanUpAll();
 		sm.cleanup();
+		ComponentImporter.cleanUp();
 		
 		// Other
 		System.gc();

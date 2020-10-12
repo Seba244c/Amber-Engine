@@ -4,15 +4,19 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.util.tinyfd.TinyFileDialogs;
+
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.graph.GUI;
+import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.utils.ComponentAttributes;
+import dk.sebsa.amber_engine.utils.ComponentImporter;
 
 
 public class Inspector {
@@ -48,6 +52,16 @@ public class Inspector {
 				GUI.window(new Rect(0, offsetY, r.width, h), ((Component) att.component).getName(), this::drawVariables, windowStyle);
 				offsetY += h + 2;
 			}
+			
+			if(GUI.button("+ Add Component +", new Rect(0, offsetY, r.width, 26), "Button", "ButtonHover", Press.pressed, false))
+			{
+				String output = TinyFileDialogs.tinyfd_inputBox("Add Component", "What component would you like to add?", "");
+				if(output == null) return;
+				
+				Component l = selected.addComponent(ComponentImporter.getComponent(output));
+				if(l != null) setAttributes(selected);
+			}
+			offsetY = 0;
 		}
 	}
 	

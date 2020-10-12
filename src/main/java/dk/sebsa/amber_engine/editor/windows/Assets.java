@@ -43,6 +43,7 @@ public class Assets {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void setAssets(AssetManager.Asset type) {
 		selectedAssets = (List<Asset>) AssetManager.typeToList(type);
 	}
