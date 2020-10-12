@@ -59,10 +59,6 @@ public class EngineRenderer {
 		}
 	}
 	
-	public static void togglePlaymode() {
-		if(currentWindow.equals(windows.playmode)) currentWindow = windows.main;
-		else currentWindow = windows.playmode;
-	}
 	public static void setWindow(windows window) {
 		currentWindow = window;
 	}

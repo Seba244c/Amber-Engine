@@ -89,8 +89,7 @@ public class Menubar {
 		GUI.textColor = prevColor;
 		
 		if(GUI.button("", new Rect(Main.window.getWidth()/2-16, 6, 18, 18), playMode, playMode, Press.pressed, false)) {
-			Main.inPlayMode = !Main.inPlayMode;
-			EngineRenderer.togglePlaymode();
+			Main.togglePlaymode();
 			if(playMode==playButton) playMode = stopButton;
 			else playMode = playButton;
 		}

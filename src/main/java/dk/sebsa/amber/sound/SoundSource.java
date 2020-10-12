@@ -16,6 +16,7 @@ public class SoundSource {
         if (relative) {
             alSourcei(sourceId, AL_SOURCE_RELATIVE, AL_TRUE);
         }
+        SoundManager.instance.addSoundSource(String.valueOf(sourceId), this);
     }
 
     public void setClip(AudioClip ac) {

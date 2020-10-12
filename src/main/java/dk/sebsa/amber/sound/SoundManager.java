@@ -23,10 +23,16 @@ public class SoundManager {
     private SoundListener listener;
     private final List<AudioClip> audioClips;
     private final Map<String, SoundSource> soundSourceMap;
+    
+    public static SoundManager instance;
 
     public SoundManager() {
     	audioClips = new ArrayList<>();
         soundSourceMap = new HashMap<>();
+    }
+    
+    public void setInstance() {
+    	instance = this;
     }
     
     public void init() throws Exception {
@@ -76,6 +82,12 @@ public class SoundManager {
 
     public void updateListenerPosition(Vector2f p) {        
         listener.setPosition(new Vector3f(p.x, p.y, 0));
+    }
+    
+    public void stopAll() {
+    	for(SoundSource source : soundSourceMap.values()) {
+    		source.stop();
+    	}
     }
     
     public void cleanup() {

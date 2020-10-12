@@ -100,6 +100,7 @@ public class Main {
 			loadingScreen.setStatus("Initializing, SoundManager & SoundListener", 70);
 			// Sound
 			sm.init();
+			sm.setInstance();
 			sl = new SoundListener();
 			sm.setListener(sl);
 		} catch (Exception e1) { e1.printStackTrace(); }
@@ -153,6 +154,13 @@ public class Main {
 			
 			glfwSwapBuffers(window.windowId);
 		}
+	}
+	
+	public static void togglePlaymode() {
+		inPlayMode = !inPlayMode;
+		sm.stopAll();
+		if(!inPlayMode) EngineRenderer.setWindow(windows.main);
+		else 			EngineRenderer.setWindow(windows.playmode);
 	}
 	
 	public static void cleanup() {
