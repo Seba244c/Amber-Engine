@@ -42,6 +42,8 @@ public class Input {
 	private GLFWCursorEnterCallback cursorEnter;
 	private Vector2f position;
 	
+	public static Input instance;
+	
 	public Input(Window window) {
 		Logger.infoLog("Input", "Creating callbacks");
 		// Bool to byte
@@ -103,6 +105,10 @@ public class Input {
 				inWindow = (byte)(entered?1:0);
 			}
 		};
+	}
+	
+	public void setInstance() {
+		instance = this;
 	}
 	
 	public void init() {

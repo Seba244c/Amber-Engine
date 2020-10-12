@@ -86,6 +86,7 @@ public class Main {
 		loadingScreen.setStatus("Creating Classes", 10);
 		window = new Window("Amber Engine", 960, 800, ProjectManager.EconfigEditorVsync, false);
 		input = new Input(window);
+		input.setInstance();
 		sm = new SoundManager();
 	}
 	
