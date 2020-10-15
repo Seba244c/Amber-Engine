@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import dk.sebsa.amber_engine.Main;
 import dk.sebsa.amber_engine.ProjectManager;
 
 public class BootLoader {
@@ -98,7 +99,7 @@ public class BootLoader {
 		input.setBorder(BorderFactory.createLineBorder(Color.decode("#728190")));
 		input.setForeground(Color.BLACK);
 		
-		JLabel version = new JLabel(ProjectManager.editorVersion);
+		JLabel version = new JLabel(Main.editorVersion);
 		version.setBounds(10, 220, 100, 20);
         
 		begin.addActionListener(new ActionListener() {

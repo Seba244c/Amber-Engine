@@ -8,6 +8,7 @@ import org.lwjgl.util.tinyfd.TinyFileDialogs;
 
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
+import dk.sebsa.amber.entity.ComponentImporter;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.graph.Sprite;
@@ -16,7 +17,6 @@ import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.utils.ComponentAttributes;
-import dk.sebsa.amber_engine.utils.ComponentImporter;
 
 
 public class Inspector {

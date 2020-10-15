@@ -48,6 +48,12 @@ public class Entity {
 		parent(master);
 	}
 
+	public static void clear() {
+		instances.clear();
+		master.children.clear();
+		Component.clear();
+	}
+	
 	public boolean isExpanded() {
 		return expanded;
 	}

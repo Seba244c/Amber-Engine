@@ -90,7 +90,8 @@ public class SoundManager {
     	}
     }
     
-    public void cleanup() {
+    public void clear() {
+    	stopAll();
         for (SoundSource soundSource : soundSourceMap.values()) {
             soundSource.cleanup();
         }
@@ -100,6 +101,10 @@ public class SoundManager {
             ac.cleanup();
         }
         audioClips.clear();
+    }
+    
+    public void cleanup() {
+        clear();
         
         if (context != NULL) {
             alcDestroyContext(context);

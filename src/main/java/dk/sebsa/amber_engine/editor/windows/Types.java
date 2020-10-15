@@ -1,11 +1,11 @@
 package dk.sebsa.amber_engine.editor.windows;
 
+import dk.sebsa.amber.AssetManager;
+import dk.sebsa.amber.AssetManager.Asset;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
-import dk.sebsa.amber_engine.AssetManager;
-import dk.sebsa.amber_engine.AssetManager.Asset;
 import dk.sebsa.amber_engine.editor.Editor;
 
 public class Types {

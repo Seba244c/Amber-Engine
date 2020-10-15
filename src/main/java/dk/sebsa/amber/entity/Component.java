@@ -24,6 +24,10 @@ public abstract class Component extends Asset {
 		awake();
 	}
 	
+	public static void clear() {
+		instances.clear();
+	}
+	
 	public void awake() {
 		// When the component is intiliazed
 	}

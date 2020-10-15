@@ -5,8 +5,8 @@ import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
+import dk.sebsa.amber_engine.EngineConfig;
 import dk.sebsa.amber_engine.Main;
-import dk.sebsa.amber_engine.ProjectManager;
 
 public class EngineSettings {
 	private static boolean close = false;
@@ -31,12 +31,12 @@ public class EngineSettings {
 		
 		// Settings
 		GUI.label("Engine VSync", 15, 2);
-		ProjectManager.EconfigEditorVsync = GUI.toggle(ProjectManager.EconfigEditorVsync, 0, 0, on, off);
+		EngineConfig.configEditorVsync = GUI.toggle(EngineConfig.configEditorVsync, 0, 0, on, off);
 		
 		if(close) {
-			ProjectManager.saveEConfig();
+			EngineConfig.saveConfig();
 			
-			Main.window.setVSync(ProjectManager.EconfigEditorVsync);
+			Main.window.setVSync(EngineConfig.configEditorVsync);
 		}
 	}
 }

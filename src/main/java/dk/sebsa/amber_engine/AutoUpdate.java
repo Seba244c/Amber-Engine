@@ -51,7 +51,7 @@ public class AutoUpdate {
 				download = new JSONObject(json);
 			} catch(JSONException e) { e.printStackTrace(); return false; }
 		}
-		return !ProjectManager.editorVersion.equals(download.getString("newestRelease"));
+		return !Main.editorVersion.equals(download.getString("newestRelease"));
 	}
 	
 	public static JSONArray getChangelog() {
@@ -67,8 +67,8 @@ public class AutoUpdate {
 			} catch(JSONException e) { e.printStackTrace(); return new JSONArray(); }
 		}
 		
-		if(ProjectManager.editorVersion.contains("-SNAPSHOT")) return download.getJSONArray("changeLog-" + ProjectManager.editorVersion.split("-")[0]);
-		return download.getJSONArray("changeLog-" + ProjectManager.editorVersion);
+		if(Main.editorVersion.contains("-SNAPSHOT")) return download.getJSONArray("changeLog-" + Main.editorVersion.split("-")[0]);
+		return download.getJSONArray("changeLog-" + Main.editorVersion);
 	}
 	
 	public static String getUpdateName() {
@@ -84,8 +84,8 @@ public class AutoUpdate {
 			} catch(JSONException e) { e.printStackTrace(); return ""; }
 		}
 		
-		if(ProjectManager.editorVersion.contains("-SNAPSHOT")) return download.getString("name-" + ProjectManager.editorVersion.split("-")[0]);
-		return download.getString("name-" + ProjectManager.editorVersion);
+		if(Main.editorVersion.contains("-SNAPSHOT")) return download.getString("name-" + Main.editorVersion.split("-")[0]);
+		return download.getString("name-" + Main.editorVersion);
 	}
 	
 	public static void test() {
@@ -159,7 +159,7 @@ public class AutoUpdate {
 		h2.setFont(new Font("Serif", Font.PLAIN, 20));
 		h2.setBounds(5, 35, 280, 40);
 		
-		JLabel g = new JLabel("<html>From: "+ProjectManager.editorVersion+",<br/>To: " +download.getString("newestRelease") + "</html>", JLabel.CENTER);
+		JLabel g = new JLabel("<html>From: "+Main.editorVersion+",<br/>To: " +download.getString("newestRelease") + "</html>", JLabel.CENTER);
 		g.setFont(new Font("Serif", Font.PLAIN, 18));
 		g.setBounds(5, 55, 280, 80);
 		

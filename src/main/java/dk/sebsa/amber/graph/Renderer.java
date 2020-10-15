@@ -9,6 +9,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import dk.sebsa.amber.entity.components.SpriteRenderer;
 import dk.sebsa.amber.io.Input;
+import dk.sebsa.amber.io.Window;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Matrix4x4;
 import dk.sebsa.amber.math.Rect;
@@ -23,8 +24,9 @@ public class Renderer {
 	private static Matrix4x4 ortho;
 	private static List<Rect> areas = new ArrayList<>();
 	public static Rect area;
+	private static Window window;
 	
-	public static void init(Input input) {
+	public static void init(Input input, Window win) {
 		float[] square = new float[] {
 				0, 1, 1, 1, 1, 0,
 				1, 0, 0, 0, 0, 1
@@ -33,9 +35,11 @@ public class Renderer {
 				0, 0, 1, 0, 1, 1,
 				1, 1, 0, 1, 0, 0
 		};
+		window = win;
+		
 		guiMesh = new Mesh(square, square);
 		mainMesh = new Mesh(square, uv);
-		updateFBO(Main.window.getWidth(), Main.window.getHeight());
+		updateFBO(window.getWidth(), window.getHeight());
 		
 		GUI.init(input);
 	}
@@ -61,8 +65,8 @@ public class Renderer {
 		glClearColor(0, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
 		
-		float w = Main.window.getWidth();
-		float h = Main.window.getHeight();
+		float w = window.getWidth();
+		float h = window.getHeight();
 		float halfW = w * 0.5f;
 		float halfH = h * 0.5f;
 		
@@ -99,13 +103,13 @@ public class Renderer {
 		
 		// Render preparation
 		Main.engineShader.bind();
-		ortho = Matrix4x4.ortho(0, Main.window.getWidth(), Main.window.getHeight(), 0, -1, 1);
+		ortho = Matrix4x4.ortho(0, window.getWidth(), window.getHeight(), 0, -1, 1);
 		Main.engineShader.setUniform("projection", ortho);
 		guiMesh.bind();
 		
 		// Area
 		areas.clear();
-		areas.add(Main.window.getRect().copy());
+		areas.add(window.getRect().copy());
 		area = areas.get(areas.size()-1);
 	}
 	

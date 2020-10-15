@@ -1,4 +1,4 @@
-package dk.sebsa.amber_engine.utils;
+package dk.sebsa.amber.entity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,16 +23,16 @@ import java.util.stream.Collectors;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 
-import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.components.SpriteRenderer;
 
 public class ComponentImporter {
 	private static List<Component> importedClasses = new ArrayList<Component>();
 	private static int i;
 	
-	public static List<Component> getImportedClasses() {return importedClasses;}
+	public static List<Component> getImportedClasses() { return importedClasses; }
 	
 	public static void init() {
+		// Add all Amber components
 		importedClasses.add(new SpriteRenderer());
 	}
 	

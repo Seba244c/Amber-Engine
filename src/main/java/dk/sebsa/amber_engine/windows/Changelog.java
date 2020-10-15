@@ -12,7 +12,6 @@ import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber_engine.AutoUpdate;
 import dk.sebsa.amber_engine.Main;
-import dk.sebsa.amber_engine.ProjectManager;
 
 public class Changelog {
 	private static boolean close = false;
@@ -32,14 +31,14 @@ public class Changelog {
 	
 	public static boolean render() {
 		Renderer.prepare();
-		GUI.window(Main.window.getRect(), "Amber-Engine, update: " + ProjectManager.editorVersion + ", changelog!", Changelog::render, "Window");
+		GUI.window(Main.window.getRect(), "Amber-Engine, update: " + Main.editorVersion + ", changelog!", Changelog::render, "Window");
 		Renderer.unprepare();
 		return close;
 	}
 	
 	private static void render(Rect r) {
 		// Title
-		String s = ProjectManager.editorVersion + " - " + AutoUpdate.getUpdateName();
+		String s = Main.editorVersion + " - " + AutoUpdate.getUpdateName();
 		
 		GUI.label(s, r.width/2-title.getStringWidth(s)/2, 0, Color.white(), title);
 		close = GUI.toggle(false, r.width-16, 0, null, Sprite.getSprite("BlackGUI.XClose"));

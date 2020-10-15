@@ -1,11 +1,14 @@
 package dk.sebsa.amber_engine;
 
+
 import static org.lwjgl.glfw.GLFW.*;
 
 import java.io.IOException;
 
+import dk.sebsa.amber.AssetManager;
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
+import dk.sebsa.amber.entity.ComponentImporter;
 import dk.sebsa.amber.entity.components.SpriteRenderer;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
@@ -19,7 +22,7 @@ import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
 import dk.sebsa.amber_engine.editor.Editor;
-import dk.sebsa.amber_engine.utils.ComponentImporter;
+import dk.sebsa.amber_engine.windows.BootLoader;
 import dk.sebsa.amber_engine.windows.Changelog;
 import dk.sebsa.amber_engine.windows.Loading;
 import dk.sebsa.amber_engine.windows.EngineRenderer;
@@ -39,23 +42,17 @@ public class Main {
 	public static boolean changeLog;
 	public static boolean inPlayMode = false;
 	
+	public static final String editorVersion = Main.class.getPackage().getImplementationVersion();
+	
 	public static void main(String[] args) {
 		// auto update
-		if(!ProjectManager.editorVersion.contains("SNAPSHOT")) {
-			System.out.println("Checking for updates");
-			
-			if(AutoUpdate.needUpdate()) {
-				AutoUpdate.update();
-			} else {
-				System.out.println("Already using newest version");
-			}
-			
-		} else {
-			System.out.println("Using dev-version not checking for updates");
+		if(!editorVersion.contains("SNAPSHOT") && AutoUpdate.needUpdate()) {
+			AutoUpdate.update();
 		}
 		
 		// Project loading
-		changeLog = ProjectManager.init();
+		ProjectManager.openProject(BootLoader.init());
+		changeLog = EngineConfig.initConfig();
 		
 		// Loading screen
 		loadingScreen = new Loading();
@@ -84,7 +81,7 @@ public class Main {
 		
 		// Create Classes
 		loadingScreen.setStatus("Creating Classes", 10);
-		window = new Window("Amber Engine", 960, 800, ProjectManager.EconfigEditorVsync, false);
+		window = new Window("Amber Engine", 960, 800, EngineConfig.configEditorVsync, false);
 		input = new Input(window);
 		input.setInstance();
 		sm = new SoundManager();
@@ -106,7 +103,7 @@ public class Main {
 		} catch (Exception e1) { e1.printStackTrace(); }
 		
 		loadingScreen.setStatus("Initializing, Renderer", 85);
-		Renderer.init(input);
+		Renderer.init(input, window);
 		
 		// Set loading text
 		loadingScreen.reset("Loading Project");
@@ -179,6 +176,5 @@ public class Main {
 		
 		// Other
 		System.gc();
-		
 	}
 }

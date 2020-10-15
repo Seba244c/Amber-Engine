@@ -1,4 +1,4 @@
-package dk.sebsa.amber_engine;
+package dk.sebsa.amber;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,13 +14,15 @@ import java.util.List;
 import java.util.jar.JarFile;
 import java.util.jar.JarEntry;
 
+import dk.sebsa.amber.entity.ComponentImporter;
 import dk.sebsa.amber.graph.Material;
 import dk.sebsa.amber.graph.Shader;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.SpriteSheet;
 import dk.sebsa.amber.graph.Texture;
 import dk.sebsa.amber.sound.AudioClip;
-import dk.sebsa.amber_engine.utils.ComponentImporter;
+import dk.sebsa.amber_engine.Main;
+import dk.sebsa.amber_engine.ProjectManager;
 
 public class AssetManager {
 	private static Class<AssetManager> clazz = AssetManager.class;
