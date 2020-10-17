@@ -34,29 +34,39 @@ public class EngineRenderer {
 			
 			if(bool) currentWindow = windows.main;
 		} else if(currentWindow.equals(windows.playmode)) {
+			// Render
+			Renderer.render(new Rect(0, 30, Main.window.getWidth(), Main.window.getHeight()-30));
+			
+			// Render GUI, placed after for renderLabel() to work
 			Renderer.prepare();
 			
 			Editor.menubar.render();
 			Component.willRenderAll();
+			renderLabel();
 			
 			Renderer.unprepare();
-			
-			// Render
-			Renderer.render(new Rect(0, 30, Main.window.getWidth(), Main.window.getHeight()-30));
-			
-			
 		} else {
 			Renderer.prepare();
 			
 			Editor.render();
 			Component.willRenderAll();
 			GUI.drawPopup();
+			renderLabel();
 			
 			Renderer.unprepare();
 			
 			// Render
 			Renderer.render(new Rect(300, 30, Main.window.getWidth()-600, Main.window.getHeight()-430));
 		}
+	}
+	
+	public static void renderLabel() {
+		if(!Main.snapshot) return;
+		int tw = GUI.defaultFont.getStringWidth("Devlopment Version");
+		int x = Main.window.getWidth()-tw-6;
+		
+		GUI.box(new Rect(x, Main.window.getHeight()-26, tw+4, 24), "Box");
+		GUI.label("Devlopment Version", x+2, Main.window.getHeight()-24);
 	}
 	
 	public static void setWindow(windows window) {

@@ -32,6 +32,7 @@ public class Changelog {
 	public static boolean render() {
 		Renderer.prepare();
 		GUI.window(Main.window.getRect(), "Amber-Engine, update: " + Main.editorVersion + ", changelog!", Changelog::render, "Window");
+		EngineRenderer.renderLabel();
 		Renderer.unprepare();
 		return close;
 	}
