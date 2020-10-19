@@ -15,6 +15,7 @@ import java.util.jar.JarFile;
 import java.util.jar.JarEntry;
 
 import dk.sebsa.amber.entity.ComponentImporter;
+import dk.sebsa.amber.entity.Scene;
 import dk.sebsa.amber.graph.Material;
 import dk.sebsa.amber.graph.Shader;
 import dk.sebsa.amber.graph.Sprite;
@@ -22,7 +23,6 @@ import dk.sebsa.amber.graph.SpriteSheet;
 import dk.sebsa.amber.graph.Texture;
 import dk.sebsa.amber.sound.AudioClip;
 import dk.sebsa.amber_engine.Main;
-import dk.sebsa.amber_engine.ProjectManager;
 
 public class AssetManager {
 	private static Class<AssetManager> clazz = AssetManager.class;
@@ -35,6 +35,7 @@ public class AssetManager {
 	private static List<String> sounds = new ArrayList<String>();
 	private static List<String> spiteSheets = new ArrayList<String>();
 	private static List<String> scripts = new ArrayList<String>();
+	private static List<String> scenes = new ArrayList<String>();
 	private static int i = 0;
 	
 	public enum Asset {
@@ -42,7 +43,7 @@ public class AssetManager {
 		Shader,
 		Texture,
 		Material,
-		//Scene,
+		Scene,
 		Sound,
 		SpriteSheet,
 		Script
@@ -55,13 +56,14 @@ public class AssetManager {
 		else if(type.equals(Asset.Material)) return Material.getMaterials();
 		else if(type.equals(Asset.Sound)) return AudioClip.getClips();
 		else if(type.equals(Asset.Script)) return ComponentImporter.getImportedClasses();
+		else if(type.equals(Asset.Scene)) return Scene.scenes;
 		//else if(type.equals(Asset.SpriteSheet)) return SpriteSheet.
 		return null;
 	}
 	
-	public static void loadAllResources() throws IOException {
+	public static void loadAllResources(String externalDir) throws IOException {
 		int i = 0;
-		initResourcePaths();
+		initResourcePaths(externalDir);
 		
 		// Textures
 		Main.loadingScreen.setStatus("Loading textures", 10);
@@ -80,27 +82,30 @@ public class AssetManager {
 		if(!sprites.isEmpty()) for(i = 0; i < sprites.size(); i++) new Sprite(sprites.get(i));
 		if(!spiteSheets.isEmpty()) for(i = 0; i < spiteSheets.size(); i++) new SpriteSheet(spiteSheets.get(i));
 		
-		// Sounds
+		// Components
 		Main.loadingScreen.setStatus("Loading components", 60);
 		if(!scripts.isEmpty()) for(i = 0; i < scripts.size(); i++) ComponentImporter.importClass(scripts.get(i));
 		
 		// Sounds
 		Main.loadingScreen.setStatus("Loading sounds", 80);
 		if(!sounds.isEmpty()) for(i = 0; i < sounds.size(); i++) new AudioClip(sounds.get(i), Main.sm);
+		
+		// Scenes
+		if(!scenes.isEmpty()) for(i = 0; i < scenes.size(); i++) new Scene(scenes.get(i));
 	}
 	
-	private static void initResourcePaths() {
+	private static void initResourcePaths(String externalDir) {
 		URL dirUrl = cl.getResource("dk/sebsa/amber_engine");
 		String protocol = dirUrl.getProtocol();
 		
 		try {
-			if(dirUrl != null && protocol.equals("file")) importFromDir();
-			else importFromJar();
+			if(dirUrl != null && protocol.equals("file")) importFromDir(externalDir);
+			else importFromJar(externalDir);
 		} catch (IOException e) { System.out.println("Error loading assets:"); e.printStackTrace(); }
 		
 	}
 	
-	private static void importFromJar() throws UnsupportedEncodingException, IOException {
+	private static void importFromJar(String externalDir) throws UnsupportedEncodingException, IOException {
 		// Loads the engine resources from a jar
 		Main.loadingScreen.setStatus("Loading internal assets", 0);
 		String me = clazz.getName().replace(".", "/") + ".class";
@@ -122,21 +127,23 @@ public class AssetManager {
 				else if(name.startsWith("sprites")) { sprites.add("/" +name.split("/")[1].split("\\.")[0]); }
 				else if(name.startsWith("sounds")) { sounds.add("/" +name.split("/")[1].split("\\.")[0]); }
 				else if(name.startsWith("sheets")) { spiteSheets.add("/" +name.split("/")[1].split("\\.")[0]); }
+				else if(name.startsWith("scenes")) { spiteSheets.add("/" +name.split("/")[1].split("\\.")[0]); }
 			}
 			jar.close();
 		}
 
 		Main.loadingScreen.setStatus("Loading external assets", 10);
-		textures.addAll(importFromExternalDir("textures", 1));
-		scripts.addAll(importFromExternalDir("scripts", 1));
-		shaders.addAll(importFromExternalDir("shaders", 0));
-		materials.addAll(importFromExternalDir("materials", 0));
-		sprites.addAll(importFromExternalDir("sprites", 0));
-		sounds.addAll(importFromExternalDir("sounds", 1));
-		spiteSheets.addAll(importFromExternalDir("sheets", 0));
+		textures.addAll(importFromExternalDir("textures", 1, externalDir));
+		scripts.addAll(importFromExternalDir("scripts", 1, externalDir));
+		shaders.addAll(importFromExternalDir("shaders", 0, externalDir));
+		materials.addAll(importFromExternalDir("materials", 0, externalDir));
+		sprites.addAll(importFromExternalDir("sprites", 0, externalDir));
+		sounds.addAll(importFromExternalDir("sounds", 1, externalDir));
+		spiteSheets.addAll(importFromExternalDir("sheets", 0, externalDir));
+		scenes.addAll(importFromExternalDir("scenes", 0, externalDir));
 	}
 
-	private static void importFromDir() throws IOException {
+	private static void importFromDir(String externalDir) throws IOException {
 		// Loads engine resources from folders
 		Main.loadingScreen.setStatus("Loading internal assets", 0);
 		textures = importFromLocalDir("textures", 1);
@@ -146,16 +153,18 @@ public class AssetManager {
 		sprites = importFromLocalDir("sprites", 0);
 		sounds = importFromLocalDir("sounds", 1);
 		spiteSheets = (importFromLocalDir("sheets", 0));
+		scenes = (importFromLocalDir("scenes", 0));
 		
 		// Load other assets from external folders
 		Main.loadingScreen.setStatus("Loading external assets", 10);
-		textures.addAll(importFromExternalDir("textures", 1));
-		scripts.addAll(importFromExternalDir("scripts", 1));
-		shaders.addAll(importFromExternalDir("shaders", 0));
-		materials.addAll(importFromExternalDir("materials", 0));
-		sprites.addAll(importFromExternalDir("sprites", 0));
-		sounds.addAll(importFromExternalDir("sounds", 1));
-		spiteSheets.addAll(importFromExternalDir("sheets", 0));
+		textures.addAll(importFromExternalDir("textures", 1, externalDir));
+		scripts.addAll(importFromExternalDir("scripts", 1, externalDir));
+		shaders.addAll(importFromExternalDir("shaders", 0, externalDir));
+		materials.addAll(importFromExternalDir("materials", 0, externalDir));
+		sprites.addAll(importFromExternalDir("sprites", 0, externalDir));
+		sounds.addAll(importFromExternalDir("sounds", 1, externalDir));
+		spiteSheets.addAll(importFromExternalDir("sheets", 0, externalDir));
+		scenes.addAll(importFromExternalDir("scenes", 0, externalDir));
 	}
 
 	private static List<String> importFromLocalDir(String path, int useExt) throws IOException {
@@ -176,9 +185,9 @@ public class AssetManager {
 		return paths;
 	}
 	
-	private static List<String> importFromExternalDir(String path, int useExt) {
+	private static List<String> importFromExternalDir(String path, int useExt, String externalDir) {
 		List<String> paths = new ArrayList<String>();
-		File dir = new File(ProjectManager.getProjectDir() + path);
+		File dir = new File(externalDir + path);
 		File[] files = dir.listFiles();
 		for(i = 0; i < files.length; i ++) {
 			String aPath = files[i].getAbsolutePath();

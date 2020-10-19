@@ -47,11 +47,19 @@ public class Entity {
 		instances.add(this);
 		parent(master);
 	}
+	
+	public void setId(String newId) {
+		id = newId;
+	}
 
 	public static void clear() {
 		instances.clear();
 		master.children.clear();
 		Component.clear();
+	}
+	
+	public static List<Entity> getInstances() {
+		return instances;
 	}
 	
 	public boolean isExpanded() {
@@ -161,6 +169,8 @@ public class Entity {
 		return dirty == 1;
 	}
 	
+	public void resetDirty() {dirty = 0;}
+	
 	public void updateMatrix() {
 		matrix.setTransform(position, rotation);
 	}
@@ -171,5 +181,12 @@ public class Entity {
 
 	public static Entity master() {
 		return master;
+	}
+	
+	public static Entity getEntity(String entityId) {
+		for(Entity entity : instances) {
+			if(entity.id == entityId) return entity;
+		}
+		return null;
 	}
 }

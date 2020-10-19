@@ -110,7 +110,7 @@ public class Main {
 		loadingScreen.reset("Loading Project");
 		
 		// Load all assets
-		AssetManager.loadAllResources();
+		AssetManager.loadAllResources(ProjectManager.getProjectDir());
 		ComponentImporter.init();
 		
 		Editor.init();
