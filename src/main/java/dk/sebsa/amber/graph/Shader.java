@@ -89,8 +89,10 @@ public class Shader extends Asset {
 			if(fileName.startsWith("/")) {
 				bufferedReader = new BufferedReader(new InputStreamReader(Shader.class.getResourceAsStream("/shaders" + fileName + ".glsl")));
 				name = fileName.replaceFirst("/", "");
+				internal = true;
 			} else {
-				bufferedReader = new BufferedReader(new FileReader(new File(fileName + ".glsl")));
+				file = new File(fileName + ".glsl");
+				bufferedReader = new BufferedReader(new FileReader(file));
 				String[] split = fileName.replaceAll(Pattern.quote("\\"), "\\\\").split("\\\\");
 				name = split[split.length - 1];
 			}

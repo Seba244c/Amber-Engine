@@ -12,6 +12,7 @@ import org.lwjgl.BufferUtils;
 import dk.sebsa.amber.Asset;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -40,6 +41,7 @@ public class Texture extends Asset {
 		ByteBuffer data;
 		if(filename.startsWith("/")) {
 			name = filename.replaceFirst("/", "");
+			internal = true;
 			
 			InputStream is = Texture.class.getResourceAsStream("/textures/" + name);
 			byte[] bytes = new byte[8000];
@@ -59,6 +61,7 @@ public class Texture extends Asset {
 		} else {
 			String[] split = filename.replaceAll(Pattern.quote("\\"), "\\\\").split("\\\\");
 			name = split[split.length -1];
+			file = new File(filename);
 			data = stbi_load(filename, widthBuffer, heightBuffer, channelsBuffer, 4);
 		}
 		id = glGenTextures();

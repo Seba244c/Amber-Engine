@@ -35,9 +35,10 @@ public class Material extends Asset {
 				InputStreamReader isr =  new InputStreamReader(Material.class.getResourceAsStream("/materials" + name + ".mat"));
 				br = new BufferedReader(isr);
 				this.name = name.replaceFirst("/", "");
+				internal = true;
 			} else {
-				File f = new File(name+".mat");
-				br = new BufferedReader(new FileReader(f));
+				file = new File(name+".mat");
+				br = new BufferedReader(new FileReader(file));
 				String[] split = name.replaceAll(Pattern.quote("\\"), "\\\\").split("\\\\");
 				this.name = split[split.length - 1];
 			}

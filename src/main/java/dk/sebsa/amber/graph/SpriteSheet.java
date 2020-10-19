@@ -21,10 +21,11 @@ public class SpriteSheet extends Asset {
 				InputStreamReader isr =  new InputStreamReader(Sprite.class.getResourceAsStream("/sheets" + name + ".sht"));
 				br = new BufferedReader(isr);
 				this.name = name.replaceFirst("/", "");
+				internal = true;
 			} else {
-				File f = new File(name + ".sht");
+				file = new File(name + ".sht");
 				
-				br = new BufferedReader(new FileReader(f));
+				br = new BufferedReader(new FileReader(file));
 				String[] split = name.replaceAll(Pattern.quote("\\"), "\\\\").split("\\\\");
 				this.name = split[split.length - 1];
 			}

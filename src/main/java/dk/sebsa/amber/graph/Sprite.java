@@ -55,10 +55,11 @@ public class Sprite extends Asset {
 				InputStreamReader isr =  new InputStreamReader(Sprite.class.getResourceAsStream("/sprites" + name + ".spr"));
 				br = new BufferedReader(isr);
 				this.name = name.replaceFirst("/", "");
+				internal = true;
 			} else {
-				File f = new File(name + ".spr");
+				file = new File(name + ".spr");
 				
-				br = new BufferedReader(new FileReader(f));
+				br = new BufferedReader(new FileReader(file));
 				String[] split = name.replaceAll(Pattern.quote("\\"), "\\\\").split("\\\\");
 				this.name = split[split.length - 1];
 			}

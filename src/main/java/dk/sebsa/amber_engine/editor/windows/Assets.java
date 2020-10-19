@@ -1,13 +1,20 @@
 package dk.sebsa.amber_engine.editor.windows;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.AssetManager;
 import dk.sebsa.amber.graph.GUI;
+import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
+import dk.sebsa.amber.util.Logger;
+import dk.sebsa.amber_engine.Main;
+import dk.sebsa.amber_engine.ProjectManager;
 import dk.sebsa.amber_engine.editor.Editor;
 
 public class Assets {
@@ -16,10 +23,12 @@ public class Assets {
 	
 	private Sprite button;
 	private Sprite buttonHover;
+	private Sprite internalAsset;
 	
 	public Assets() {
 		button = Sprite.getSprite(GUI.sheet +".Button");
 		buttonHover = Sprite.getSprite(GUI.sheet +".ButtonHover");
+		internalAsset = Sprite.getSprite(GUI.sheet+".InternalAsset");
 	}
 	
 	public void render(Rect r) {
@@ -30,10 +39,33 @@ public class Assets {
 			boolean bool = false;
 			dk.sebsa.amber.Asset a = (Asset) asset;
 			
-			if(Editor.getInspected()==null) bool = GUI.button(a.name, new Rect(0, offsetY, r.width, 28), null, button, Press.realesed, false);
+			Rect buttonRect;
+			if(a.internal) {
+				buttonRect = new Rect(0, offsetY, r.width-28, 28);
+				GUI.button("", new Rect(r.width-28, offsetY, 28, 28), internalAsset, internalAsset, Press.pressed, false);
+			} else {
+				buttonRect = new Rect(0, offsetY, r.width, 28);
+			}
+			
+			if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, button, Press.realesed, false);
 			else {
-				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, new Rect(0, offsetY, r.width, 28), button, buttonHover, Press.realesed, false);
-				else bool = GUI.button(a.name, new Rect(0, offsetY, r.width, 28), null, button, Press.realesed, false);
+				// Check if pressed
+				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, button, buttonHover, Press.realesed, false);
+				else bool = GUI.button(a.name, buttonRect, null, button, Press.realesed, false);
+				
+				// Check double click
+				Rect clickRect = buttonRect.add(Renderer.area);
+				if(Main.input.mouseMultiClicked() && clickRect.inRect(Main.input.getMousePosition())) {
+					if(a.getClass().getSimpleName().contains("Scene"))
+					{
+						//SceneManager.LoadScene(asset.name());
+					} else {
+						if(a.file != null) {
+							try {Desktop.getDesktop().open(a.file);}
+							catch (IOException e) {e.printStackTrace();}
+						}
+					}
+				}
 			}
 			offsetY+=28;
 			
