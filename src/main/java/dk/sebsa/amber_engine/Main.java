@@ -41,6 +41,7 @@ public class Main {
 	
 	public static boolean changeLog;
 	public static boolean inPlayMode = false;
+	public static boolean snapshot = false;
 	
 	public static final String editorVersion = Main.class.getPackage().getImplementationVersion();
 	
@@ -48,7 +49,7 @@ public class Main {
 		// auto update
 		if(!editorVersion.contains("SNAPSHOT") && AutoUpdate.needUpdate()) {
 			AutoUpdate.update();
-		}
+		} else snapshot = true;
 		
 		// Project loading
 		ProjectManager.openProject(BootLoader.init());
