@@ -22,6 +22,7 @@ import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
 import dk.sebsa.amber_engine.editor.Editor;
+import dk.sebsa.amber_engine.editor.Menubar;
 import dk.sebsa.amber_engine.windows.BootLoader;
 import dk.sebsa.amber_engine.windows.Changelog;
 import dk.sebsa.amber_engine.windows.Loading;
@@ -138,6 +139,9 @@ public class Main {
 			window.update();
 			input.update();
 			
+			// Engine input handler
+			InputHandler.update();
+			
 			// Logic
 			if(inPlayMode) {
 				Component.updateAll();
@@ -157,6 +161,10 @@ public class Main {
 	public static void togglePlaymode() {
 		inPlayMode = !inPlayMode;
 		sm.stopAll();
+
+		if(Editor.menubar.playMode==Editor.menubar.playButton) Editor.menubar.playMode = Editor.menubar.stopButton;
+		else Editor.menubar.playMode = Editor.menubar.playButton;
+		
 		if(!inPlayMode) EngineRenderer.setWindow(windows.main);
 		else 			EngineRenderer.setWindow(windows.playmode);
 	}

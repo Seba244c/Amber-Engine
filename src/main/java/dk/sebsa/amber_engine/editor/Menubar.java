@@ -26,8 +26,8 @@ public class Menubar {
 	private String selected;
 	private Color prevColor;
 	
-	private Sprite playMode;
-	private Sprite stopButton, playButton;
+	public Sprite playMode;
+	public Sprite stopButton, playButton;
 	
 	public Menubar() {
 		box = Sprite.getSprite(GUI.sheet+".Box");
@@ -90,8 +90,6 @@ public class Menubar {
 		
 		if(GUI.button("", new Rect(Main.window.getWidth()/2-16, 6, 18, 18), playMode, playMode, Press.pressed, false)) {
 			Main.togglePlaymode();
-			if(playMode==playButton) playMode = stopButton;
-			else playMode = playButton;
 		}
 	}
 	

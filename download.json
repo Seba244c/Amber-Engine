@@ -3,6 +3,11 @@
   "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.0.6.jar",
   "updater": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/updater/updater-2.jar",
   
+  "name-0.0.7": "None",
+  "changeLog-0.0.7": [
+    "Added ESC button functionality"
+   ],
+  
   "name-0.0.6": "The ECS update",
   "changeLog-0.0.6": [
     "Fixed Changelog, instantly closing",

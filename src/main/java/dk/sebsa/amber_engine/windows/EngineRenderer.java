@@ -1,5 +1,7 @@
 package dk.sebsa.amber_engine.windows;
 
+import org.apache.http.impl.cookie.BasicSecureHandler;
+
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
@@ -71,5 +73,19 @@ public class EngineRenderer {
 	
 	public static void setWindow(windows window) {
 		currentWindow = window;
+	}
+	
+	public static void escape() {
+		if(currentWindow.equals(windows.main)) return;
+		
+		if(currentWindow.equals(windows.playmode)) {
+			Main.togglePlaymode();
+		} else if(currentWindow.equals(windows.changelog)) {
+			currentWindow = windows.main;
+		} else if(currentWindow.equals(windows.engineSettings)) {
+			currentWindow = windows.main;
+		} else if(currentWindow.equals(windows.projectSettings)) {
+			currentWindow = windows.main;
+		}
 	}
 }
