@@ -10,7 +10,7 @@ import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.util.Logger;
 
 public class Entity {
-	public boolean enabled = true;
+	private boolean enabled = true;
 	private int i;
 	
 	public String tag = "Untagged";
@@ -46,6 +46,28 @@ public class Entity {
 		
 		instances.add(this);
 		parent(master);
+	}
+	
+	public void setEnabled(boolean e) {
+		setEnabled(e, true);
+	}
+	
+	private void setEnabled(boolean e, boolean childs) {
+		if(this.enabled == e) return;
+		
+		this.enabled = e;
+		
+		if(childs) {
+			for(Entity child : children) {
+				child.setEnabled(e);
+			}
+		}
+		
+		if(!parent.equals(master) && parent.isEnabled() == false && e == true) { parent.setEnabled(e, false); }
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
 	}
 	
 	public void setId(String newId) {
@@ -235,7 +257,7 @@ public class Entity {
 		
 		// Other values
 		e.tag = tag;
-		e.enabled = enabled;
+		e.setEnabled(enabled);
 		
 		// Children
 		for(Entity child : children) {

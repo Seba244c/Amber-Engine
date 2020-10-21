@@ -10,10 +10,11 @@
     "Added component importing",
     "Added components to Asset Browser",
     "Added component disabling/enabling to inspector",
-    "Added Devloopment version, label to snapshot engine",
+    "Added devlopment version, label to snapshot engine",
     "You can now double click on assets to open it with default editor",
     "Added icon to engine assets",
-    ""
+    "Added right click functionality for world view",
+    "You can now enable/disable entities"
    ],
   
   "name-0.0.5": "UI v.1.0",

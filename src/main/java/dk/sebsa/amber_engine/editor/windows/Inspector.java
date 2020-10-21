@@ -40,20 +40,25 @@ public class Inspector {
 			// Get Selected
 			Entity selected = (Entity) inspected;
 
-			// Render transform info and name
-			selected.name = GUI.textField(new Rect(0, 0, r.width, 22), "Entity", selected.name, 100);
+			// Render transform info, entity enabled and name
+			selected.name = GUI.textField(new Rect(0, 0, r.width-20, 22), "Entity", selected.name, 100);
 			selected.setPosition(GUI.vectorField(new Rect(0, 24, r.width, 22), "Position", selected.getPosition(), 100));
 			selected.setScale(GUI.vectorField(new Rect(0, 48, r.width, 22), "Scale", selected.getScale(), 100));
 			selected.setRotation(GUI.floatField(new Rect(0, 72, r.width, 22), "Rotation", selected.getRotation(), 100));
+			selected.setEnabled(GUI.toggle(selected.isEnabled(), r.width-16, offsetY+3f, on, off));
 			offsetY = 96;
 			
 			// Render components
 			for(i = 0; i < ca.size(); i++) {
+				// Variables
 				ComponentAttributes att = ca.get(i);				
 				Component c = (Component) att.component;
 				float h = att.height + (windowStyle.padding.y + windowStyle.padding.height);
 				GUI.window(new Rect(0, offsetY, r.width, h), ((Component) att.component).getName(), this::drawVariables, windowStyle);
+				
+				// Component Enabled
 				c.setEnabled(GUI.toggle(c.isEnabled(), r.width-18, offsetY+7f, on, off));
+				
 				offsetY += h + 2;
 			}
 			

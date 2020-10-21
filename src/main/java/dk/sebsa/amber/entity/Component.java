@@ -51,7 +51,7 @@ public abstract class Component extends Asset {
 		Component c;
 		for(i = 0; i < instances.size(); i++) {
 			c = instances.get(i);
-			if(c.isEnabled()) c.update();
+			if(c.isEnabled() && c.entity.isEnabled()) c.update();
 		}
 	}
 	
@@ -59,7 +59,7 @@ public abstract class Component extends Asset {
 		Component c;
 		for(i = 0; i < instances.size(); i++) {
 			c = instances.get(i);
-			if(c.isEnabled()) c.onWillRender();
+			if(c.isEnabled() && c.entity.isEnabled()) c.onWillRender();
 		}
 	}
 

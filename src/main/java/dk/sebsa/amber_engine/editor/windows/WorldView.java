@@ -5,6 +5,7 @@ import java.util.List;
 
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.graph.GUI;
+import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber_engine.Main;
 import dk.sebsa.amber_engine.editor.Editor;
@@ -40,6 +41,12 @@ public class WorldView {
 				GUI.box(clickRect, "Box");
 			}
 			
+			Color prevColor = null;
+			if(!entity.isEnabled()) { 
+				prevColor = GUI.textColor;
+				GUI.textColor = Color.grey();
+			}
+			
 			if(children.size() > 0) {
 				entity.setExpanded(GUI.toggle(entity.isExpanded(), inline-15, offsetY+2, Editor.arrowDown, Editor.arrowRight));
 				GUI.label(entity.name, inline + 0, offsetY);
@@ -47,6 +54,7 @@ public class WorldView {
 			else {
 				GUI.label(entity.name, inline, offsetY);
 			}
+			if(!entity.isEnabled()) GUI.textColor = prevColor;
 			
 			clickRect.set(0, (r.y+offsetY), r.width, 20);
 			
