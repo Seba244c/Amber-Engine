@@ -38,6 +38,12 @@ public class Popup {
 		this.input = input;
 	}
 	
+	public Popup moveToMouse(Input input) {
+		listArea.x = (float) input.getMouseX();
+		listArea.y = (float) input.getMouseY();
+		return this;
+	}
+	
 	public final Rect getListArea() { return listArea; }
 	
 	public Popup draw() {

@@ -189,4 +189,57 @@ public class Entity {
 		}
 		return null;
 	}
+	
+	public void delete() {
+		this.delete((byte) 1);
+	}
+	
+	private void delete(byte first) {
+		// Delete component
+		for(Component c : components) {
+			c.delete();
+		}
+		this.enabled = false;
+		instances.remove(this);
+		
+		// Delete children
+		for(Entity e : children) {
+			parent.children.remove(this);
+			e.delete((byte) 0);
+		}
+		
+		// Remove from parent
+		if(first == 1) parent.children.remove(this);
+	}
+	
+	public void duplicate() {
+		duplicate(parent, (byte) 1);
+	}
+	
+	private void duplicate(Entity p, byte not) {
+		Entity e;
+		if(not == 1) e = new Entity(this.name + " Clone");
+		else e = new Entity(this.name);
+		e.parent(p);
+		
+		// Transform
+		e.position = position;
+		e.scale = scale;
+		e.rotation = rotation;
+		
+		// Components
+		for(Component c : components) {
+			Component cc = c.clone(e);
+			if(cc!= null) e.addComponent(cc);
+		}
+		
+		// Other values
+		e.tag = tag;
+		e.enabled = enabled;
+		
+		// Children
+		for(Entity child : children) {
+			child.duplicate(e, (byte) 0);
+		}
+	}
 }

@@ -50,12 +50,25 @@ public class WorldView {
 			
 			clickRect.set(0, (r.y+offsetY), r.width, 20);
 			
-			if(clickRect.inRect(Main.input.getMousePosition()) && Main.input.isButtonPressed(0)) {
-				Editor.setSelected(entity);
+			if(clickRect.inRect(Main.input.getMousePosition()) && !GUI.hasPopup()) {
+				if(Main.input.isButtonPressed(0)) Editor.setSelected(entity);
+				else if(Main.input.isButtonPressed(1)) {
+					List<String> v = new ArrayList<String>();
+					v.add("Duplicate");
+					v.add("Delete");
+					GUI.setPopup(clickRect, v, this::clicked);
+					GUI.getPopup().moveToMouse(Main.input);
+				}
 			}
 			
 			offsetY += 20;
 			updateList.remove(entity);
 		}
+	}
+	
+	public void clicked(String click) {
+		if(!(Editor.getSelected() instanceof Entity)) return;
+		if(click.equals("Delete")) ((Entity) Editor.getSelected()).delete();
+		else if(click.equals("Duplicate")) ((Entity) Editor.getSelected()).duplicate();
 	}
 }

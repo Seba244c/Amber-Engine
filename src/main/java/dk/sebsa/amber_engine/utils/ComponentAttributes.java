@@ -15,7 +15,7 @@ public class ComponentAttributes {
 		c = o.getClass();
 		
 		Field[] f = c.getFields();
-		if(o instanceof Component) fields = new String[f.length - 1];
+		if(o instanceof Component) fields = new String[f.length - 3];
 		else fields = new String[f.length];
 		
 		for(int i = 0; i < fields.length; i++) {

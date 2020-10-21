@@ -5,6 +5,7 @@ import java.util.List;
 
 import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.Entity;
+import dk.sebsa.amber.util.Logger;
 
 public abstract class Component extends Asset {
 	private boolean enabled = true;
@@ -68,6 +69,16 @@ public abstract class Component extends Asset {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public void delete() {
+		this.enabled = false;
+		instances.remove(this);
+	}
+	
+	public Component clone(Entity entity) {
+		Logger.debugLog("Component",  "clone", "This has not been implemented yet");
+		return null;
 	}
 }
 

@@ -1,7 +1,6 @@
 package dk.sebsa.amber_engine.editor.windows;
 
 import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -12,9 +11,7 @@ import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
-import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.Main;
-import dk.sebsa.amber_engine.ProjectManager;
 import dk.sebsa.amber_engine.editor.Editor;
 
 public class Assets {
@@ -53,16 +50,24 @@ public class Assets {
 				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, button, buttonHover, Press.realesed, false);
 				else bool = GUI.button(a.name, buttonRect, null, button, Press.realesed, false);
 				
-				// Check double click
+				// Clicks
 				Rect clickRect = buttonRect.add(Renderer.area);
-				if(Main.input.mouseMultiClicked() && clickRect.inRect(Main.input.getMousePosition())) {
-					if(a.getClass().getSimpleName().contains("Scene"))
-					{
-						//SceneManager.LoadScene(asset.name());
-					} else {
-						if(a.file != null) {
-							try {Desktop.getDesktop().open(a.file);}
-							catch (IOException e) {e.printStackTrace();}
+				if(clickRect.inRect(Main.input.getMousePosition())) {
+					// Right click
+					/*if(Main.input.isButtonPressed(GLFW.GLFW_MOUSE_BUTTON_RIGHT) && !GUI.hasPopup()) {
+						
+					}*/
+					
+					// Check double click
+					if(Main.input.mouseMultiClicked()) {
+						if(a.getClass().getSimpleName().contains("Scene"))
+						{
+							//SceneManager.LoadScene(asset.name());
+						} else {
+							if(a.file != null) {
+								try {Desktop.getDesktop().open(a.file);}
+								catch (IOException e) {e.printStackTrace();}
+							}
 						}
 					}
 				}

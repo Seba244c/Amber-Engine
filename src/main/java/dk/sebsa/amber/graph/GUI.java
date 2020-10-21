@@ -249,4 +249,8 @@ public class GUI {
 		float y = floatField(new Rect(r.x + padding + half, r.y, half, r.height), "y", v.y, 10);
 		return new Vector2f(x, y);
 	}
+
+	public static Popup getPopup() {
+		return popup;
+	}
 }

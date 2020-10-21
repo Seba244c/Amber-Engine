@@ -9,7 +9,11 @@
     "Added playmode functionality",
     "Added component importing",
     "Added components to Asset Browser",
-    "Added component disabling/enabling to inspector"
+    "Added component disabling/enabling to inspector",
+    "Added Devloopment version, label to snapshot engine",
+    "You can now double click on assets to open it with default editor",
+    "Added icon to engine assets",
+    ""
    ],
   
   "name-0.0.5": "UI v.1.0",
