@@ -46,6 +46,10 @@ public class EngineRenderer {
 			
 			Renderer.unprepare();
 		} else {
+			// Render
+			Renderer.render(new Rect(300, 30, Main.window.getWidth()-600, Main.window.getHeight()-430));
+			
+			// Render editor
 			Renderer.prepare();
 			
 			Editor.render();
@@ -54,9 +58,6 @@ public class EngineRenderer {
 			renderLabel();
 			
 			Renderer.unprepare();
-			
-			// Render
-			Renderer.render(new Rect(300, 30, Main.window.getWidth()-600, Main.window.getHeight()-430));
 		}
 	}
 	

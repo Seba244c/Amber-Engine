@@ -1,6 +1,7 @@
 package dk.sebsa.amber_engine;
 
 import java.io.File;
+import java.io.IOException;
 
 public class ProjectManager {
 	public static final String workspaceDir = System.getProperty("user.dir") + "/Amber-Workspace/";
@@ -25,6 +26,9 @@ public class ProjectManager {
 		new File(projectDir + "sounds/").mkdir();
 		new File(projectDir + "sheets/").mkdir();
 		new File(projectDir + "scripts/").mkdir();
+		try {
+			new File(projectDir + "tags.txt").createNewFile();
+		} catch (IOException e) { e.printStackTrace(); }
 		
 		if(newPro) {
 			// Creative projectconfig

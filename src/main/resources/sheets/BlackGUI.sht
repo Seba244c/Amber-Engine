@@ -26,6 +26,9 @@ Padding: 0,0,0,0
 Name: InternalAsset
 Offset: 0,80,16,16
 Padding: 0,0,0,0
+Name: AddCircle
+Offset: 16,80,16,16
+Padding: 0,0,0,0
 Name: ToggleOff
 Offset: 0,32,16,16
 Padding: 0,0,0,0

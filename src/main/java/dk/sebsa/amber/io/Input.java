@@ -107,6 +107,10 @@ public class Input {
 		};
 	}
 	
+	public void cancelClick(int button) {
+		buttonsPressed[button] = 0;
+	}
+	
 	public void setInstance() {
 		instance = this;
 	}

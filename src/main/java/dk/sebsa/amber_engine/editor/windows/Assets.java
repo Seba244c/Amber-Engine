@@ -21,16 +21,12 @@ public class Assets {
 	private int offsetY = 0;
 	public List<Asset> selectedAssets;
 	
-	private Sprite button;
-	private Sprite buttonHover;
 	private Sprite internalAsset;
 
 	private List<String> poupStrings = new ArrayList<>();
 	private Popup ourPopup;
 	
 	public Assets() {
-		button = Sprite.getSprite(GUI.sheet +".Button");
-		buttonHover = Sprite.getSprite(GUI.sheet +".ButtonHover");
 		internalAsset = Sprite.getSprite(GUI.sheet+".InternalAsset");
 		poupStrings.add("Asset used by the engine");
 	}
@@ -67,11 +63,11 @@ public class Assets {
 			}
 			
 			// Render assets
-			if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, button, Press.realesed, false);
+			if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
 			else {
 				// Check if pressed
-				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, button, buttonHover, Press.realesed, false);
-				else bool = GUI.button(a.name, buttonRect, null, button, Press.realesed, false);
+				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
+				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
 				
 				// Clicks
 				Rect clickRect = buttonRect.add(Renderer.area);

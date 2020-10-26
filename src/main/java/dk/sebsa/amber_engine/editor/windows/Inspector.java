@@ -42,11 +42,18 @@ public class Inspector {
 
 			// Render transform info, entity enabled and name
 			selected.name = GUI.textField(new Rect(0, 0, r.width-20, 22), "Entity", selected.name, 100);
-			selected.setPosition(GUI.vectorField(new Rect(0, 24, r.width, 22), "Position", selected.getPosition(), 100));
-			selected.setScale(GUI.vectorField(new Rect(0, 48, r.width, 22), "Scale", selected.getScale(), 100));
-			selected.setRotation(GUI.floatField(new Rect(0, 72, r.width, 22), "Rotation", selected.getRotation(), 100));
+			
+			GUI.label("Tag", 0, 24);
+			if(GUI.button(selected.tag, new Rect(100, 24, r.width-100, 22), Editor.button, Editor.buttonHover, Press.realesed, false)) {
+				Editor.popupTag = !Editor.popupTag;
+			}
+			
+			selected.setPosition(GUI.vectorField(new Rect(0, 48, r.width, 22), "Position", selected.getPosition(), 100));
+			selected.setScale(GUI.vectorField(new Rect(0, 72, r.width, 22), "Scale", selected.getScale(), 100));
+			selected.setRotation(GUI.floatField(new Rect(0, 96, r.width, 22), "Rotation", selected.getRotation(), 100));
+			
 			selected.setEnabled(GUI.toggle(selected.isEnabled(), r.width-16, offsetY+3f, on, off));
-			offsetY = 96;
+			offsetY = 120;
 			
 			// Render components
 			for(i = 0; i < ca.size(); i++) {

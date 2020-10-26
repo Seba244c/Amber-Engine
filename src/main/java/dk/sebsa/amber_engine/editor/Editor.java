@@ -1,6 +1,7 @@
 package dk.sebsa.amber_engine.editor;
 
 import dk.sebsa.amber.Entity;
+import dk.sebsa.amber.entity.TagManager;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.math.Rect;
@@ -9,8 +10,11 @@ import dk.sebsa.amber_engine.editor.windows.Assets;
 import dk.sebsa.amber_engine.editor.windows.Inspector;
 import dk.sebsa.amber_engine.editor.windows.Types;
 import dk.sebsa.amber_engine.editor.windows.WorldView;
+import dk.sebsa.amber_engine.windows.popups.Tags;
 
 public class Editor {
+	public static boolean popupTag = false;
+	
 	public static Menubar menubar;
 	
 	public static WorldView worldView;
@@ -24,6 +28,9 @@ public class Editor {
 	public static Sprite arrowDown;
 	public static Sprite arrowRight;
 	public static Sprite window;
+	public static Sprite button;
+	public static Sprite buttonHover;
+	public static Sprite x;
 	
 	public static void init() {
 		menubar = new Menubar();
@@ -31,6 +38,9 @@ public class Editor {
 		arrowDown = Sprite.getSprite(GUI.sheet+".ArrowDown");
 		arrowRight = Sprite.getSprite(GUI.sheet+".ArrowRight");
 		window = Sprite.getSprite(GUI.sheet+".Window");
+		button = Sprite.getSprite(GUI.sheet +".Button");
+		buttonHover = Sprite.getSprite(GUI.sheet +".ButtonHover");
+		x = Sprite.getSprite(GUI.sheet +".XClose");
 		
 		worldView = new WorldView();
 		inspector = new Inspector();
@@ -44,6 +54,15 @@ public class Editor {
 		GUI.window(new Rect(Main.window.getWidth()-300, 30, 300, Main.window.getHeight()-30), "Inspector", inspector::render, window);
 		GUI.window(new Rect(0, Main.window.getHeight()-400, 300, 400), "Asset Types", types::render, window);
 		GUI.window(new Rect(300, Main.window.getHeight()-400, Main.window.getWidth()-600, 400), "Assets", assets::render, window);
+		
+		if(popupTag) {
+			GUI.window(new Rect(Main.window.getWidth()/2-300, Main.window.getHeight()/2-200, 600, 400), "Tag Manager", Tags::render, window);
+			// CLose
+			if(GUI.toggle(false, Main.window.getWidth()/2+282, Main.window.getHeight()/2-200+window.padding.height, null, Editor.x)) {
+				popupTag = false;
+				TagManager.save(TagManager.path);
+			}
+		}
 	}
 	
 	public static Object getSelected() {

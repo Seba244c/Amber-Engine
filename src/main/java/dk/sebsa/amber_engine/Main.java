@@ -9,6 +9,7 @@ import dk.sebsa.amber.AssetManager;
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.ComponentImporter;
+import dk.sebsa.amber.entity.TagManager;
 import dk.sebsa.amber.entity.components.SpriteRenderer;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
@@ -110,6 +111,7 @@ public class Main {
 		loadingScreen.reset("Loading Project");
 		
 		// Load all assets
+		TagManager.loadTags(ProjectManager.getProjectDir()+"tags.txt");
 		AssetManager.loadAllResources(ProjectManager.getProjectDir());
 		ComponentImporter.init();
 		
@@ -131,6 +133,7 @@ public class Main {
 		ying.addComponent(ComponentImporter.getComponent("SpriteRenderer"));
 		ying.addComponent(ComponentImporter.getComponent("Foo"));
 		((SpriteRenderer) ying.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("player.idle");
+		
 		while(!window.shouldClose()) {
 			glfwPollEvents();
 			
