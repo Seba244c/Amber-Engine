@@ -197,8 +197,9 @@ public class GUI {
 		return Press.not;
 	}
 	
-	public static void setPopup(Rect nameRect, List<String> list, Consumer<String> func) {
+	public static Popup setPopup(Rect nameRect, List<String> list, Consumer<String> func) {
 		popup = new Popup(nameRect, list, func, input);
+		return popup;
 	}
 	
 	public static void drawPopup() {

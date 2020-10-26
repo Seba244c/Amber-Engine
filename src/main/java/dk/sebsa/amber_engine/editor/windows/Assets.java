@@ -2,15 +2,18 @@ package dk.sebsa.amber_engine.editor.windows;
 
 import java.awt.Desktop;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.AssetManager;
 import dk.sebsa.amber.graph.GUI;
+import dk.sebsa.amber.graph.Popup;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
+import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber_engine.Main;
 import dk.sebsa.amber_engine.editor.Editor;
 
@@ -21,11 +24,15 @@ public class Assets {
 	private Sprite button;
 	private Sprite buttonHover;
 	private Sprite internalAsset;
+
+	private List<String> poupStrings = new ArrayList<>();
+	private Popup ourPopup;
 	
 	public Assets() {
 		button = Sprite.getSprite(GUI.sheet +".Button");
 		buttonHover = Sprite.getSprite(GUI.sheet +".ButtonHover");
 		internalAsset = Sprite.getSprite(GUI.sheet+".InternalAsset");
+		poupStrings.add("Asset used by the engine");
 	}
 	
 	public void render(Rect r) {
@@ -36,14 +43,30 @@ public class Assets {
 			boolean bool = false;
 			dk.sebsa.amber.Asset a = (Asset) asset;
 			
-			Rect buttonRect;
+			// Internal asset thing
+			Rect buttonRect = new Rect(0, offsetY, r.width, 28);
 			if(a.internal) {
+				// Make asset rect smaller
 				buttonRect = new Rect(0, offsetY, r.width-28, 28);
-				GUI.button("", new Rect(r.width-28, offsetY, 28, 28), internalAsset, internalAsset, Press.pressed, false);
-			} else {
-				buttonRect = new Rect(0, offsetY, r.width, 28);
+				
+				// Render i icon
+				Rect iRect = new Rect(r.width-28, offsetY, 28, 28);
+				GUI.button("", iRect, internalAsset, internalAsset, Press.pressed, false);
+				
+				// Hover
+				Rect iHoverRect = iRect.add(r);
+				if(iHoverRect.inRect(new Vector2f((float) Main.input.getMouseX(), (float) Main.input.getMouseY()))) {
+					if(!GUI.hasPopup()) {
+						GUI.setPopup(iHoverRect, poupStrings, null);
+						GUI.getPopup().moveToMouse(Main.input);
+						
+					} else if(GUI.hasPopup() && GUI.getPopup().equals(ourPopup)) {
+						GUI.getPopup().moveToMouse(Main.input);
+					}
+				}
 			}
 			
+			// Render assets
 			if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, button, Press.realesed, false);
 			else {
 				// Check if pressed

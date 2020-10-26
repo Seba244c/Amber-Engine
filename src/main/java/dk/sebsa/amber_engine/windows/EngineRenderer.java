@@ -1,7 +1,5 @@
 package dk.sebsa.amber_engine.windows;
 
-import org.apache.http.impl.cookie.BasicSecureHandler;
-
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;

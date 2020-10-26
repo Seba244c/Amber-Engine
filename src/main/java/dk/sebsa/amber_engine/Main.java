@@ -22,7 +22,6 @@ import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
 import dk.sebsa.amber_engine.editor.Editor;
-import dk.sebsa.amber_engine.editor.Menubar;
 import dk.sebsa.amber_engine.windows.BootLoader;
 import dk.sebsa.amber_engine.windows.Changelog;
 import dk.sebsa.amber_engine.windows.Loading;
