@@ -234,15 +234,21 @@ public class Entity {
 		if(first == 1) parent.children.remove(this);
 	}
 	
-	public void duplicate() {
-		duplicate(parent, (byte) 1);
+	public Entity duplicate() {
+		return duplicate(parent, (byte) 1);
 	}
 	
-	private void duplicate(Entity p, byte not) {
+	private Entity duplicate(Entity p, byte not) {
+		Entity e = copy(not);
+
+		e.parent(p);
+		return e;
+	}
+	
+	public Entity copy(byte not) {
 		Entity e;
 		if(not == 1) e = new Entity(this.name + " Clone");
 		else e = new Entity(this.name);
-		e.parent(p);
 		
 		// Transform
 		e.position = position;
@@ -263,5 +269,6 @@ public class Entity {
 		for(Entity child : children) {
 			child.duplicate(e, (byte) 0);
 		}
+		return e;
 	}
 }

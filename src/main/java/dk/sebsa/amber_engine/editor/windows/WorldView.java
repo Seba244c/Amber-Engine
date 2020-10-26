@@ -12,6 +12,15 @@ import dk.sebsa.amber_engine.editor.Editor;
 
 public class WorldView {
 	private int i;
+	private List<String> poupStrings = new ArrayList<>();
+	private Entity copiedEntity;
+	
+	public WorldView() {
+		poupStrings.add("Duplicate");
+		poupStrings.add("Delete");
+		poupStrings.add("Copy");
+		poupStrings.add("Paste");
+	}
 	
 	public void render(Rect r) {
 		// Render
@@ -61,10 +70,8 @@ public class WorldView {
 			if(clickRect.inRect(Main.input.getMousePosition()) && !GUI.hasPopup()) {
 				if(Main.input.isButtonPressed(0)) Editor.setSelected(entity);
 				else if(Main.input.isButtonPressed(1)) {
-					List<String> v = new ArrayList<String>();
-					v.add("Duplicate");
-					v.add("Delete");
-					GUI.setPopup(clickRect, v, this::clicked);
+					Editor.setSelected(entity);
+					GUI.setPopup(clickRect, poupStrings, this::clicked);
 					GUI.getPopup().moveToMouse(Main.input);
 				}
 			}
@@ -76,7 +83,12 @@ public class WorldView {
 	
 	public void clicked(String click) {
 		if(!(Editor.getSelected() instanceof Entity)) return;
-		if(click.equals("Delete")) ((Entity) Editor.getSelected()).delete();
+		if(click.equals("Delete")) {
+			((Entity) Editor.getSelected()).delete();
+			Editor.setSelected(null);
+		}
 		else if(click.equals("Duplicate")) ((Entity) Editor.getSelected()).duplicate();
+		else if(click.equals("Copy")) copiedEntity = ((Entity) Editor.getSelected());
+		else if(click.equals("Paste")) if(copiedEntity!= null) copiedEntity.copy((byte) 1).parent(((Entity) Editor.getSelected())); copiedEntity.setExpanded(true);
 	}
 }
