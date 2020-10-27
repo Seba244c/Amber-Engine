@@ -25,6 +25,7 @@ public class Assets {
 
 	private List<String> poupStrings = new ArrayList<>();
 	private Popup ourPopup;
+	public Object copied;
 	
 	public Assets() {
 		internalAsset = Sprite.getSprite(GUI.sheet+".InternalAsset");

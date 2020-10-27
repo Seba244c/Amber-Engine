@@ -13,7 +13,7 @@ import dk.sebsa.amber_engine.editor.Editor;
 public class WorldView {
 	private int i;
 	private List<String> poupStrings = new ArrayList<>();
-	private Entity copiedEntity;
+	public Entity copiedEntity;
 	
 	public WorldView() {
 		poupStrings.add("Duplicate");
@@ -89,6 +89,13 @@ public class WorldView {
 		}
 		else if(click.equals("Duplicate")) ((Entity) Editor.getSelected()).duplicate();
 		else if(click.equals("Copy")) copiedEntity = ((Entity) Editor.getSelected());
-		else if(click.equals("Paste")) if(copiedEntity!= null) copiedEntity.copy((byte) 1).parent(((Entity) Editor.getSelected())); copiedEntity.setExpanded(true);
+		else if(click.equals("Paste")) paste();
+	}
+	
+	public void paste() {
+		if(copiedEntity!= null) {
+			copiedEntity.copy((byte) 1).parent(((Entity) Editor.getSelected()));
+			((Entity) Editor.getSelected()).setExpanded(true);
+		}
 	}
 }
