@@ -1,19 +1,25 @@
 package dk.sebsa.amber_engine.editor;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.util.tinyfd.TinyFileDialogs;
 
 import dk.sebsa.amber.Entity;
+import dk.sebsa.amber.entity.SceneManager;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
+import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.Main;
+import dk.sebsa.amber_engine.ProjectManager;
 import dk.sebsa.amber_engine.windows.EngineRenderer;
 import dk.sebsa.amber_engine.windows.EngineRenderer.windows;
 
@@ -35,8 +41,8 @@ public class Menubar {
 		stopButton = Sprite.getSprite(GUI.sheet+".StopButton");
 		playMode = playButton;
 		
-		//add("File", new MenuItem("New Scene", this::file));
-		//add("File", new MenuItem("Open Scene", this::file));
+		add("File", new MenuItem("New Scene", this::file));
+		add("File", new MenuItem("Save Scene", this::file));
 		//add("File", new MenuItem("Export", this::file));
 		add("File", new MenuItem("Quit", this::file));
 		
@@ -113,6 +119,27 @@ public class Menubar {
 	
 	public void file(MenuItem m) {
 		if(m.name.equals("Quit")) GLFW.glfwSetWindowShouldClose(Main.window.windowId, true);
+		else if(m.name.equals("New Scene")) {
+			String name = TinyFileDialogs.tinyfd_inputBox("Creating new scene!", "What should the scene be named?", "");
+			
+			// Handle string
+			if(name==null) return;
+			name = name.replaceAll("\\n", "").replaceAll("\\r", "").replaceAll("\\t", "");
+			if(name==null) return;
+			if(name.equals("") || name.startsWith(" ")) return;
+			
+			// New scene
+			String path = ProjectManager.getProjectDir() + "scenes/" + name + ".amw";
+			File f = new File(path);
+			try { f.createNewFile(); } catch (IOException e) { e.printStackTrace(); }
+			SceneManager.loadScene(path);
+		} else if(m.name.equals("Save Scene")) {
+			try {
+				SceneManager.saveScene(SceneManager.getCurrentScene());
+			} catch (IOException e) {
+				Logger.errorLog("Menubar", "file", "Could not save scene: " + SceneManager.getCurrentScene());
+			}
+		}
 	}
 	
 	public void asset(MenuItem m) {

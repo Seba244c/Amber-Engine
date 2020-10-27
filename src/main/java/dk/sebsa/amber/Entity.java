@@ -48,6 +48,13 @@ public class Entity {
 		parent(master);
 	}
 	
+	public static Entity find(String id) {
+		for(Entity e : instances) {
+			if(e.getId().equals(id)) return e;
+		}
+		return null;
+	}
+	
 	public void setEnabled(boolean e) {
 		setEnabled(e, true);
 	}
@@ -75,9 +82,11 @@ public class Entity {
 	}
 
 	public static void clear() {
-		instances.clear();
+		for(Entity e : master.children)
+		{
+			e.delete((byte) 0);
+		}
 		master.children.clear();
-		Component.clear();
 	}
 	
 	public static List<Entity> getInstances() {
@@ -226,7 +235,6 @@ public class Entity {
 		
 		// Delete children
 		for(Entity e : children) {
-			parent.children.remove(this);
 			e.delete((byte) 0);
 		}
 		

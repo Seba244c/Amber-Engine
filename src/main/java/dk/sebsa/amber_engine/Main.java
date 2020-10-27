@@ -6,14 +6,12 @@ import static org.lwjgl.glfw.GLFW.*;
 import java.io.IOException;
 
 import dk.sebsa.amber.AssetManager;
-import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.ComponentImporter;
+import dk.sebsa.amber.entity.SceneManager;
 import dk.sebsa.amber.entity.TagManager;
-import dk.sebsa.amber.entity.components.SpriteRenderer;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
-import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.text.Font;
 import dk.sebsa.amber.io.DevWindow;
 import dk.sebsa.amber.io.Input;
@@ -53,7 +51,11 @@ public class Main {
 		} else snapshot = true;
 		
 		// Project loading
-		ProjectManager.openProject(BootLoader.init());
+		try {
+			ProjectManager.openProject(BootLoader.init());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		changeLog = EngineConfig.initConfig();
 		
 		// Loading screen
@@ -120,20 +122,12 @@ public class Main {
 		engineShader = Shader.findShader("engine");
 		
 		if(changeLog) { Changelog.load(); EngineRenderer.setWindow(windows.changelog); }
+		
+		// Load scene
+		SceneManager.loadScene(ProjectManager.getProjectDir()+"scenes/" +ProjectManager.configDefaultScene + ".amw");
 	}
 	
 	public static void loop() throws IOException {
-		Entity yang = new Entity("Yang");
-		
-		Entity b = new Entity("b"); b.parent(yang);
-		Entity a = new Entity("a"); a.parent(yang);
-		Entity c = new Entity("c"); c.parent(b);
-		
-		Entity ying = new Entity("Ying");
-		ying.addComponent(ComponentImporter.getComponent("SpriteRenderer"));
-		ying.addComponent(ComponentImporter.getComponent("Foo"));
-		((SpriteRenderer) ying.getComponent("SpriteRenderer")).sprite = Sprite.getSprite("player.idle");
-		
 		while(!window.shouldClose()) {
 			glfwPollEvents();
 			

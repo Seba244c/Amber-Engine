@@ -7,6 +7,7 @@ import java.util.List;
 
 import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.AssetManager;
+import dk.sebsa.amber.entity.SceneManager;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Popup;
 import dk.sebsa.amber.graph.Renderer;
@@ -15,6 +16,7 @@ import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber_engine.Main;
+import dk.sebsa.amber_engine.ProjectManager;
 import dk.sebsa.amber_engine.editor.Editor;
 
 public class Assets {
@@ -82,7 +84,7 @@ public class Assets {
 					if(Main.input.mouseMultiClicked()) {
 						if(a.getClass().getSimpleName().contains("Scene"))
 						{
-							//SceneManager.LoadScene(asset.name());
+							SceneManager.loadScene(ProjectManager.getProjectDir() + "scenes/" + ((Asset) asset).name + ".amw");
 						} else {
 							if(a.file != null) {
 								try {Desktop.getDesktop().open(a.file);}
