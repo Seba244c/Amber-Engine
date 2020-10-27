@@ -44,7 +44,7 @@ public class InputHandler {
 				try {
 					SceneManager.saveScene(SceneManager.getCurrentScene());
 				} catch (IOException e) {
-					Logger.errorLog("Menubar", "file", "Could not save scene: " + SceneManager.getCurrentScene());
+					Logger.errorLog("InputHandler", "update", "Could not save scene: " + SceneManager.getCurrentScene());
 				}
 			}
 		}

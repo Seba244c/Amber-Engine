@@ -11,6 +11,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.util.tinyfd.TinyFileDialogs;
 
 import dk.sebsa.amber.Entity;
+import dk.sebsa.amber.entity.Scene;
 import dk.sebsa.amber.entity.SceneManager;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Sprite;
@@ -133,6 +134,7 @@ public class Menubar {
 			File f = new File(path);
 			try { f.createNewFile(); } catch (IOException e) { e.printStackTrace(); }
 			SceneManager.loadScene(path);
+			new Scene(name);
 		} else if(m.name.equals("Save Scene")) {
 			try {
 				SceneManager.saveScene(SceneManager.getCurrentScene());

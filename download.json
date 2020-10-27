@@ -3,9 +3,13 @@
   "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.0.6.jar",
   "updater": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/updater/updater-2.jar",
   
-  "name-0.0.7": "None",
+  "name-0.0.7": "The World update",
   "changeLog-0.0.7": [
-    "Added ESC button functionality"
+    "Added ESCAPE button functionality",
+    "Imrpoved internal asset icon",
+    "Added Copy/Paste functionality to World View",
+    "Added tag system",
+    "Added scenes"
    ],
   
   "name-0.0.6": "The ECS update",
@@ -37,7 +41,7 @@
 	"Added Engine Settings Window"
    ],
   
-  "name-0.0.4": "The World update",
+  "name-0.0.4": "NO NAME",
   "changeLog-0.0.4": [
     "Improved code quility",
     "Added World Viewer",
