@@ -7,7 +7,7 @@ import java.util.List;
 
 import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.AssetManager;
-import dk.sebsa.amber.entity.SceneManager;
+import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Popup;
 import dk.sebsa.amber.graph.Renderer;
@@ -82,9 +82,9 @@ public class Assets {
 					
 					// Check double click
 					if(Main.input.mouseMultiClicked()) {
-						if(a.getClass().getSimpleName().contains("Scene"))
+						if(a.getClass().getSimpleName().contains("World"))
 						{
-							SceneManager.loadScene(ProjectManager.getProjectDir() + "scenes/" + ((Asset) asset).name + ".amw");
+							WorldManager.openWorld(ProjectManager.getProjectDir() + "worlds/" + ((Asset) asset).name + ".amw");
 						} else {
 							if(a.file != null) {
 								try {Desktop.getDesktop().open(a.file);}

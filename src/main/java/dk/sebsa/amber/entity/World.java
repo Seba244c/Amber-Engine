@@ -6,12 +6,12 @@ import java.util.regex.Pattern;
 
 import dk.sebsa.amber.Asset;
 
-public class Scene extends Asset {
-	public static List<Scene> scenes = new ArrayList<>();
+public class World extends Asset {
+	public static List<World> worlds = new ArrayList<>();
 	
-	public Scene(String name) {
+	public World(String name) {
 		String[] split = name.replaceAll(Pattern.quote("\\"), "\\\\").split("\\\\");
 		this.name = split[split.length - 1];
-		scenes.add(this);
+		worlds.add(this);
 	}
 }

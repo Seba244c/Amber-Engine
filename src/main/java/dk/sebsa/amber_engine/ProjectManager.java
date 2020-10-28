@@ -14,7 +14,7 @@ public class ProjectManager {
 	public static String getProjectDir() { return projectDir; }
 	public static String getProjectName() { return projectName; }
 	
-	public static String configDefaultScene = "DefaultScene";
+	public static String configDefaultWorld = "DefaultWorld";
 	
 	public static void openProject(String name) throws IOException {
 		projectDir = workspaceDir + name + "/";
@@ -27,7 +27,7 @@ public class ProjectManager {
 		new File(projectDir + "shaders/").mkdir();
 		new File(projectDir + "sprites/").mkdir();
 		new File(projectDir + "textures/").mkdir();
-		new File(projectDir + "scenes/").mkdir();
+		new File(projectDir + "worlds/").mkdir();
 		new File(projectDir + "sounds/").mkdir();
 		new File(projectDir + "sheets/").mkdir();
 		new File(projectDir + "scripts/").mkdir();
@@ -39,8 +39,8 @@ public class ProjectManager {
 			try { configFile.createNewFile(); } catch (IOException e1) { e1.printStackTrace(); }
 			saveConfig();
 			
-			// Create new scene
-			String path = ProjectManager.getProjectDir() + "scenes/DefaultScene.amw";
+			// Create new world
+			String path = ProjectManager.getProjectDir() + "worlds/DefaultWorld.amw";
 			File f = new File(path);
 			f.createNewFile();
 		} else {
@@ -51,7 +51,7 @@ public class ProjectManager {
 			p.load(fr);
 			
 			// Configs
-			configDefaultScene = p.getProperty("default_scene");
+			configDefaultWorld = p.getProperty("default_world");
 			
 			// close
 			fr.close();
@@ -69,7 +69,7 @@ public class ProjectManager {
 	private static void saveConfig(File configFile) {
 		try {
 			Properties p = new Properties();
-			p.setProperty("default_scene", configDefaultScene);
+			p.setProperty("default_world", configDefaultWorld);
 			
 			FileWriter writer = new FileWriter(configFile);
 			p.store(writer, "Amber Project Configuration");

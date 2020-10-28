@@ -14,16 +14,16 @@ import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.math.Vector2f;
 
-public class SceneManager {
-	private static String currentScene = "";
+public class WorldManager {
+	private static String world = "";
 	
-	public static final String getCurrentScene() {
-		return currentScene;
+	public static final String getWorld() {
+		return world;
 	}
 	
 
-	public static void loadScene(String path)  {
-		currentScene = path;
+	public static void openWorld(String path)  {
+		world = path;
 		
 		FileReader fr;
 		try { fr = new FileReader(path); } catch (FileNotFoundException e) {
@@ -95,7 +95,7 @@ public class SceneManager {
 		return e;
 	}
 	
-	public static void saveScene(String path) throws IOException {
+	public static void saveWorld(String path) throws IOException {
 		File f = new File(path);
 		FileWriter fw = new FileWriter(f);
 		

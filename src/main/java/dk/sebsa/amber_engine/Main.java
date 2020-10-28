@@ -8,7 +8,7 @@ import java.io.IOException;
 import dk.sebsa.amber.AssetManager;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.ComponentImporter;
-import dk.sebsa.amber.entity.SceneManager;
+import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.entity.TagManager;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
@@ -123,8 +123,8 @@ public class Main {
 		
 		if(changeLog) { Changelog.load(); EngineRenderer.setWindow(windows.changelog); }
 		
-		// Load scene
-		SceneManager.loadScene(ProjectManager.getProjectDir()+"scenes/" +ProjectManager.configDefaultScene + ".amw");
+		// Open default world
+		WorldManager.openWorld(ProjectManager.getProjectDir()+"worlds/" +ProjectManager.configDefaultWorld + ".amw");
 	}
 	
 	public static void loop() throws IOException {

@@ -3,9 +3,9 @@
   "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.0.7.jar",
   "updater": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/updater/updater-2.jar",
   
-  "name-0.0.8": "Untilted",
+  "name-0.0.8": "Editor v.1",
   "changeLog-0.0.8": [
-    ""
+    "Renamed scenes to worlds"
    ],
   
   "name-0.0.7": "The World update",

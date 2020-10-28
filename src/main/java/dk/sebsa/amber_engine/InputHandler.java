@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.lwjgl.glfw.GLFW;
 
 import dk.sebsa.amber.Entity;
-import dk.sebsa.amber.entity.SceneManager;
+import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.windows.EngineRenderer;
@@ -42,9 +42,9 @@ public class InputHandler {
 				}
 			} else if(Main.input.isKeyPressed(GLFW.GLFW_KEY_S)) {
 				try {
-					SceneManager.saveScene(SceneManager.getCurrentScene());
+					WorldManager.saveWorld(WorldManager.getWorld());
 				} catch (IOException e) {
-					Logger.errorLog("InputHandler", "update", "Could not save scene: " + SceneManager.getCurrentScene());
+					Logger.errorLog("InputHandler", "update", "Could not save scene: " + WorldManager.getWorld());
 				}
 			}
 		}
