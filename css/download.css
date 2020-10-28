@@ -1,0 +1,33 @@
+.downloadTest {
+    background: #F6AE3D;
+    background-image: -webkit-linear-gradient(top, #F6AE3D, #F68B3D);
+    background-image: -moz-linear-gradient(top, #F6AE3D, #F68B3D);
+    background-image: -ms-linear-gradient(top, #F6AE3D, #F68B3D);
+    background-image: -o-linear-gradient(top, #F6AE3D, #F68B3D);
+    background-image: -webkit-gradient(to bottom, #F6AE3D, #F68B3D);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    color: #FFFFFF;
+    font-family: Arial;
+    font-size: 40px;
+    padding: 40px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+ }
+ 
+ .downloadTest:hover {
+    border: solid #337FED 1px;
+    background: #D79A39;
+    background-image: -webkit-linear-gradient(top, #D79A39, #D97C38);
+    background-image: -moz-linear-gradient(top, #D79A39, #D97C38);
+    background-image: -ms-linear-gradient(top, #D79A39, #D97C38);
+    background-image: -o-linear-gradient(top, #D79A39, #D97C38);
+    background-image: -webkit-gradient(to bottom, #D79A39, #D97C38);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-decoration: none;
+ }
