@@ -2,6 +2,11 @@
 # Amber-Engine
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a2842cdd9155413aa2d62e5515cc5e81)](https://app.codacy.com/gh/Seba244c/Amber-Engine?utm_source=github.com&utm_medium=referral&utm_content=Seba244c/Amber-Engine&utm_campaign=Badge_Grade)
+![Liscense](https://img.shields.io/github/license/Seba244c/Amber-Engine)
+![Repo Size](https://img.shields.io/github/repo-size/Seba244c/Amber-Engine)
+![Repo Forks](https://img.shields.io/github/forks/Seba244c/Amber-Engine?style=social)
+![Repo Stars](https://img.shields.io/github/stars/Seba244c/Amber-Engine?style=social)
+
 
 Amber-Engine is a 2d [LW**JGL**](https://www.lwjgl.org/) engine, building on its internal libary Amber, wich aims to be easy to use and light weight. The engine itself is made with the LW**JGL** libary, using OpenGL, and OpenAL.
 
