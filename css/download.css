@@ -1,33 +1,38 @@
-.downloadTest {
-    background: #F6AE3D;
-    background-image: -webkit-linear-gradient(top, #F6AE3D, #F68B3D);
-    background-image: -moz-linear-gradient(top, #F6AE3D, #F68B3D);
-    background-image: -ms-linear-gradient(top, #F6AE3D, #F68B3D);
-    background-image: -o-linear-gradient(top, #F6AE3D, #F68B3D);
-    background-image: -webkit-gradient(to bottom, #F6AE3D, #F68B3D);
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
-    color: #FFFFFF;
-    font-family: Arial;
-    font-size: 40px;
-    padding: 40px;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
+#downloads {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.downloadElement {
+    margin-top: 18px;
+    background-color: crimson;
+}
+
+.downloadA {
+    font-weight: bold;
+    color: white;
+    padding: 15px 32px;
     text-align: center;
- }
- 
- .downloadTest:hover {
-    border: solid #337FED 1px;
-    background: #D79A39;
-    background-image: -webkit-linear-gradient(top, #D79A39, #D97C38);
-    background-image: -moz-linear-gradient(top, #D79A39, #D97C38);
-    background-image: -ms-linear-gradient(top, #D79A39, #D97C38);
-    background-image: -o-linear-gradient(top, #D79A39, #D97C38);
-    background-image: -webkit-gradient(to bottom, #D79A39, #D97C38);
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
     text-decoration: none;
- }
+    font-size: 16px;
+    float: left;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    background-color: crimson; 
+    border: 2px solid rgb(235, 11, 55);
+}
+
+.downloadA:hover {
+    background-color: rgb(235, 11, 55);
+}
+
+.downloadP {
+    color: white;
+    font-size: 14px;
+    float: left;
+    padding-left: 5px;
+    padding-right: 8px;
+    font-weight: bold;
+}
