@@ -10,6 +10,7 @@ import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.ComponentImporter;
 import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.entity.TagManager;
+import dk.sebsa.amber.entity.World;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
 import dk.sebsa.amber.graph.text.Font;
@@ -124,7 +125,7 @@ public class Main {
 		if(changeLog) { Changelog.load(); EngineRenderer.setWindow(windows.changelog); }
 		
 		// Open default world
-		WorldManager.openWorld(ProjectManager.getProjectDir()+"worlds/" +ProjectManager.configDefaultWorld + ".amw");
+		WorldManager.openWorld(World.getWorld(ProjectManager.configDefaultWorld));
 	}
 	
 	public static void loop() throws IOException {

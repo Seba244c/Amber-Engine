@@ -132,12 +132,13 @@ public class Menubar {
 			// New world
 			String path = ProjectManager.getProjectDir() + "worlds/" + name + ".amw";
 			File f = new File(path);
+			World newWorld = new World(path);
+			
 			try { f.createNewFile(); } catch (IOException e) { e.printStackTrace(); }
-			WorldManager.openWorld(path);
-			new World(name);
+			WorldManager.openWorld(newWorld);
 		} else if(m.name.equals("Save World")) {
 			try {
-				WorldManager.saveWorld(WorldManager.getWorld());
+				WorldManager.saveWorld();
 			} catch (IOException e) {
 				Logger.errorLog("Menubar", "file", "Could not save world: " + WorldManager.getWorld());
 			}

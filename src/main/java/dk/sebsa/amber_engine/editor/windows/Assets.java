@@ -7,6 +7,7 @@ import java.util.List;
 
 import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.AssetManager;
+import dk.sebsa.amber.entity.World;
 import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Popup;
@@ -16,7 +17,6 @@ import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber_engine.Main;
-import dk.sebsa.amber_engine.ProjectManager;
 import dk.sebsa.amber_engine.editor.Editor;
 
 public class Assets {
@@ -65,6 +65,23 @@ public class Assets {
 				}
 			}
 			
+			offsetY+=28;
+			
+			// Render worlds
+			if(a.getClass().getSimpleName().equals("World")) {
+				// Check if pressed
+				if(WorldManager.getWorld().equals(a)) GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
+				else GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
+				
+				// Open world
+				Rect clickRect = buttonRect.add(Renderer.area);
+				if(Main.input.mouseMultiClicked() && clickRect.inRect(Main.input.getMousePosition())) {
+					WorldManager.openWorld((World) a);
+				}
+				
+				continue;
+			}
+			
 			// Render assets
 			if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
 			else {
@@ -82,19 +99,13 @@ public class Assets {
 					
 					// Check double click
 					if(Main.input.mouseMultiClicked()) {
-						if(a.getClass().getSimpleName().contains("World"))
-						{
-							WorldManager.openWorld(ProjectManager.getProjectDir() + "worlds/" + ((Asset) asset).name + ".amw");
-						} else {
-							if(a.file != null) {
-								try {Desktop.getDesktop().open(a.file);}
-								catch (IOException e) {e.printStackTrace();}
-							}
+						if(a.file != null) {
+							try {Desktop.getDesktop().open(a.file);}
+							catch (IOException e) {e.printStackTrace();}
 						}
 					}
 				}
 			}
-			offsetY+=28;
 			
 			if(bool) {
 				Editor.setInspected(asset);

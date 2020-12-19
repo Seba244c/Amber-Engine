@@ -15,18 +15,18 @@ import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.math.Vector2f;
 
 public class WorldManager {
-	private static String world = "";
+	private static World currentWorld;
 	
-	public static final String getWorld() {
-		return world;
+	public static final World getWorld() {
+		return currentWorld;
 	}
 	
 
-	public static void openWorld(String path)  {
-		world = path;
+	public static void openWorld(World world)  {
+		currentWorld = world;
 		
 		FileReader fr;
-		try { fr = new FileReader(path); } catch (FileNotFoundException e) {
+		try { fr = new FileReader(world.path); } catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return;
 		}
@@ -95,8 +95,8 @@ public class WorldManager {
 		return e;
 	}
 	
-	public static void saveWorld(String path) throws IOException {
-		File f = new File(path);
+	public static void saveWorld() throws IOException {
+		File f = new File(currentWorld.path);
 		FileWriter fw = new FileWriter(f);
 		
 		// Get entities

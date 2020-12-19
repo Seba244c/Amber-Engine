@@ -42,7 +42,7 @@ public class InputHandler {
 				}
 			} else if(Main.input.isKeyPressed(GLFW.GLFW_KEY_S)) {
 				try {
-					WorldManager.saveWorld(WorldManager.getWorld());
+					WorldManager.saveWorld();
 				} catch (IOException e) {
 					Logger.errorLog("InputHandler", "update", "Could not save scene: " + WorldManager.getWorld());
 				}

@@ -127,7 +127,7 @@ public class AssetManager {
 				else if(name.startsWith("sprites")) { sprites.add("/" +name.split("/")[1].split("\\.")[0]); }
 				else if(name.startsWith("sounds")) { sounds.add("/" +name.split("/")[1].split("\\.")[0]); }
 				else if(name.startsWith("sheets")) { spiteSheets.add("/" +name.split("/")[1].split("\\.")[0]); }
-				else if(name.startsWith("scenes")) { spiteSheets.add("/" +name.split("/")[1].split("\\.")[0]); }
+				else if(name.startsWith("worlds")) { spiteSheets.add("/" +name.split("/")[1]); }
 			}
 			jar.close();
 		}
@@ -140,7 +140,7 @@ public class AssetManager {
 		sprites.addAll(importFromExternalDir("sprites", 0, externalDir));
 		sounds.addAll(importFromExternalDir("sounds", 1, externalDir));
 		spiteSheets.addAll(importFromExternalDir("sheets", 0, externalDir));
-		worlds.addAll(importFromExternalDir("worlds", 0, externalDir));
+		worlds.addAll(importFromExternalDir("worlds", 1, externalDir));
 	}
 
 	private static void importFromDir(String externalDir) throws IOException {
@@ -153,7 +153,7 @@ public class AssetManager {
 		sprites = importFromLocalDir("sprites", 0);
 		sounds = importFromLocalDir("sounds", 1);
 		spiteSheets = (importFromLocalDir("sheets", 0));
-		worlds = (importFromLocalDir("worlds", 0));
+		worlds = (importFromLocalDir("worlds", 1));
 		
 		// Load other assets from external folders
 		Main.loadingScreen.setStatus("Loading external assets", 10);
@@ -164,7 +164,7 @@ public class AssetManager {
 		sprites.addAll(importFromExternalDir("sprites", 0, externalDir));
 		sounds.addAll(importFromExternalDir("sounds", 1, externalDir));
 		spiteSheets.addAll(importFromExternalDir("sheets", 0, externalDir));
-		worlds.addAll(importFromExternalDir("worlds", 0, externalDir));
+		worlds.addAll(importFromExternalDir("worlds", 1, externalDir));
 	}
 
 	private static List<String> importFromLocalDir(String path, int useExt) throws IOException {
