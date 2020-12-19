@@ -7,13 +7,15 @@
   "changeLog-0.0.8": [
     "Renamed scenes to worlds",
     "World backend refactoring",
-    "Fixed bugs related to Time not being processed"
+    "Fixed bugs related to Time not being processed",
+    "Fixed internal asset icon hovering bug",
+    "Fixed centered buttons"
    ],
   
   "name-0.0.7": "The World update",
   "changeLog-0.0.7": [
     "Added ESCAPE button functionality",
-    "Imrpoved internal asset icon",
+    "Improved internal asset icon",
     "Added Copy/Paste functionality to World View",
     "Added tag system",
     "Added scenes"

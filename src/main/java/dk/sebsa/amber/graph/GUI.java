@@ -166,6 +166,8 @@ public class GUI {
 		if(center) {
 			x = rf.x + ((rf.width / 2f) - ((float) defaultFont.getStringWidth(text) / 2f));
 			y = rf.y + ((rf.height / 2f) - (defaultFont.getFontHeight() / 2f));
+			if(y % 1 != 0) y += 0.5f;
+			if(x % 1 != 0) x += 0.5f;
 		}
 		
 		if(rf.inRect(input.getMousePosition())) {

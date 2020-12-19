@@ -53,7 +53,7 @@ public class Assets {
 				GUI.button("", iRect, internalAsset, internalAsset, Press.pressed, false);
 				
 				// Hover
-				Rect iHoverRect = iRect.add(r);
+				Rect iHoverRect = iRect.add(r.x, r.y, 0, 0);
 				if(iHoverRect.inRect(new Vector2f((float) Main.input.getMouseX(), (float) Main.input.getMouseY()))) {
 					if(!GUI.hasPopup()) {
 						GUI.setPopup(iHoverRect, poupStrings, null);
