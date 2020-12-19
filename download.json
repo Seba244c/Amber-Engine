@@ -5,7 +5,9 @@
   
   "name-0.0.8": "Editor v.1",
   "changeLog-0.0.8": [
-    "Renamed scenes to worlds"
+    "Renamed scenes to worlds",
+    "World backend refactoring",
+    "Fixed bugs related to Time not being processed"
    ],
   
   "name-0.0.7": "The World update",

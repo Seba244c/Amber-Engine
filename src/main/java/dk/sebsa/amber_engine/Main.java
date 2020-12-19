@@ -18,6 +18,7 @@ import dk.sebsa.amber.io.DevWindow;
 import dk.sebsa.amber.io.Input;
 import dk.sebsa.amber.io.Window;
 import dk.sebsa.amber.math.Color;
+import dk.sebsa.amber.math.Time;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
@@ -133,6 +134,7 @@ public class Main {
 			glfwPollEvents();
 			
 			// Updates
+			Time.process();
 			window.update();
 			input.update();
 			
