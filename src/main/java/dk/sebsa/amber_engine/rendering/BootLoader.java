@@ -1,4 +1,4 @@
-package dk.sebsa.amber_engine.windows;
+package dk.sebsa.amber_engine.rendering;
 
 import java.awt.Color;
 import java.awt.Container;

@@ -1,4 +1,4 @@
-package dk.sebsa.amber_engine.windows;
+package dk.sebsa.amber_engine.rendering.windows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,9 @@ import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber_engine.AutoUpdate;
 import dk.sebsa.amber_engine.Main;
+import dk.sebsa.amber_engine.rendering.Window;
 
-public class Changelog {
+public class Changelog extends Window {
 	private static boolean close = false;
 	private static List<String> changeLog;
 	private static Font title;
@@ -29,15 +30,14 @@ public class Changelog {
 		}
 	}
 	
-	public static boolean render() {
+	@Override
+	public boolean render() {
 		Renderer.prepare();
-		GUI.window(Main.window.getRect(), "Amber-Engine, update: " + Main.editorVersion + ", changelog!", Changelog::render, "Window");
-		EngineRenderer.renderLabel();
-		Renderer.unprepare();
+		GUI.window(Main.window.getRect(), "Amber-Engine, update: " + Main.editorVersion + ", changelog!", this::render, "Window");
 		return close;
 	}
 	
-	private static void render(Rect r) {
+	private void render(Rect r) {
 		// Title
 		String s = Main.editorVersion + " - " + AutoUpdate.getUpdateName();
 		
@@ -55,4 +55,7 @@ public class Changelog {
 			i++;
 		}
 	}
+
+	@Override
+	public void close() { return; }
 }

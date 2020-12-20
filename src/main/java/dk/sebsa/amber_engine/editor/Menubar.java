@@ -21,8 +21,9 @@ import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.Main;
 import dk.sebsa.amber_engine.ProjectManager;
-import dk.sebsa.amber_engine.windows.EngineRenderer;
-import dk.sebsa.amber_engine.windows.EngineRenderer.windows;
+import dk.sebsa.amber_engine.rendering.EngineRenderer;
+import dk.sebsa.amber_engine.rendering.windows.EngineSettings;
+import dk.sebsa.amber_engine.rendering.windows.ProjectSettings;
 
 public class Menubar {
 	public Map<String, List<MenuItem>> menu = new LinkedHashMap<String, List<MenuItem>>();
@@ -165,9 +166,9 @@ public class Menubar {
 	
 	public void edit(MenuItem m) {
 		if(m.name.equals("Project Settings")) {
-			EngineRenderer.setWindow(windows.projectSettings);
+			EngineRenderer.setWindow(new ProjectSettings());
 		} else if(m.name.equals("Engine Settings")) {
-			EngineRenderer.setWindow(windows.engineSettings);
+			EngineRenderer.setWindow(new EngineSettings());
 		}
 	}
 }

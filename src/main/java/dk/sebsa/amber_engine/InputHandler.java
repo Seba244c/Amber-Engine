@@ -8,12 +8,11 @@ import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.editor.Editor;
-import dk.sebsa.amber_engine.windows.EngineRenderer;
 
 public class InputHandler {
 	public static void update() {
 		if(Main.input.isKeyPressed(GLFW.GLFW_KEY_ESCAPE)) {
-			EngineRenderer.escape();
+			//EngineRenderer.escape();
 		}
 
 		if(Main.input.isKeyDown(GLFW.GLFW_KEY_LEFT_CONTROL)) {

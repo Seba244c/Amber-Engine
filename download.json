@@ -9,7 +9,8 @@
     "World backend refactoring",
     "Fixed bugs related to Time not being processed",
     "Fixed internal asset icon hovering bug",
-    "Fixed centered buttons"
+    "Fixed centered buttons",
+    "Backend re-write the popup system"
    ],
   
   "name-0.0.7": "The World update",

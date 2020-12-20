@@ -16,8 +16,9 @@ import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.editor.Editor;
+import dk.sebsa.amber_engine.rendering.EngineRenderer;
+import dk.sebsa.amber_engine.rendering.overlays.Tags;
 import dk.sebsa.amber_engine.utils.ComponentAttributes;
-
 
 public class Inspector {
 	private int i;
@@ -45,7 +46,7 @@ public class Inspector {
 			
 			GUI.label("Tag", 0, 24);
 			if(GUI.button(selected.tag, new Rect(100, 24, r.width-100, 22), Editor.button, Editor.buttonHover, Press.realesed, false)) {
-				Editor.popupTag = !Editor.popupTag;
+				EngineRenderer.setOverlay(new Tags());
 			}
 			
 			selected.setPosition(GUI.vectorField(new Rect(0, 48, r.width, 22), "Position", selected.getPosition(), 100));

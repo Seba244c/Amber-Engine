@@ -1,6 +1,5 @@
 package dk.sebsa.amber_engine;
 
-
 import static org.lwjgl.glfw.GLFW.*;
 
 import java.io.IOException;
@@ -23,12 +22,10 @@ import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
 import dk.sebsa.amber_engine.editor.Editor;
-import dk.sebsa.amber_engine.windows.BootLoader;
-import dk.sebsa.amber_engine.windows.Changelog;
-import dk.sebsa.amber_engine.windows.Loading;
-import dk.sebsa.amber_engine.windows.EngineRenderer;
-import dk.sebsa.amber_engine.windows.EngineSettings;
-import dk.sebsa.amber_engine.windows.EngineRenderer.windows;
+import dk.sebsa.amber_engine.rendering.BootLoader;
+import dk.sebsa.amber_engine.rendering.EngineRenderer;
+import dk.sebsa.amber_engine.rendering.Loading;
+import dk.sebsa.amber_engine.rendering.windows.Changelog;
 
 public class Main {
 	public static Window window;
@@ -120,10 +117,9 @@ public class Main {
 		ComponentImporter.init();
 		
 		Editor.init();
-		EngineSettings.init();
 		engineShader = Shader.findShader("engine");
 		
-		if(changeLog) { Changelog.load(); EngineRenderer.setWindow(windows.changelog); }
+		if(changeLog) { Changelog.load(); EngineRenderer.setWindow(new Changelog()); }
 		
 		// Open default world
 		WorldManager.openWorld(World.getWorld(ProjectManager.configDefaultWorld));
@@ -163,9 +159,6 @@ public class Main {
 
 		if(Editor.menubar.playMode==Editor.menubar.playButton) Editor.menubar.playMode = Editor.menubar.stopButton;
 		else Editor.menubar.playMode = Editor.menubar.playButton;
-		
-		if(!inPlayMode) EngineRenderer.setWindow(windows.main);
-		else 			EngineRenderer.setWindow(windows.playmode);
 	}
 	
 	public static void cleanup() {
