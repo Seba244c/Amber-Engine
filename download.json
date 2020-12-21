@@ -11,7 +11,8 @@
     "Fixed internal asset icon hovering bug",
     "Fixed centered buttons",
     "Backend rewrite of the EningeRenderering system",
-    "Added scene save reminder"
+    "Added scene save reminder",
+    "Added unsaved scene label"
    ],
   
   "name-0.0.7": "The World update",

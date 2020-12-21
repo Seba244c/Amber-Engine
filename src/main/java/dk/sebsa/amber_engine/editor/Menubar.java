@@ -99,6 +99,8 @@ public class Menubar {
 		if(GUI.button("", new Rect(Main.window.getWidth()/2-16, 6, 18, 18), playMode, playMode, Press.pressed, false)) {
 			Main.togglePlaymode();
 		}
+		if(WorldManager.getWorld().saved) GUI.label("World: " + WorldManager.getWorld().name, Main.window.getWidth()/2+6, 4);
+		else GUI.label("World: " + WorldManager.getWorld().name + "*", Main.window.getWidth()/2+6, 4);
 	}
 	
 	public void clicked(String v) {
