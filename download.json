@@ -10,7 +10,8 @@
     "Fixed bugs related to Time not being processed",
     "Fixed internal asset icon hovering bug",
     "Fixed centered buttons",
-    "Backend re-write the popup system"
+    "Backend rewrite of the EningeRenderering system",
+    "Added scene save reminder"
    ],
   
   "name-0.0.7": "The World update",

@@ -16,8 +16,12 @@ import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
+import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.Main;
 import dk.sebsa.amber_engine.editor.Editor;
+import dk.sebsa.amber_engine.rendering.EngineRenderer;
+import dk.sebsa.amber_engine.rendering.Overlay.answer;
+import dk.sebsa.amber_engine.rendering.overlays.SaveWorld;
 
 public class Assets {
 	private int offsetY = 0;
@@ -28,6 +32,7 @@ public class Assets {
 	private List<String> poupStrings = new ArrayList<>();
 	private Popup ourPopup;
 	public Object copied;
+	private World newWorld;
 	
 	public Assets() {
 		internalAsset = Sprite.getSprite(GUI.sheet+".InternalAsset");
@@ -76,7 +81,9 @@ public class Assets {
 				// Open world
 				Rect clickRect = buttonRect.add(Renderer.area);
 				if(Main.input.mouseMultiClicked() && clickRect.inRect(Main.input.getMousePosition())) {
-					WorldManager.openWorld((World) a);
+					newWorld = (World) a;
+					if(!WorldManager.getWorld().saved) EngineRenderer.setOverlay(new SaveWorld(this::changeWorld));
+					else changeWorld(answer.no);
 				}
 				
 				continue;
@@ -111,6 +118,20 @@ public class Assets {
 				Editor.setInspected(asset);
 			}
 		}
+	}
+	
+	public void changeWorld(answer answerIn) {
+		if(answerIn == answer.cancel) { EngineRenderer.setOverlay(null); return; }
+		else if(answerIn == answer.yes) {
+			try {
+				WorldManager.saveWorld();
+			} catch (IOException e) {
+				Logger.errorLog("InputHandler", "update", "Could not save scene: " + WorldManager.getWorld());
+			}
+		}
+
+		WorldManager.openWorld(newWorld);
+		EngineRenderer.setOverlay(null);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -39,13 +39,16 @@ public class EngineRenderer {
 	
 	public static void escape(boolean o) {
 		if(o) {
-			overlay.close();
-			overlay = null;
+			if(overlay.close()) overlay = null;
 		} else { window.close(); window = new dk.sebsa.amber_engine.rendering.windows.Editor(); }
 	}
 	
 	public static void setOverlay(Overlay overlayIn) {
 		overlay = overlayIn;
+	}
+	
+	public static Overlay getOverlay() {
+		return overlay;
 	}
 	
 	public static void setWindow(Window windowIn) {

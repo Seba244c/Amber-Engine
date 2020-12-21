@@ -1,6 +1,7 @@
 package dk.sebsa.amber_engine.editor;
 
 import dk.sebsa.amber.Entity;
+import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.math.Rect;
@@ -68,5 +69,9 @@ public class Editor {
 	public static void setInspected(Object inspect) {
 		inspected = inspect;
 		if(inspect!=null) inspector.setAttributes(inspect);
+	}
+	
+	public static void action() {
+		WorldManager.getWorld().saved = false;
 	}
 }

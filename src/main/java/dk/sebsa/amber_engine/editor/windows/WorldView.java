@@ -86,6 +86,7 @@ public class WorldView {
 		if(click.equals("Delete")) {
 			((Entity) Editor.getSelected()).delete();
 			Editor.setSelected(null);
+			Editor.action();
 		}
 		else if(click.equals("Duplicate")) ((Entity) Editor.getSelected()).duplicate();
 		else if(click.equals("Copy")) copiedEntity = ((Entity) Editor.getSelected());
@@ -93,6 +94,7 @@ public class WorldView {
 	}
 	
 	public void paste() {
+		Editor.action();
 		if(copiedEntity!= null) {
 			copiedEntity.copy((byte) 1).parent(((Entity) Editor.getSelected()));
 			((Entity) Editor.getSelected()).setExpanded(true);

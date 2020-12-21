@@ -50,7 +50,7 @@ public class GUI {
 		for(i = 0; i < c.length; i++) {
 			Glyph glyph = chars.get(c[i]);
 			
-			Renderer.drawTextureWithTextCoords(font.getTexture(), new Rect(tempX, y, glyph.scale.x, glyph.scale.y), new Rect(glyph.position.x, glyph.position.y, glyph.size.x, glyph.size.y), color);
+			Renderer.drawTextureWithTextCoords(font.getTexture(),new Rect(tempX, y, glyph.scale.x, glyph.scale.y), new Rect(glyph.position.x, glyph.position.y, glyph.size.x, glyph.size.y), color);
 
 			tempX += glyph.scale.x;
 		}

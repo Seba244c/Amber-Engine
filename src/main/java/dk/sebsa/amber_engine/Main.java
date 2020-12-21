@@ -21,10 +21,13 @@ import dk.sebsa.amber.math.Time;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.sound.SoundListener;
 import dk.sebsa.amber.sound.SoundManager;
+import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.rendering.BootLoader;
 import dk.sebsa.amber_engine.rendering.EngineRenderer;
 import dk.sebsa.amber_engine.rendering.Loading;
+import dk.sebsa.amber_engine.rendering.Overlay.answer;
+import dk.sebsa.amber_engine.rendering.overlays.SaveWorld;
 import dk.sebsa.amber_engine.rendering.windows.Changelog;
 
 public class Main {
@@ -42,6 +45,8 @@ public class Main {
 	public static boolean snapshot = false;
 	
 	public static final String editorVersion = Main.class.getPackage().getImplementationVersion();
+	
+	private static boolean close = false;
 	
 	public static void main(String[] args) {
 		// auto update
@@ -126,7 +131,7 @@ public class Main {
 	}
 	
 	public static void loop() throws IOException {
-		while(!window.shouldClose()) {
+		while(!close) {
 			glfwPollEvents();
 			
 			// Updates
@@ -149,8 +154,29 @@ public class Main {
 			// Lates
 			input.late();
 			
+			if(window.shouldClose()) prepareForClose();
+			
 			glfwSwapBuffers(window.windowId);
 		}
+	}
+	
+	public static void prepareForClose() {
+		glfwSetWindowShouldClose(window.windowId, false);
+		if(!WorldManager.getWorld().saved) EngineRenderer.setOverlay(new SaveWorld(Main::answerClose));
+		else answerClose(answer.no);
+	}
+	
+	public static void answerClose(answer answerIn) {
+		if(answerIn == answer.cancel) { EngineRenderer.setOverlay(null); return; }
+		else if(answerIn == answer.yes) {
+			try {
+				WorldManager.saveWorld();
+			} catch (IOException e) {
+				Logger.errorLog("InputHandler", "update", "Could not save scene: " + WorldManager.getWorld());
+			}
+		}
+		
+		close = true;
 	}
 	
 	public static void togglePlaymode() {

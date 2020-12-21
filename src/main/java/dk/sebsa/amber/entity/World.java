@@ -9,6 +9,7 @@ import dk.sebsa.amber.Asset;
 public class World extends Asset {
 	public static List<World> worlds = new ArrayList<>();
 	public String path;
+	public boolean saved = true;
 	
 	public World(String name) {
 		String[] split = name.replaceAll(Pattern.quote("\\"), "\\\\").split("\\\\");

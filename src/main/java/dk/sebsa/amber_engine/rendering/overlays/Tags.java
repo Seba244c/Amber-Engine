@@ -56,5 +56,5 @@ public class Tags extends Overlay {
 	}
 
 	@Override
-	public void close() { TagManager.save(TagManager.path); }
+	public boolean close() { TagManager.save(TagManager.path); return true; }
 }

@@ -8,6 +8,7 @@ import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.math.Matrix4x4;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.util.Logger;
+import dk.sebsa.amber_engine.editor.Editor;
 
 public class Entity {
 	private boolean enabled = true;
@@ -254,6 +255,7 @@ public class Entity {
 	}
 	
 	public Entity copy(byte not) {
+		Editor.action();
 		Entity e;
 		if(not == 1) e = new Entity(this.name + " Clone");
 		else e = new Entity(this.name);

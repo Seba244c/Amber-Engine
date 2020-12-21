@@ -96,8 +96,10 @@ public class Inspector {
 					try {
 						String p = s.get(a.component).toString();
 						String v = GUI.textField(new Rect(0, f * 22 + padding, r.width, 22), split[0], p, 100);
-						if(!p.equals(v))
+						if(!p.equals(v)) {
 							s.set(a.component, v);
+							//Editor.action();
+						}
 					}
 					catch(IllegalArgumentException e) { e.printStackTrace(); }
 					catch(IllegalAccessException e) { e.printStackTrace(); }
@@ -113,8 +115,10 @@ public class Inspector {
 						
 						float fl = Float.parseFloat(p);
 						float v = GUI.floatField(new Rect(0, f * 22 + padding, r.width, 22), split[0], fl, 100);
-						if(!p.equals(String.valueOf(v)))
+						if(!p.equals(String.valueOf(v))) {
 							s.set(a.component, v);
+							//Editor.action();
+						}
 						
 					}
 					catch(IllegalArgumentException e) { e.printStackTrace(); }
@@ -130,6 +134,7 @@ public class Inspector {
 						String p = s.get(a.component).toString();
 						String v = GUI.textField(new Rect(0, f * 22 + padding, r.width, 22), split[0], p, 100);
 						if(!p.equals(v)) {
+							//Editor.action();
 							try { s.set(a.component, Integer.parseInt(v)); }
 							catch (NumberFormatException e) {
 								Logger.errorLog("Inspector", "drawVaribels", "Int field input is inviliad!");
@@ -149,6 +154,7 @@ public class Inspector {
 						Vector2f p = (Vector2f) s.get(a.component);
 						Vector2f v = GUI.vectorField(new Rect(0, f * 22 + padding, r.width, 22), split[0], p, 100);
 						if(!p.equals(v)) {
+							//Editor.action();
 							s.set(a.component, v);
 						}	
 					}

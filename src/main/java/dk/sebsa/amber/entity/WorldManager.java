@@ -125,6 +125,7 @@ public class WorldManager {
 			entities.remove(e);
 		}
 		fw.close();
+		currentWorld.saved = true;
 	}
 	
 	private static void writeComponent(Component c, FileWriter fw) throws IOException {
