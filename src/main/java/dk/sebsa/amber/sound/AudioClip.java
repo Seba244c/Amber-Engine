@@ -1,5 +1,6 @@
 package dk.sebsa.amber.sound;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -23,12 +24,13 @@ public class AudioClip extends Asset {
     private static List<AudioClip> audioClips = new ArrayList<AudioClip>();
 	private static int i;
     
-	public AudioClip(String file, SoundManager sm) throws IOException {
+	public AudioClip(String fileName, SoundManager sm) throws IOException {
 		this.bufferId = alGenBuffers();
-		String[] nameSplit = file.split("\\\\");
+		file = new File(fileName);
+		String[] nameSplit = fileName.split("\\\\");
 		name = nameSplit[nameSplit.length-1];
         try (STBVorbisInfo info = STBVorbisInfo.malloc()) {
-            ShortBuffer pcm = readVorbis(file, 32 * 1024, info);
+            ShortBuffer pcm = readVorbis(fileName, 32 * 1024, info);
 
             // Copy to buffer
             alBufferData(bufferId, info.channels() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16, pcm, info.sample_rate());

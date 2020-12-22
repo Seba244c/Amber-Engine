@@ -1,5 +1,6 @@
 package dk.sebsa.amber.entity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -15,6 +16,7 @@ public class World extends Asset {
 		String[] split = name.replaceAll(Pattern.quote("\\"), "\\\\").split("\\\\");
 		this.name = split[split.length - 1].split("\\.")[0];
 		path = name;
+		file = new File(path);
 		worlds.add(this);
 	}
 	

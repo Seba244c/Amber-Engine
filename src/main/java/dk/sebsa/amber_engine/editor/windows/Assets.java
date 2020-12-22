@@ -7,6 +7,7 @@ import java.util.List;
 
 import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.AssetManager;
+import dk.sebsa.amber.entity.TagManager;
 import dk.sebsa.amber.entity.World;
 import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.graph.GUI;
@@ -72,8 +73,11 @@ public class Assets {
 			
 			offsetY+=28;
 			
+			boolean world = false;
+			if(a.getClass().getSimpleName().equals("World")) world = true;
+			
 			// Render worlds
-			if(a.getClass().getSimpleName().equals("World")) {
+			if(world) {
 				// Check if pressed
 				if(WorldManager.getWorld().equals(a)) GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
 				else GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
@@ -85,13 +89,11 @@ public class Assets {
 					if(!WorldManager.getWorld().saved) EngineRenderer.setOverlay(new SaveWorld(this::changeWorld));
 					else changeWorld(answer.no);
 				}
-				
-				continue;
 			}
 			
 			// Render assets
-			if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
-			else {
+			if(!world && Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
+			else if(!world) {
 				// Check if pressed
 				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
 				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
@@ -99,11 +101,6 @@ public class Assets {
 				// Clicks
 				Rect clickRect = buttonRect.add(Renderer.area);
 				if(clickRect.inRect(Main.input.getMousePosition())) {
-					// Right click
-					/*if(Main.input.isButtonPressed(GLFW.GLFW_MOUSE_BUTTON_RIGHT) && !GUI.hasPopup()) {
-						
-					}*/
-					
 					// Check double click
 					if(Main.input.mouseMultiClicked()) {
 						if(a.file != null) {
@@ -112,6 +109,13 @@ public class Assets {
 						}
 					}
 				}
+			}
+			
+			// Delete asset
+			if(!WorldManager.getWorld().equals(a) && !a.internal && GUI.toggle(false, r.width-18, offsetY-22, null, Editor.x)) {
+				if(a.file != null) a.file.delete();
+				AssetManager.typeToList(AssetManager.assetToE(a)).remove(a);
+				return;
 			}
 			
 			if(bool) {

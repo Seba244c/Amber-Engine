@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.jar.JarFile;
 import java.util.jar.JarEntry;
 
+import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.ComponentImporter;
 import dk.sebsa.amber.entity.World;
 import dk.sebsa.amber.graph.Material;
@@ -58,6 +59,18 @@ public class AssetManager {
 		else if(type.equals(Asset.Script)) return ComponentImporter.getImportedClasses();
 		else if(type.equals(Asset.World)) return World.worlds;
 		//else if(type.equals(Asset.SpriteSheet)) return SpriteSheet.
+		return null;
+	}
+	
+	public static Asset assetToE(dk.sebsa.amber.Asset asset) {
+		if(asset.getClass().equals(Sprite.class)) return Asset.Sprite;
+		else if(asset.getClass().equals(Shader.class)) return Asset.Shader;
+		else if(asset.getClass().equals(Texture.class)) return Asset.Texture;
+		else if(asset.getClass().equals(Material.class)) return Asset.Material;
+		else if(asset.getClass().equals(AudioClip.class)) return Asset.Sound;
+		else if(asset.getClass().equals(Component.class)) return Asset.Script;
+		else if(asset.getClass().equals(World.class)) return Asset.World;
+		else if(asset.getClass().equals(SpriteSheet.class)) return Asset.SpriteSheet;
 		return null;
 	}
 	

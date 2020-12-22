@@ -12,7 +12,9 @@
     "Fixed centered buttons",
     "Backend rewrite of the EningeRenderering system",
     "Added scene save reminder",
-    "Added unsaved scene label"
+    "Added unsaved scene label",
+    "Implemented new Asset Circle",
+    "Added delete assets"
    ],
   
   "name-0.0.7": "The World update",
