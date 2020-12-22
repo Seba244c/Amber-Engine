@@ -5,22 +5,26 @@ import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber_engine.Main;
+import dk.sebsa.amber_engine.editor.Editor;
 import dk.sebsa.amber_engine.rendering.Window;
 
-public class Editor extends Window {
+public class Play extends Window {
 	@Override
 	public boolean render() {
-		// Render Preview
-		Renderer.render(new Rect(300, 30, Main.window.getWidth()-600, Main.window.getHeight()-430));
+		// Render game
+		Renderer.render(new Rect(0, 30, Main.window.getWidth(), Main.window.getHeight()-30));
 		
-		// Render editor
+		// Render menubar, components and popups
 		Renderer.prepare();
-		if(!Main.inPlayMode) dk.sebsa.amber_engine.editor.Editor.render();
+		Editor.menubar.render();
 		Component.willRenderAll();
 		GUI.drawPopup();
 		return false;
 	}
 
 	@Override
-	public void close() {}
+	public void close() {
+		
+	}
+
 }

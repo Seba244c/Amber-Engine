@@ -28,7 +28,7 @@ public class Assets {
 	public List<Asset> selectedAssets;
 	
 	private Sprite internalAsset;
-
+	
 	private List<String> poupStrings = new ArrayList<>();
 	private Popup ourPopup;
 	public Object copied;

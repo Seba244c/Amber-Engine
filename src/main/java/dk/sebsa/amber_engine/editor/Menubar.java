@@ -53,6 +53,7 @@ public class Menubar {
 		add("Asset", new MenuItem("New SpriteSheet", this::asset));
 		add("Asset", new MenuItem("New Material", this::asset));
 		add("Asset", new MenuItem("New Shader", this::asset));
+		add("Asset", new MenuItem("New Script", this::asset));
 		add("Asset", new MenuItem("Import Sound", this::asset));
 		add("Asset", new MenuItem("Import Texture", this::asset));
 		
@@ -97,7 +98,9 @@ public class Menubar {
 		GUI.textColor = prevColor;
 		
 		if(GUI.button("", new Rect(Main.window.getWidth()/2-16, 6, 18, 18), playMode, playMode, Press.pressed, false)) {
-			Main.togglePlaymode();
+			try {
+				Main.togglePlaymode();
+			} catch (IOException e) {e.printStackTrace();}
 		}
 		if(WorldManager.getWorld().saved) GUI.label("World: " + WorldManager.getWorld().name, Main.window.getWidth()/2+6, 4);
 		else GUI.label("World: " + WorldManager.getWorld().name + "*", Main.window.getWidth()/2+6, 4);
@@ -136,6 +139,7 @@ public class Menubar {
 			String path = ProjectManager.getProjectDir() + "worlds/" + name + ".amw";
 			File f = new File(path);
 			World newWorld = new World(path);
+			newWorld.name = name;
 			
 			try { f.createNewFile(); } catch (IOException e) { e.printStackTrace(); }
 			WorldManager.openWorld(newWorld);

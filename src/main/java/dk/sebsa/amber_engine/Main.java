@@ -10,6 +10,7 @@ import dk.sebsa.amber.entity.ComponentImporter;
 import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.entity.TagManager;
 import dk.sebsa.amber.entity.World;
+import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Shader;
 import dk.sebsa.amber.graph.text.Font;
@@ -29,6 +30,7 @@ import dk.sebsa.amber_engine.rendering.Loading;
 import dk.sebsa.amber_engine.rendering.Overlay.answer;
 import dk.sebsa.amber_engine.rendering.overlays.SaveWorld;
 import dk.sebsa.amber_engine.rendering.windows.Changelog;
+import dk.sebsa.amber_engine.rendering.windows.Play;
 
 public class Main {
 	public static Window window;
@@ -179,12 +181,23 @@ public class Main {
 		close = true;
 	}
 	
-	public static void togglePlaymode() {
+	public static void togglePlaymode() throws IOException {
 		inPlayMode = !inPlayMode;
 		sm.stopAll();
 
-		if(Editor.menubar.playMode==Editor.menubar.playButton) Editor.menubar.playMode = Editor.menubar.stopButton;
-		else Editor.menubar.playMode = Editor.menubar.playButton;
+		if(inPlayMode) {
+			Editor.menubar.playMode = Editor.menubar.stopButton;
+			EngineRenderer.setWindow(new Play());
+			EngineRenderer.setOverlay(null);
+			GUI.removePopup();
+			if(!WorldManager.getWorld().saved) WorldManager.saveWorld();
+		} else {
+			Editor.menubar.playMode = Editor.menubar.playButton;
+			EngineRenderer.setWindow(new dk.sebsa.amber_engine.rendering.windows.Editor());
+			EngineRenderer.setOverlay(null);
+			GUI.removePopup();
+			WorldManager.openWorld(WorldManager.getWorld());
+		}
 	}
 	
 	public static void cleanup() {

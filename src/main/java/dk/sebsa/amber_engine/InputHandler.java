@@ -13,7 +13,11 @@ import dk.sebsa.amber_engine.rendering.EngineRenderer;
 public class InputHandler {
 	public static void update() {
 		if(Main.input.isKeyPressed(GLFW.GLFW_KEY_ESCAPE)) {
-			EngineRenderer.escape();
+			if(Main.inPlayMode)
+				try {
+					Main.togglePlaymode();
+				} catch (IOException e) { e.printStackTrace(); }
+			else EngineRenderer.escape();
 		}
 
 		if(Main.input.isKeyDown(GLFW.GLFW_KEY_LEFT_CONTROL)) {
