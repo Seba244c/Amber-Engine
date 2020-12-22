@@ -43,7 +43,8 @@ public class SpriteSheet extends Asset {
 				String[] p = br.readLine().split(" ")[1].split(",");
 				Rect padding = new Rect(Float.parseFloat(p[0]), Float.parseFloat(p[1]), Float.parseFloat(p[2]), Float.parseFloat(p[3]));
 				
-				new Sprite(this.name+"."+sprName, material, offset, padding);
+				Sprite ns = new Sprite(this.name+"."+sprName, material, offset, padding);
+				if(internal) ns.internal = true;
 				line = br.readLine();
 			}
 

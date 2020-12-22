@@ -14,7 +14,8 @@
     "Added scene save reminder",
     "Added unsaved scene label",
     "Implemented new Asset Circle",
-    "Added delete assets"
+    "Added delete assets",
+    "Added internal asset icon to sprites, from internal sprite sheets"
    ],
   
   "name-0.0.7": "The World update",
