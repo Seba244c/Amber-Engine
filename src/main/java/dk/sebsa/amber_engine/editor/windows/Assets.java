@@ -73,11 +73,7 @@ public class Assets {
 			
 			offsetY+=28;
 			
-			boolean world = false;
-			if(a.getClass().getSimpleName().equals("World")) world = true;
-			
-			// Render worlds
-			if(world) {
+			if(Editor.types.type.equals(AssetManager.Asset.World)) {
 				// Check if pressed
 				if(WorldManager.getWorld().equals(a)) GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
 				else GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
@@ -89,11 +85,25 @@ public class Assets {
 					if(!WorldManager.getWorld().saved) EngineRenderer.setOverlay(new SaveWorld(this::changeWorld));
 					else changeWorld(answer.no);
 				}
+			} else if(Editor.types.type.equals(AssetManager.Asset.SpriteSheet)) {
+				// Check if pressed
+				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
+				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
+				
+				// Clicks
+				Rect clickRect = buttonRect.add(Renderer.area);
+				if(clickRect.inRect(Main.input.getMousePosition())) {
+					// Check double click
+					if(Main.input.mouseMultiClicked()) {
+						if(a.file != null) {
+							try {Desktop.getDesktop().open(a.file);}
+							catch (IOException e) {e.printStackTrace();}
+						}
+					}
+				}
 			}
-			
-			// Render assets
-			if(!world && Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
-			else if(!world) {
+			else if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
+			else {
 				// Check if pressed
 				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
 				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);

@@ -58,7 +58,7 @@ public class AssetManager {
 		else if(type.equals(Asset.Sound)) return AudioClip.getClips();
 		else if(type.equals(Asset.Script)) return ComponentImporter.getImportedClasses();
 		else if(type.equals(Asset.World)) return World.worlds;
-		//else if(type.equals(Asset.SpriteSheet)) return SpriteSheet.
+		else if(type.equals(Asset.SpriteSheet)) return Sprite.getSheets();
 		return null;
 	}
 	

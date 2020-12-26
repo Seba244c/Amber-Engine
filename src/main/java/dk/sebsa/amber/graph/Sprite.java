@@ -17,18 +17,21 @@ public class Sprite extends Asset {
 	public Material material;
 	public Rect offset;
 	public Rect padding;
+	public SpriteSheet sheet = null;
 	
 	private static List<Sprite> sprites = new ArrayList<Sprite>();
+	private static List<SpriteSheet> sheets = new ArrayList<SpriteSheet>();
 	private static int i;
 	
-	public Sprite(String n, Material m, Rect offset, Rect padding) {
+	public Sprite(String n, Material m, Rect offset, Rect padding, SpriteSheet sheet) {
 		name = n;
 		material = m;
 		this.offset = offset;
 		this.padding = padding;
 		
 		// Add to list
-		sprites.add(this);
+		if(sheet == null) sprites.add(this);
+		else this.sheet = sheet;
 	}
 	
 	public Rect getUV() {
@@ -85,6 +88,18 @@ public class Sprite extends Asset {
 	}
 	
 	public static Sprite getSprite(String name) {
+		if(name.contains(".")) {
+			String[] split = name.split("\\.");
+			for(i = 0; i < sheets.size(); i++) {
+				SpriteSheet sheet = sheets.get(i);
+				if(sheet.name.equals(split[0])) {
+					for(i = 0; i < sheet.sprites.size(); i++ ) {
+						if(sheet.sprites.get(i).name.equals(name)) return sheet.sprites.get(i);
+					}
+					break;
+				}
+			}
+		}
 		for(i = 0; i < sprites.size(); i++ ) {
 			if(sprites.get(i).name.equals(name)) return sprites.get(i);
 		}
@@ -93,6 +108,14 @@ public class Sprite extends Asset {
 
 	public static List<Sprite> getSprites() {
 		return sprites;
+	}
+	
+	public static List<SpriteSheet> getSheets() {
+		return sheets;
+	}
+	
+	public static void newSheet(SpriteSheet sheet) {
+		sheets.add(sheet);
 	}
 }
 
