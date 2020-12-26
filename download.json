@@ -1,10 +1,15 @@
 {
-  "newestRelease": "0.0.7",
-  "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.0.7.jar",
+  "newestRelease": "0.1.0",
+  "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.1.0.jar",
   "updater": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/updater/updater-2.jar",
   
-  "name-0.0.8": "Editor v.1",
-  "changeLog-0.0.8": [
+  "name-0.1.1": "The Physics update",
+  "changeLog-0.1.1": [
+    "Nothing Changed... YET"
+   ],
+  
+  "name-0.1.0": "Editor v.1",
+  "changeLog-0.1.0": [
     "Renamed scenes to worlds",
     "World backend refactoring",
     "Fixed bugs related to Time not being processed",
