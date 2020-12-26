@@ -1,23 +1,17 @@
 package dk.sebsa.amber_engine.editor;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.lwjgl.util.tinyfd.TinyFileDialogs;
-
 import dk.sebsa.amber.AssetManager.Asset;
 import dk.sebsa.amber.Entity;
-import dk.sebsa.amber.entity.World;
 import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber_engine.Main;
-import dk.sebsa.amber_engine.ProjectManager;
 import dk.sebsa.amber_engine.editor.windows.Assets;
 import dk.sebsa.amber_engine.editor.windows.Inspector;
 import dk.sebsa.amber_engine.editor.windows.Types;
 import dk.sebsa.amber_engine.editor.windows.WorldView;
+import dk.sebsa.amber_engine.utils.AssetCreator;
 
 public class Editor {	
 	public static Menubar menubar;
@@ -69,44 +63,9 @@ public class Editor {
 	}
 	
 	public static void newAsset(Asset assetType) {
-		if(assetType.equals(Asset.World)) {
-			// Get name
-			String name = askForName("world");
-			if(name==null) return;
-			
-			// New world
-			String path = ProjectManager.getProjectDir() + "worlds/" + name + ".amw";
-			File f = new File(path);
-			World newWorld = new World(path);
-			newWorld.name = name;
-			
-			try { f.createNewFile(); } catch (IOException e) { e.printStackTrace(); }
-			WorldManager.openWorld(newWorld);
-		} else if (assetType.equals(Asset.Sprite)) {
-			// Get name
-			String name = askForName("sprite");
-			if(name==null) return;
-			
-			// Crate File
-			String path = ProjectManager.getProjectDir() + "sprites/" + name;
-			File f = new File(path+ ".spr");
-			try { f.createNewFile(); } catch (IOException e) { e.printStackTrace(); }
-			
-			// Create sprite
-			Sprite newSprite = new Sprite(path);
-			newSprite.name = name;
-		}
-	}
-	
-	public static String askForName(String type) {
-		String name = TinyFileDialogs.tinyfd_inputBox("Creating new " + type + "!", "What should the " + type + " be named?", "");
-		
-		// Handle string
-		if(name==null) return null;
-		name = name.replaceAll("\\n", "").replaceAll("\\r", "").replaceAll("\\t", "");
-		if(name==null) return null;
-		if(name.equals("") || name.startsWith(" ")) return null;
-		return name;
+		AssetCreator.create(assetType);
+
+		Editor.assets.setAssets(Editor.types.type);
 	}
 	
 	public static Object getSelected() {

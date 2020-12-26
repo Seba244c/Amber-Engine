@@ -7,7 +7,6 @@ import java.util.List;
 
 import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.AssetManager;
-import dk.sebsa.amber.entity.TagManager;
 import dk.sebsa.amber.entity.World;
 import dk.sebsa.amber.entity.WorldManager;
 import dk.sebsa.amber.graph.GUI;

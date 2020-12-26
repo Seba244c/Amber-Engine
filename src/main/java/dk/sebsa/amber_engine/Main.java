@@ -31,6 +31,7 @@ import dk.sebsa.amber_engine.rendering.Overlay.answer;
 import dk.sebsa.amber_engine.rendering.overlays.SaveWorld;
 import dk.sebsa.amber_engine.rendering.windows.Changelog;
 import dk.sebsa.amber_engine.rendering.windows.Play;
+import dk.sebsa.amber_engine.utils.AssetCreator;
 
 public class Main {
 	public static Window window;
@@ -95,6 +96,8 @@ public class Main {
 		input = new Input(window);
 		input.setInstance();
 		sm = new SoundManager();
+		
+		AssetCreator.init();
 	}
 	
 	public static void start() throws IOException {

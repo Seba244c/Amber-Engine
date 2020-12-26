@@ -15,7 +15,9 @@
     "Added unsaved scene label",
     "Implemented new Asset Circle",
     "Added delete assets",
-    "Added internal asset icon to sprites, from internal sprite sheets"
+    "Added internal asset icon to sprites, from internal sprite sheets",
+    "Redesinged SpriteSheet system",
+    "Began work on 'New Asset' button"
    ],
   
   "name-0.0.7": "The World update",
