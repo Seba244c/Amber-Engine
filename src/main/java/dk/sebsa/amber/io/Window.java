@@ -3,18 +3,21 @@ package dk.sebsa.amber.io;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
+import dk.sebsa.amber.util.FileUtil;
 import dk.sebsa.amber.util.Logger;
-
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.opengl.GL11.*;
-import java.nio.IntBuffer;
 
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
+import org.lwjgl.system.MemoryUtil;
 
 public class Window {
 	public long windowId;
@@ -264,9 +267,49 @@ public class Window {
     	return lineView;
     }
     
-    public void setIcon(String path) {
-    	Logger.infoLog("Window", "setIcon", "Setting icon to file at: " + path);
-    }
+public void setIcon(String path) throws Exception{
+	IntBuffer w = MemoryUtil.memAllocInt(1);
+	IntBuffer h = MemoryUtil.memAllocInt(1);
+	IntBuffer comp = MemoryUtil.memAllocInt(1);
+	
+	// Icons
+	{
+		ByteBuffer icon16;
+		ByteBuffer icon32;
+		try {
+		icon16 = FileUtil.ioResourceToByteBuffer(path, 2048);
+		icon32 = FileUtil.ioResourceToByteBuffer(path, 4096);
+		} catch (Exception e) {
+		throw new RuntimeException(e);
+	}
+	
+	try ( GLFWImage.Buffer icons = GLFWImage.malloc(2) ) {
+		ByteBuffer pixels16 = STBImage.stbi_load_from_memory(icon16, w, h, comp, 4);
+		icons
+		.position(0)
+		.width(w.get(0))
+		.height(h.get(0))
+		.pixels(pixels16);
+		
+		ByteBuffer pixels32 = STBImage.stbi_load_from_memory(icon32, w, h, comp, 4);
+		icons
+		.position(1)
+		.width(w.get(0))
+		.height(h.get(0))
+		.pixels(pixels32);
+		
+		icons.position(0);
+		glfwSetWindowIcon(windowId, icons);
+		
+		STBImage.stbi_image_free(pixels32);
+		STBImage.stbi_image_free(pixels16);
+		}
+	}
+	
+	MemoryUtil.memFree(comp);
+	MemoryUtil.memFree(h);
+	MemoryUtil.memFree(w);
+}
     
     public void showCursor(boolean show) {
     	isCursorShown = show;

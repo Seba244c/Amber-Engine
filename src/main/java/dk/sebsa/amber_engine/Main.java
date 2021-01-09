@@ -120,7 +120,7 @@ public class Main {
 	public static void start() throws IOException {
 		loadingScreen.setStatus("Initializing, Window & Input", 20);
 		window.init(Color.white());
-		window.setIcon("/boot/Icon-Simplified.png");
+		try { window.setIcon("/boot/Icon-Simplified - 16.png"); } catch (Exception e) {e.printStackTrace(); }
 		loadingScreen.setStatus("Initializing, Window & Input", 50);
 		input.init();
 		
