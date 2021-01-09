@@ -54,6 +54,7 @@ public class BootLoader {
 		frame.setSize(300, 350);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setIconImages(Main.swingIcon);
 		pane = frame.getContentPane();
 		
 		createPanel();

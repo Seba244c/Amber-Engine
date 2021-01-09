@@ -2,7 +2,11 @@ package dk.sebsa.amber_engine;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+import java.awt.Image;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import dk.sebsa.amber.AssetManager;
 import dk.sebsa.amber.entity.Component;
@@ -48,10 +52,22 @@ public class Main {
 	public static boolean snapshot = false;
 	
 	public static final String editorVersion = Main.class.getPackage().getImplementationVersion();
+	public static ArrayList<Image> swingIcon = new ArrayList<Image>();
+	public static ArrayList<Image> swingIconLite = new ArrayList<Image>();
 	
 	private static boolean close = false;
 	
 	public static void main(String[] args) {
+		// load icon images
+		try {
+			swingIcon.add(ImageIO.read(Main.class.getResourceAsStream("/boot/Icon-Simplified - 20.png")));
+			swingIcon.add(ImageIO.read(Main.class.getResourceAsStream("/boot/Icon-Simplified - 40.png")));
+
+			swingIconLite.add(ImageIO.read(Main.class.getResourceAsStream("/boot/Icon-light-Simplified - 20.png")));
+			swingIconLite.add(ImageIO.read(Main.class.getResourceAsStream("/boot/Icon-light-Simplified - 40.png")));
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
 		// auto update
 		if(!editorVersion.contains("SNAPSHOT") && AutoUpdate.needUpdate()) {
 			AutoUpdate.update();
@@ -87,6 +103,7 @@ public class Main {
 		// Dev Console
 		loadingScreen.setStatus("Loading Dev Console", 0);
 		DevWindow.useDevWindow("Amber Engine Dev Console");
+		DevWindow.setIcon(swingIconLite);
 		if (System.getProperty("os.name").contains("Mac"))
 	        System.setProperty("java.awt.headless", "true");
 		

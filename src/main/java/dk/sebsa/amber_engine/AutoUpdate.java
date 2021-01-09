@@ -133,6 +133,7 @@ public class AutoUpdate {
 		
 		frame.setSize(300, 350);
 		frame.setResizable(false);
+		frame.setIconImages(Main.swingIcon);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pane = frame.getContentPane();
 		

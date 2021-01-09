@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import dk.sebsa.amber_engine.Main;
+
 public class Loading extends JFrame {
 	public JProgressBar bar;
 	public JLabel text1;
@@ -17,6 +19,7 @@ public class Loading extends JFrame {
 	    this.setTitle("Loading");
 	    this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	    this.setResizable(false);
+		this.setIconImages(Main.swingIcon);
 	    
 	    this.setLocationRelativeTo(null);
 	    this.setSize(400, 120);
