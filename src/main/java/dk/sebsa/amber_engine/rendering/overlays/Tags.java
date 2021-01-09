@@ -13,13 +13,14 @@ import dk.sebsa.amber_engine.rendering.Overlay;
 
 public class Tags extends Overlay {
 	private static int offsetY = 0;
+	private Rect layer;
 	
 	@Override
 	public boolean render() {
-		GUI.window(new Rect(Main.window.getWidth()/2-300, Main.window.getHeight()/2-200, 600, 400), "Tag Manager", this::renderWindow, Editor.window);
+		GUI.window(layer, "Tag Manager", this::renderWindow, Editor.window);
 		
 		// CLose
-		if(GUI.toggle(false, Main.window.getWidth()/2+282, Main.window.getHeight()/2-200+Editor.window.padding.height, null, Editor.x)) return true;
+		if(GUI.toggle(false, Main.window.getWidth()/2+282, Main.window.getHeight()/2-200+Editor.window.padding.height, null, Editor.x, 1)) return true;
 		return false;
 	}
 	
@@ -28,11 +29,11 @@ public class Tags extends Overlay {
 		offsetY = 0;
 		for(String tag : TagManager.getTags()) {
 			boolean bool = false;
-			if(((Entity) Editor.getInspected()).tag.equals(tag)) bool = GUI.button(tag, new Rect(0, offsetY, r.width-20, 28), Editor.button, Editor.buttonHover, Press.realesed, false);
-			else bool = GUI.button(tag, new Rect(0, offsetY, r.width-20, 28), null, Editor.button, Press.realesed, false);
+			if(((Entity) Editor.getInspected()).tag.equals(tag)) bool = GUI.button(tag, new Rect(0, offsetY, r.width-20, 28), Editor.button, Editor.buttonHover, Press.realesed, false, 1);
+			else bool = GUI.button(tag, new Rect(0, offsetY, r.width-20, 28), null, Editor.button, Press.realesed, false, 1);
 			
 			// Delete tag
-			if(!tag.equals("Untagged") && GUI.toggle(false, r.width-18, offsetY+6, null, Editor.x)) {
+			if(!tag.equals("Untagged") && GUI.toggle(false, r.width-18, offsetY+6, null, Editor.x, 1)) {
 				TagManager.removeTag(tag);
 				// RETURNING TO EVADE EXCEPTION
 				return;
@@ -47,7 +48,7 @@ public class Tags extends Overlay {
 		}
 		
 		// Create tag
-		if(GUI.button("+ Create Tag +", new Rect(0, offsetY, r.width, 26), Editor.button, Editor.buttonHover, Press.pressed, false)) {
+		if(GUI.button("+ Create Tag +", new Rect(0, offsetY, r.width, 26), Editor.button, Editor.buttonHover, Press.pressed, false, 1)) {
 			String output = TinyFileDialogs.tinyfd_inputBox("Create Tag", "What should the tag be named?", "");
 			if(output == null) return;
 			
@@ -57,4 +58,10 @@ public class Tags extends Overlay {
 
 	@Override
 	public boolean close() { TagManager.save(TagManager.path); return true; }
+
+	@Override
+	public Rect layer() {
+		layer = new Rect(Main.window.getWidth()/2-300, Main.window.getHeight()/2-200, 600, 400);
+		return layer;
+	}
 }

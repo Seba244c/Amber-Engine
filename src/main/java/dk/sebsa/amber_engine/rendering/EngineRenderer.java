@@ -22,6 +22,11 @@ public class EngineRenderer {
 		Renderer.unprepare();
 	}
 	
+	public static void updateLayer() {
+		if(overlay != null)
+			Main.input.addLayer(1, overlay.layer());
+	}
+	
 	public static void renderLabel() {
 		if(!Main.snapshot) return;
 		int tw = GUI.defaultFont.getStringWidth("Devlopment Version");
@@ -45,6 +50,7 @@ public class EngineRenderer {
 	
 	public static void setOverlay(Overlay overlayIn) {
 		overlay = overlayIn;
+		Main.input.addLayer(1, overlay.layer());
 	}
 	
 	public static Overlay getOverlay() {

@@ -78,12 +78,12 @@ public class Menubar {
 			float width = GUI.defaultFont.getStringWidth(m) + 10;
 			Rect nameRect = new Rect(offset-index, 0, width, 30);
 			if(selected != null && selected.equals(m)) {
-				if(GUI.button(m, nameRect, box, box, Press.pressed, true)) {
+				if(GUI.button(m, nameRect, box, box, Press.pressed, true, 0)) {
 					selected = null;
 					GUI.removePopup();
 				}
 			} else {
-				if(GUI.button(m, nameRect, empty, box, Press.pressed, true)) {
+				if(GUI.button(m, nameRect, empty, box, Press.pressed, true, 0)) {
 					List<MenuItem> list = menu.get(m);
 					List<String> v = new ArrayList<String>();
 					for(int i = 0; i < list.size(); i++) v.add(list.get(i).name);
@@ -97,7 +97,7 @@ public class Menubar {
 		
 		GUI.textColor = prevColor;
 		
-		if(GUI.button("", new Rect(Main.window.getWidth()/2-16, 6, 18, 18), playMode, playMode, Press.pressed, false)) {
+		if(GUI.button("", new Rect(Main.window.getWidth()/2-16, 6, 18, 18), playMode, playMode, Press.pressed, false, 0)) {
 			try {
 				Main.togglePlaymode();
 			} catch (IOException e) {e.printStackTrace();}

@@ -27,12 +27,12 @@ public class EngineSettings extends Window {
 	
 	private void render(Rect r) {
 		// Close buttons
-		close = GUI.toggle(false, r.width-16, 0, null, Sprite.getSprite("BlackGUI.XClose"));
-		if(close == false) close = GUI.button("Clsoe Window", new Rect(0, r.height-28, r.width, 28), "Button", "ButtonHover", Press.realesed, false);
+		close = GUI.toggle(false, r.width-16, 0, null, Sprite.getSprite("BlackGUI.XClose"), 0);
+		if(close == false) close = GUI.button("Clsoe Window", new Rect(0, r.height-28, r.width, 28), "Button", "ButtonHover", Press.realesed, false, 0);
 		
 		// Settings
 		GUI.label("Engine VSync", 15, 2);
-		EngineConfig.configEditorVsync = GUI.toggle(EngineConfig.configEditorVsync, 0, 0, on, off);
+		EngineConfig.configEditorVsync = GUI.toggle(EngineConfig.configEditorVsync, 0, 0, on, off, 0);
 	}
 
 	@Override

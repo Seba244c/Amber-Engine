@@ -20,8 +20,8 @@ public class Types {
 		offsetY = 0;
 		for(AssetManager.Asset type : AssetManager.Asset.values()) {
 			boolean bool = false;
-			if(this.type.equals(type)) bool = GUI.button(type.name(), new Rect(0, offsetY, r.width, 28), Editor.button, Editor.buttonHover, Press.realesed, false);
-			else bool = GUI.button(type.name(), new Rect(0, offsetY, r.width, 28), null, Editor.button, Press.realesed, false);
+			if(this.type.equals(type)) bool = GUI.button(type.name(), new Rect(0, offsetY, r.width, 28), Editor.button, Editor.buttonHover, Press.realesed, false, 0);
+			else bool = GUI.button(type.name(), new Rect(0, offsetY, r.width, 28), null, Editor.button, Press.realesed, false, 0);
 			offsetY+=28;
 			if(bool) {
 				this.type = type;

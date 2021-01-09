@@ -10,8 +10,8 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.opengl.GL11.*;
-
 import java.nio.IntBuffer;
+
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
@@ -264,16 +264,8 @@ public class Window {
     	return lineView;
     }
     
-    @Deprecated
     public void setIcon(String path) {
-    	/*Logger.infoLog("Window", "setIcon", "Setting icon to file at: " + path);
-    	IMG icon = FileUtils.loadImage(path);
-    	GLFWImage iconImage = GLFWImage.malloc();
-    	iconBuffer = GLFWImage.malloc(1); 
-    	iconImage.set(icon.w, icon.h, icon.image);
-    	iconBuffer.put(0, iconImage);
-		glfwSetWindowIcon(windowId, iconBuffer);
-		iconImage.free();*/
+    	Logger.infoLog("Window", "setIcon", "Setting icon to file at: " + path);
     }
     
     public void showCursor(boolean show) {

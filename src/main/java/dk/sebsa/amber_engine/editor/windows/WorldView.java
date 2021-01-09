@@ -57,7 +57,7 @@ public class WorldView {
 			}
 			
 			if(children.size() > 0) {
-				entity.setExpanded(GUI.toggle(entity.isExpanded(), inline-15, offsetY+2, Editor.arrowDown, Editor.arrowRight));
+				entity.setExpanded(GUI.toggle(entity.isExpanded(), inline-15, offsetY+2, Editor.arrowDown, Editor.arrowRight, 0));
 				GUI.label(entity.name, inline + 0, offsetY);
 			}
 			else {

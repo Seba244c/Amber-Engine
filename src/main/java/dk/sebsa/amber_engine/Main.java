@@ -103,6 +103,7 @@ public class Main {
 	public static void start() throws IOException {
 		loadingScreen.setStatus("Initializing, Window & Input", 20);
 		window.init(Color.white());
+		window.setIcon("/boot/Icon-Simplified.png");
 		loadingScreen.setStatus("Initializing, Window & Input", 50);
 		input.init();
 		
@@ -143,6 +144,7 @@ public class Main {
 			Time.process();
 			window.update();
 			input.update();
+			EngineRenderer.updateLayer();
 			
 			// Engine input handler
 			InputHandler.update();

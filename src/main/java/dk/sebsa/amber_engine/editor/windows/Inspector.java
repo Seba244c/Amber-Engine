@@ -42,18 +42,18 @@ public class Inspector {
 			Entity selected = (Entity) inspected;
 
 			// Render transform info, entity enabled and name
-			selected.name = GUI.textField(new Rect(0, 0, r.width-20, 22), "Entity", selected.name, 100);
+			selected.name = GUI.textField(new Rect(0, 0, r.width-20, 22), "Entity", selected.name, 100, 0);
 			
 			GUI.label("Tag", 0, 24);
-			if(GUI.button(selected.tag, new Rect(100, 24, r.width-100, 22), Editor.button, Editor.buttonHover, Press.realesed, false)) {
+			if(GUI.button(selected.tag, new Rect(100, 24, r.width-100, 22), Editor.button, Editor.buttonHover, Press.realesed, false, 0)) {
 				EngineRenderer.setOverlay(new Tags());
 			}
 			
-			selected.setPosition(GUI.vectorField(new Rect(0, 48, r.width, 22), "Position", selected.getPosition(), 100));
-			selected.setScale(GUI.vectorField(new Rect(0, 72, r.width, 22), "Scale", selected.getScale(), 100));
-			selected.setRotation(GUI.floatField(new Rect(0, 96, r.width, 22), "Rotation", selected.getRotation(), 100));
+			selected.setPosition(GUI.vectorField(new Rect(0, 48, r.width, 22), "Position", selected.getPosition(), 100, 0));
+			selected.setScale(GUI.vectorField(new Rect(0, 72, r.width, 22), "Scale", selected.getScale(), 100, 0));
+			selected.setRotation(GUI.floatField(new Rect(0, 96, r.width, 22), "Rotation", selected.getRotation(), 100, 0));
 			
-			selected.setEnabled(GUI.toggle(selected.isEnabled(), r.width-16, offsetY+3f, on, off));
+			selected.setEnabled(GUI.toggle(selected.isEnabled(), r.width-16, offsetY+3f, on, off, 0));
 			offsetY = 120;
 			
 			// Render components
@@ -65,12 +65,12 @@ public class Inspector {
 				GUI.window(new Rect(0, offsetY, r.width, h), ((Component) att.component).getName(), this::drawVariables, windowStyle);
 				
 				// Component Enabled
-				c.setEnabled(GUI.toggle(c.isEnabled(), r.width-18, offsetY+7f, on, off));
+				c.setEnabled(GUI.toggle(c.isEnabled(), r.width-18, offsetY+7f, on, off, 0));
 				
 				offsetY += h + 2;
 			}
 			
-			if(GUI.button("+ Add Component +", new Rect(0, offsetY, r.width, 26), "Button", "ButtonHover", Press.pressed, false))
+			if(GUI.button("+ Add Component +", new Rect(0, offsetY, r.width, 26), "Button", "ButtonHover", Press.pressed, false, 0))
 			{
 				String output = TinyFileDialogs.tinyfd_inputBox("Add Component", "What component would you like to add?", "");
 				if(output == null) return;
@@ -95,7 +95,7 @@ public class Inspector {
 					Field s = a.c.getDeclaredField(split[0]);
 					try {
 						String p = s.get(a.component).toString();
-						String v = GUI.textField(new Rect(0, f * 22 + padding, r.width, 22), split[0], p, 100);
+						String v = GUI.textField(new Rect(0, f * 22 + padding, r.width, 22), split[0], p, 100, 0);
 						if(!p.equals(v)) {
 							s.set(a.component, v);
 							//Editor.action();
@@ -114,7 +114,7 @@ public class Inspector {
 						String p = s.get(a.component).toString();
 						
 						float fl = Float.parseFloat(p);
-						float v = GUI.floatField(new Rect(0, f * 22 + padding, r.width, 22), split[0], fl, 100);
+						float v = GUI.floatField(new Rect(0, f * 22 + padding, r.width, 22), split[0], fl, 100, 0);
 						if(!p.equals(String.valueOf(v))) {
 							s.set(a.component, v);
 							//Editor.action();
@@ -132,7 +132,7 @@ public class Inspector {
 					Field s = a.c.getDeclaredField(split[0]);
 					try {
 						String p = s.get(a.component).toString();
-						String v = GUI.textField(new Rect(0, f * 22 + padding, r.width, 22), split[0], p, 100);
+						String v = GUI.textField(new Rect(0, f * 22 + padding, r.width, 22), split[0], p, 100, 0);
 						if(!p.equals(v)) {
 							//Editor.action();
 							try { s.set(a.component, Integer.parseInt(v)); }
@@ -152,7 +152,7 @@ public class Inspector {
 					Field s = a.c.getDeclaredField(split[0]);
 					try {
 						Vector2f p = (Vector2f) s.get(a.component);
-						Vector2f v = GUI.vectorField(new Rect(0, f * 22 + padding, r.width, 22), split[0], p, 100);
+						Vector2f v = GUI.vectorField(new Rect(0, f * 22 + padding, r.width, 22), split[0], p, 100, 0);
 						if(!p.equals(v)) {
 							//Editor.action();
 							s.set(a.component, v);
@@ -164,7 +164,7 @@ public class Inspector {
 				catch (NoSuchFieldException e) { e.printStackTrace(); }
 				catch (SecurityException e) { e.printStackTrace(); }
 			}
-			else { GUI.textField(new Rect(0, f * 22 + padding, r.width, 22), split[0], "", 100); }
+			else { GUI.textField(new Rect(0, f * 22 + padding, r.width, 22), split[0], "", 100, 0); }
 			padding += 2;
 		}
 	}

@@ -11,6 +11,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWScrollCallback;
 
+import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Time;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.util.Logger;
@@ -41,6 +42,7 @@ public class Input {
 	private GLFWScrollCallback mouseScroll;
 	private GLFWCursorEnterCallback cursorEnter;
 	private Vector2f position;
+	private Rect[] layers;
 	
 	public static Input instance;
 	
@@ -214,6 +216,8 @@ public class Input {
         }
         prevMouseX = mouseX;
         prevMouseY = mouseY;
+        layers = new Rect[3];
+        layers[0] = new Rect(0, 0, window.getWidth(), window.getHeight());
 	}
 	
 	public void late() {
@@ -255,8 +259,31 @@ public class Input {
 	}
 	
 	public Vector2f getMousePosition() {
+		return getMousePosition(0);
+	}
+	
+	public void addLayer(int i, Rect r) {
+		layers[i] = r;
+	}
+	
+	public Vector2f getMousePosition(int layer) {
 		position.x = (float) mouseX;
 		position.y = (float) mouseY;
+		
+		// Return if mouse not within layer
+		if(!layers[layer].inRect(position))
+			return new Vector2f(-1, -1);
+		
+		// See if mosue is covered by higher layer
+		if(layers.length > 1) {
+			for(int i = layer+1; i <= 2; i++) {
+				if(layers[i] == null) continue;
+				if(layers[i].inRect(position)) {
+					return new Vector2f(-1f, -1f);
+				}
+			}
+		}
+		
 		return position;
 	}
 }

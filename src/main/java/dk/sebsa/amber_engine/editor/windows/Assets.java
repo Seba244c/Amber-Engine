@@ -55,7 +55,7 @@ public class Assets {
 				
 				// Render i icon
 				Rect iRect = new Rect(r.width-28, offsetY, 28, 28);
-				GUI.button("", iRect, internalAsset, internalAsset, Press.pressed, false);
+				GUI.button("", iRect, internalAsset, internalAsset, Press.pressed, false, 0);
 				
 				// Hover
 				Rect iHoverRect = iRect.add(r.x, r.y, 0, 0);
@@ -74,8 +74,8 @@ public class Assets {
 			
 			if(Editor.types.type.equals(AssetManager.Asset.World)) {
 				// Check if pressed
-				if(WorldManager.getWorld().equals(a)) GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
-				else GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
+				if(WorldManager.getWorld().equals(a)) GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false, 0);
+				else GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
 				
 				// Open world
 				Rect clickRect = buttonRect.add(Renderer.area);
@@ -86,8 +86,8 @@ public class Assets {
 				}
 			} else if(Editor.types.type.equals(AssetManager.Asset.SpriteSheet)) {
 				// Check if pressed
-				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
-				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
+				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false, 0);
+				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
 				
 				// Clicks
 				Rect clickRect = buttonRect.add(Renderer.area);
@@ -101,11 +101,11 @@ public class Assets {
 					}
 				}
 			}
-			else if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
+			else if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
 			else {
 				// Check if pressed
-				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false);
-				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false);
+				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false, 0);
+				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
 				
 				// Clicks
 				Rect clickRect = buttonRect.add(Renderer.area);
@@ -121,7 +121,7 @@ public class Assets {
 			}
 			
 			// Delete asset
-			if(!WorldManager.getWorld().equals(a) && !a.internal && GUI.toggle(false, r.width-18, offsetY-22, null, Editor.x)) {
+			if(!WorldManager.getWorld().equals(a) && !a.internal && GUI.toggle(false, r.width-18, offsetY-22, null, Editor.x, 0)) {
 				if(a.file != null) a.file.delete();
 				AssetManager.typeToList(AssetManager.assetToE(a)).remove(a);
 				return;

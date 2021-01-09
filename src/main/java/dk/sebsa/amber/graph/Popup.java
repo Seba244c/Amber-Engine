@@ -55,7 +55,7 @@ public class Popup {
 		GUI.textColor = Color.white();
 		
 		for(i = 0; i < list.size(); i++) {
-			if(GUI.button(list.get(i), new Rect(drawArea.x, drawArea.y + (i * 28), drawArea.width, 28), box, hover, Press.realesed, true)) {
+			if(GUI.button(list.get(i), new Rect(drawArea.x, drawArea.y + (i * 28), drawArea.width, 28), box, hover, Press.realesed, true, 0)) {
 				func.accept(list.get(i));
 				GUI.textColor = prevColor;
 				return null;

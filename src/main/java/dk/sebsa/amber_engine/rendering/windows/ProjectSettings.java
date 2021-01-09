@@ -21,8 +21,8 @@ public class ProjectSettings extends Window {
 	
 	private void render(Rect r) {
 		// Close buttons
-		close = GUI.toggle(false, r.width-16, 0, null, Sprite.getSprite("BlackGUI.XClose"));
-		if(close == false) close = GUI.button("Clsoe Window", new Rect(0, r.height-28, r.width, 28), "Button", "ButtonHover", Press.realesed, false);
+		close = GUI.toggle(false, r.width-16, 0, null, Sprite.getSprite("BlackGUI.XClose"), 0);
+		if(close == false) close = GUI.button("Clsoe Window", new Rect(0, r.height-28, r.width, 28), "Button", "ButtonHover", Press.realesed, false, 0);
 	}
 
 	@Override

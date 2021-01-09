@@ -77,12 +77,12 @@ public class GUI {
 		Renderer.endArea();
 	}
 
-	public static boolean toggle(boolean b, float x, float y, Sprite on, Sprite off) {
+	public static boolean toggle(boolean b, float x, float y, Sprite on, Sprite off, int layer) {
 		Sprite s = off;
 		if(b)
 			s = on;
 		
-		if(GUI.button("", new Rect(x, y, 15, 15), s, s, Press.realesed, false))
+		if(GUI.button("", new Rect(x, y, 15, 15), s, s, Press.realesed, false, layer))
 			return !b;
 		return b;
 	}
@@ -148,15 +148,15 @@ public class GUI {
 		return c;
 	}
 	
-	public static boolean button(String text, Rect r, String normalStyle, String hoverStyle, Press type, boolean center) {
-		return button(text, r, Sprite.getSprite(sheet+"."+normalStyle), Sprite.getSprite(sheet+"."+hoverStyle), type, center);
+	public static boolean button(String text, Rect r, String normalStyle, String hoverStyle, Press type, boolean center, int layer) {
+		return button(text, r, Sprite.getSprite(sheet+"."+normalStyle), Sprite.getSprite(sheet+"."+hoverStyle), type, center, layer);
 	}
 	
-	public static boolean button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, Press type, boolean center) {
-		return button(text, r, normalStyle, hoverStyle, center).equals(type);
+	public static boolean button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, Press type, boolean center, int layer) {
+		return button(text, r, normalStyle, hoverStyle, center, layer).equals(type);
 	}
 	
-	private static Press button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, boolean center) {
+	private static Press button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, boolean center, int layer) {
 		Rect rf = r.copy();
 		Rect a = Renderer.area;
 		rf.addPosition(a);
@@ -170,7 +170,7 @@ public class GUI {
 			if(x % 1 != 0) x += 0.5f;
 		}
 		
-		if(rf.inRect(input.getMousePosition())) {
+		if(rf.inRect(input.getMousePosition(layer))) {
 			Rect p = box(r, hoverStyle);
 			if(center)
 				label(text, x, y);
@@ -218,11 +218,11 @@ public class GUI {
 		popup = null;
 	}
 	
-	public static String textField(Rect r, String name, String v, float padding) {
+	public static String textField(Rect r, String name, String v, float padding, int layer) {
 		label(name, r.x, r.y);
 		
 		// This is temp has to change
-		if(button(v, new Rect(r.x + padding, r.y, r.width - padding, r.height), "Box", "Box", Press.realesed, false)) {
+		if(button(v, new Rect(r.x + padding, r.y, r.width - padding, r.height), "Box", "Box", Press.realesed, false, layer)) {
 			String s = TinyFileDialogs.tinyfd_inputBox("Changing " + name + "!", "What would you like this varible to be?", v);
 			if(s!=null)
 				s = s.replaceAll("\\n", "").replaceAll("\\r", "").replaceAll("\\t", "");
@@ -235,8 +235,8 @@ public class GUI {
 		return v;
 	}
 	
-	public static float floatField(Rect r, String name, Float v, float padding) {
-		String ret = GUI.textField(r, name, String.valueOf(v), padding);
+	public static float floatField(Rect r, String name, Float v, float padding, int layer) {
+		String ret = GUI.textField(r, name, String.valueOf(v), padding, layer);
 		float f = v;
 		
 		try { f = Float.parseFloat(ret); }
@@ -244,12 +244,12 @@ public class GUI {
 		return f;
 	}
 	
-	public static Vector2f vectorField(Rect r, String name, Vector2f v, float padding) {
+	public static Vector2f vectorField(Rect r, String name, Vector2f v, float padding, int layer) {
 		label(name, r.x, r.y);
 		
 		float half = (r.width - padding) / 2.0f;
-		float x = floatField(new Rect(r.x + padding - 5, r.y, half, r.height), "x", v.x, 10);
-		float y = floatField(new Rect(r.x + padding + half, r.y, half, r.height), "y", v.y, 10);
+		float x = floatField(new Rect(r.x + padding - 5, r.y, half, r.height), "x", v.x, 10, layer);
+		float y = floatField(new Rect(r.x + padding + half, r.y, half, r.height), "y", v.y, 10, layer);
 		return new Vector2f(x, y);
 	}
 

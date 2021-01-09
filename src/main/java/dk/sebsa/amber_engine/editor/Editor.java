@@ -55,7 +55,7 @@ public class Editor {
 		GUI.window(new Rect(Main.window.getWidth()-300, 30, 300, Main.window.getHeight()-30), "Inspector", inspector::render, window);
 		GUI.window(new Rect(0, Main.window.getHeight()-400, 300, 400), "Asset Types", types::render, window);
 		GUI.window(new Rect(300, Main.window.getHeight()-400, Main.window.getWidth()-600, 400), "Assets", assets::render, window);
-		if(GUI.toggle(false, Main.window.getWidth()-319, Main.window.getHeight()-395, addCircle, addCircle)) newAsset();
+		if(GUI.toggle(false, Main.window.getWidth()-319, Main.window.getHeight()-395, addCircle, addCircle, 0)) newAsset();
 	}
 	
 	public static void newAsset() {
