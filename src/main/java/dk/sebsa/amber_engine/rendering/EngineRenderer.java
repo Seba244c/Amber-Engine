@@ -50,7 +50,7 @@ public class EngineRenderer {
 	
 	public static void setOverlay(Overlay overlayIn) {
 		overlay = overlayIn;
-		Main.input.addLayer(1, overlay.layer());
+		if(overlay!=null) Main.input.addLayer(1, overlay.layer());
 	}
 	
 	public static Overlay getOverlay() {
