@@ -16,12 +16,13 @@ uniform vec2 screenPos;
 uniform mat4 transformMatrix;
 uniform vec2 anchor;
 uniform vec2 objectScale;
+uniform float depth;
 
 void main()
 {
 	color = matColor;
 	
-	vec4 worldPosition = vec4((position - anchor) * (pixelScale * objectScale), 0, 1) * transformMatrix;
+	vec4 worldPosition = vec4((position - anchor) * (pixelScale * objectScale), depth, 1) * transformMatrix;
 	gl_Position = projection * worldPosition;
 	uvCoords = (textureCords * offset.zw) + offset.xy;
 }

@@ -115,6 +115,11 @@ public class Shader extends Asset {
 		if(location != -1) glUniform4f(location, c.r, c.g, c.b, c.a);
 	}
 	
+	public void setUniform(String name, float v) {
+		int location = glGetUniformLocation(program, name);
+		if(location != -1) glUniform1f(location, v);
+	}
+	
 	public void setUniform(String name, Matrix4x4 matrix) {
 		int location = glGetUniformLocation(program, name);
 		
