@@ -13,6 +13,7 @@
     "Added Entity rendering depth system",
     "Added asset store button",
     "Added delete component button",
+    "Fixed playmode bugs"
    ],
   
   "name-0.1.0": "Editor v.1",

@@ -84,8 +84,7 @@ public class Entity {
 	}
 
 	public static void clear() {
-		for(Entity e : master.children)
-		{
+		for(Entity e : master.children) {
 			e.delete((byte) 0);
 		}
 		master.children.clear();
@@ -229,8 +228,8 @@ public class Entity {
 	
 	private void delete(byte first) {
 		// Delete component
-		for(Component c : components) {
-			c.delete();
+		while(!components.isEmpty()) {
+			components.get(0).delete();
 		}
 		this.enabled = false;
 		instances.remove(this);

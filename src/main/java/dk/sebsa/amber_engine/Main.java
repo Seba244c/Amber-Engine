@@ -208,6 +208,7 @@ public class Main {
 		sm.stopAll();
 
 		if(inPlayMode) {
+			Editor.setInspected(null);
 			Editor.menubar.playMode = Editor.menubar.stopButton;
 			EngineRenderer.setWindow(new Play());
 			EngineRenderer.setOverlay(null);
