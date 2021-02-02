@@ -66,7 +66,13 @@ public class Inspector {
 				GUI.window(new Rect(0, offsetY, r.width, h), ((Component) att.component).getName(), this::drawVariables, windowStyle);
 				
 				// Component Enabled
-				c.setEnabled(GUI.toggle(c.isEnabled(), r.width-18, offsetY+7f, on, off, 0));
+				c.setEnabled(GUI.toggle(c.isEnabled(), r.width-36, offsetY+7f, on, off, 0));
+				
+				// Delete
+				if(GUI.toggle(false, r.width-18, offsetY+7f, null, Editor.x, 0)) {
+					c.delete();
+					setAttributes(selected);
+				}
 				
 				offsetY += h + 2;
 			}

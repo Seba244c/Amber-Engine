@@ -11,7 +11,8 @@
     "Added window icon to main window",
     "Redesinged Assets window for SpriteSheets",
     "Added Entity rendering depth system",
-    "Added asset store button"
+    "Added asset store button",
+    "Added delete component button",
    ],
   
   "name-0.1.0": "Editor v.1",

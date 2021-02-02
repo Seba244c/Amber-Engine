@@ -73,6 +73,7 @@ public abstract class Component extends Asset {
 	
 	public void delete() {
 		this.enabled = false;
+		entity.removeComponent(this);
 		instances.remove(this);
 	}
 	
