@@ -10,7 +10,8 @@
     "Added amber engine icon to pre-engine windows, and DevWindow",
     "Added window icon to main window",
     "Redesinged Assets window for SpriteSheets",
-    "Added Entity rendering depth system"
+    "Added Entity rendering depth system",
+    "Added asset store button"
    ],
   
   "name-0.1.0": "Editor v.1",

@@ -2,8 +2,17 @@ Material: BlackGUI
 Name: Box
 Offset: 0,16,16,16
 Padding: 2,2,2,2
+Name: BoxSpecial
+Offset: 64,0,16,16
+Padding: 2,2,2,2
+Name: BoxSpecialAlt
+Offset: 64,16,16,16
+Padding: 2,2,2,2
 Name: Button
 Offset: 16,16,16,16
+Padding: 4,2,4,2
+Name: ButtonSpecial
+Offset: 32,16,16,16
 Padding: 4,2,4,2
 Name: ButtonHover
 Offset: 16,32,16,16

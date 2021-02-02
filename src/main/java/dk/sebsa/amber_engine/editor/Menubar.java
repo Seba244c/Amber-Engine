@@ -22,6 +22,7 @@ import dk.sebsa.amber.util.Logger;
 import dk.sebsa.amber_engine.Main;
 import dk.sebsa.amber_engine.ProjectManager;
 import dk.sebsa.amber_engine.rendering.EngineRenderer;
+import dk.sebsa.amber_engine.rendering.windows.AssetStore;
 import dk.sebsa.amber_engine.rendering.windows.EngineSettings;
 import dk.sebsa.amber_engine.rendering.windows.ProjectSettings;
 
@@ -97,6 +98,7 @@ public class Menubar {
 		
 		GUI.textColor = prevColor;
 		
+		// PLay button and world
 		if(GUI.button("", new Rect(Main.window.getWidth()/2-16, 6, 18, 18), playMode, playMode, Press.pressed, false, 0)) {
 			try {
 				Main.togglePlaymode();
@@ -104,6 +106,13 @@ public class Menubar {
 		}
 		if(WorldManager.getWorld().saved) GUI.label("World: " + WorldManager.getWorld().name, Main.window.getWidth()/2+6, 4);
 		else GUI.label("World: " + WorldManager.getWorld().name + "*", Main.window.getWidth()/2+6, 4);
+		
+		// Asset Store
+		float width = GUI.defaultFont.getStringWidth("Asset Store") + 10;
+		Rect nameRect = new Rect(w-width, 0, width, 30);
+		if(GUI.button("Asset Store", nameRect, Sprite.getSprite(GUI.sheet+".BoxSpecial"), Sprite.getSprite(GUI.sheet+".BoxSpecialAlt"), Press.pressed, true, 0)) {
+			EngineRenderer.setWindow(new AssetStore());
+		}
 	}
 	
 	public void clicked(String v) {

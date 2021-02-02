@@ -52,6 +52,10 @@ public class Rect {
 		return this;
 	}
 	
+	public Rect addToNew(Rect r) {
+		return copy().add(r);
+	}
+	
 	public void addPosition(float x, float y) {
 		this.x += x;
 		this.y += y;

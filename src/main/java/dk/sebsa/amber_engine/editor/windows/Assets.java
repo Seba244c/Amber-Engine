@@ -110,7 +110,7 @@ public class Assets {
 						else bool = GUI.button(sprite.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
 						
 						// Clicks
-						Rect clickRect = buttonRect.add(Renderer.area);
+						Rect clickRect = buttonRect.addToNew(Renderer.area);
 						if(clickRect.inRect(Main.input.getMousePosition())) {
 							// Check double click
 							if(Main.input.mouseMultiClicked()) {
