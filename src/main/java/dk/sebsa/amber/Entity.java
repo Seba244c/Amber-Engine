@@ -13,6 +13,7 @@ import dk.sebsa.amber_engine.editor.Editor;
 public class Entity {
 	private boolean enabled = true;
 	private int i;
+	public float depth = 0;
 	
 	public String tag = "Untagged";
 	public String name = "New Entity";

@@ -17,6 +17,7 @@ import org.lwjgl.opengl.GL32;
 
 public class FBO {
 	private int frameBufferID;
+	private int depthBufferID;
 	private Texture texture;
 	private int width;
 	private int height;
@@ -25,6 +26,7 @@ public class FBO {
 		this.width = width;
 		this.height = height;
 		frameBufferID = createFrameBuffer();
+		depthBufferID = createDepthBufferAttachment();
 		
 		int textureID = createTextureAttachment();
 		texture = new Texture(textureID, width, height);
@@ -35,10 +37,12 @@ public class FBO {
 	
 	public void bindFrameBuffer() {
 		GL11.glBindTexture(GL_TEXTURE_2D, 0);
+		GL30.glBindRenderbuffer(GL30.GL_RENDERBUFFER, depthBufferID);
 		GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, frameBufferID);
 	}
 	
 	public void unBind() {
+		GL30.glBindRenderbuffer(GL30.GL_RENDERBUFFER, 0);
 		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
 	}
 
@@ -52,6 +56,14 @@ public class FBO {
 		GL32.glFramebufferTexture(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0, texture, 0);
 		
 		return texture;
+	}
+	
+	private int createDepthBufferAttachment() {
+		int buffer = GL30.glGenRenderbuffers();
+		GL30.glBindRenderbuffer(GL30.GL_RENDERBUFFER, buffer);
+		GL30.glRenderbufferStorage(GL30.GL_RENDERBUFFER, GL11.GL_DEPTH_COMPONENT, width, height);
+		GL30.glFramebufferRenderbuffer(GL30.GL_FRAMEBUFFER, GL30.GL_DEPTH_ATTACHMENT, GL30.GL_RENDERBUFFER,buffer);
+		return buffer;
 	}
 
 	private int createFrameBuffer() {

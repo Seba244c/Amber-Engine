@@ -90,7 +90,9 @@ public class WorldManager {
 		
 		e.setRotation(Float.parseFloat(split[7]));
 		e.setId(split[9]);
-		e.tag = split[11];
+		
+		e.depth = Float.parseFloat(split[11]);
+		e.tag = split[13];
 		
 		return e;
 	}
@@ -159,6 +161,7 @@ public class WorldManager {
 		line += "scale=\"" + e.getScale().x + " " + e.getScale().y + "\" ";
 		line += "r=\"" + e.getRotation() + "\" ";
 		line += "i=\"" + e.getId() + "\" ";
+		line += "d=\"" + e.depth + "\" ";
 		line += "t=\"" + e.tag + "\">\n";
 		fw.write(line);
 	}
