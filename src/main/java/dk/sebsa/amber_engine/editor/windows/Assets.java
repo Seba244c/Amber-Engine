@@ -13,6 +13,7 @@ import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Popup;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.Sprite;
+import dk.sebsa.amber.graph.SpriteSheet;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber.math.Vector2f;
@@ -42,7 +43,7 @@ public class Assets {
 	public void render(Rect r) {
 		if(selectedAssets == null) return;
 		offsetY = 0;
-		
+
 		for(Object asset : selectedAssets) {
 			boolean bool = false;
 			dk.sebsa.amber.Asset a = (Asset) asset;
@@ -71,6 +72,7 @@ public class Assets {
 			}
 			
 			offsetY+=28;
+			int extra = 0;
 			
 			if(Editor.types.type.equals(AssetManager.Asset.World)) {
 				// Check if pressed
@@ -85,19 +87,41 @@ public class Assets {
 					else changeWorld(answer.no);
 				}
 			} else if(Editor.types.type.equals(AssetManager.Asset.SpriteSheet)) {
+				SpriteSheet sheet = ((SpriteSheet) asset);
 				// Check if pressed
-				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false, 0);
-				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
+				if(Editor.getInspected()==null || !Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
+				else bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false, 0);
 				
-				// Clicks
-				Rect clickRect = buttonRect.add(Renderer.area);
-				if(clickRect.inRect(Main.input.getMousePosition())) {
-					// Check double click
-					if(Main.input.mouseMultiClicked()) {
-						if(a.file != null) {
-							try {Desktop.getDesktop().open(a.file);}
-							catch (IOException e) {e.printStackTrace();}
+				// Expand
+				sheet.setOpen(GUI.toggle(((SpriteSheet) asset).isOpen(), GUI.defaultFont.getStringWidth(a.name)+5, offsetY-22, Editor.arrowDown, Editor.arrowRight, 0));
+				
+				// Render open
+				if(sheet.isOpen()) {
+					for(int i = 0; i < sheet.sprites.size(); i++) {
+						Sprite sprite = sheet.sprites.get(i);
+						buttonRect = new Rect(20, offsetY+extra, r.width-20, 28);
+						
+						// See if selected
+						boolean selected = false;
+						if(Editor.getInspected() != null && Editor.getInspected().equals(sprite)) selected = true;
+						
+						// Render
+						if(selected) bool = GUI.button(sprite.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false, 0);
+						else bool = GUI.button(sprite.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
+						
+						// Clicks
+						Rect clickRect = buttonRect.add(Renderer.area);
+						if(clickRect.inRect(Main.input.getMousePosition())) {
+							// Check double click
+							if(Main.input.mouseMultiClicked()) {
+								if(a.file != null) {
+									try {Desktop.getDesktop().open(a.file);}
+									catch (IOException e) {e.printStackTrace();}
+								}
+							}
 						}
+						
+						extra+=28;
 					}
 				}
 			}
@@ -130,6 +154,8 @@ public class Assets {
 			if(bool) {
 				Editor.setInspected(asset);
 			}
+			
+			offsetY += extra;
 		}
 	}
 	

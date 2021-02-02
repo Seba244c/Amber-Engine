@@ -15,6 +15,7 @@ import dk.sebsa.amber.math.Rect;
 public class SpriteSheet extends Asset {
 	private Material material;
 	public List<Sprite> sprites = new ArrayList<>();
+	private boolean open = false;
 	
 	public SpriteSheet(String name) {
 		BufferedReader br;
@@ -60,5 +61,13 @@ public class SpriteSheet extends Asset {
 			e.printStackTrace();
 		}
 		Sprite.newSheet(this);
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 }
