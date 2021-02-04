@@ -26,6 +26,7 @@ import dk.sebsa.amber_engine.rendering.overlays.SaveWorld;
 
 public class Assets {
 	private int offsetY = 0;
+	private int scroll = 0;
 	public List<Asset> selectedAssets;
 	
 	private Sprite internalAsset;
@@ -48,8 +49,10 @@ public class Assets {
 			boolean bool = false;
 			dk.sebsa.amber.Asset a = (Asset) asset;
 			
-			// Internal asset thing
+			// BUtton
 			Rect buttonRect = new Rect(0, offsetY, r.width, 28);
+			
+			// Internal asset thing
 			if(a.internal) {
 				// Make asset rect smaller
 				buttonRect = new Rect(0, offsetY, r.width-28, 28);
@@ -75,18 +78,31 @@ public class Assets {
 			int extra = 0;
 			
 			if(Editor.types.type.equals(AssetManager.Asset.World)) {
+				// Scroll (IK its stupid to copy paste everywhere but this is needed due to spreisheets)
+				scroll = Renderer.setScrollView(selectedAssets.size()*28, scroll);
+				
 				// Check if pressed
 				if(WorldManager.getWorld().equals(a)) GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false, 0);
 				else GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
 				
 				// Open world
-				Rect clickRect = buttonRect.add(Renderer.area);
+				Rect clickRect = buttonRect.add(Renderer.getArea().rect);
 				if(Main.input.mouseMultiClicked() && clickRect.inRect(Main.input.getMousePosition())) {
 					newWorld = (World) a;
 					if(!WorldManager.getWorld().saved) EngineRenderer.setOverlay(new SaveWorld(this::changeWorld));
 					else changeWorld(answer.no);
 				}
 			} else if(Editor.types.type.equals(AssetManager.Asset.SpriteSheet)) {
+				// scroll
+				int max = 0;
+				for(SpriteSheet sheet : Sprite.getSheets()) {
+					max += 28;
+					if(sheet.isOpen()) {
+						max+= 28*sheet.sprites.size();
+					}
+				}
+				scroll = Renderer.setScrollView(max, scroll);
+				
 				SpriteSheet sheet = ((SpriteSheet) asset);
 				// Check if pressed
 				if(Editor.getInspected()==null || !Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
@@ -110,7 +126,7 @@ public class Assets {
 						else bool = GUI.button(sprite.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
 						
 						// Clicks
-						Rect clickRect = buttonRect.addToNew(Renderer.area);
+						Rect clickRect = buttonRect.addToNew(Renderer.getArea().rect);
 						if(clickRect.inRect(Main.input.getMousePosition())) {
 							// Check double click
 							if(Main.input.mouseMultiClicked()) {
@@ -127,12 +143,15 @@ public class Assets {
 			}
 			else if(Editor.getInspected()==null) bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
 			else {
+				// Scroll (IK its stupid to copy paste everywhere but this is needed due to spreisheets)
+				scroll = Renderer.setScrollView(selectedAssets.size()*28, scroll);
+				
 				// Check if pressed
 				if(Editor.getInspected().equals(asset)) bool = GUI.button(a.name, buttonRect, Editor.button, Editor.buttonHover, Press.realesed, false, 0);
 				else bool = GUI.button(a.name, buttonRect, null, Editor.button, Press.realesed, false, 0);
 				
 				// Clicks
-				Rect clickRect = buttonRect.add(Renderer.area);
+				Rect clickRect = buttonRect.add(Renderer.getArea().rect);
 				if(clickRect.inRect(Main.input.getMousePosition())) {
 					// Check double click
 					if(Main.input.mouseMultiClicked()) {

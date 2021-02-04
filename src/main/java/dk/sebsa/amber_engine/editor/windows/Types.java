@@ -4,12 +4,15 @@ package dk.sebsa.amber_engine.editor.windows;
 import dk.sebsa.amber.AssetManager;
 import dk.sebsa.amber.AssetManager.Asset;
 import dk.sebsa.amber.graph.GUI;
+import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber_engine.editor.Editor;
 
 public class Types {
 	private int offsetY = 0;
+	private int scroll = 0;
+	
 	public AssetManager.Asset type = Asset.Sprite;
 	
 	public Types() {
@@ -18,6 +21,7 @@ public class Types {
 	
 	public void render(Rect r) {
 		offsetY = 0;
+		scroll = Renderer.setScrollView(AssetManager.Asset.values().length*28, scroll);
 		for(AssetManager.Asset type : AssetManager.Asset.values()) {
 			boolean bool = false;
 			if(this.type.equals(type)) bool = GUI.button(type.name(), new Rect(0, offsetY, r.width, 28), Editor.button, Editor.buttonHover, Press.realesed, false, 0);

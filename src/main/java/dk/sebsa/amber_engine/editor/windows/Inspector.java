@@ -10,6 +10,7 @@ import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.ComponentImporter;
 import dk.sebsa.amber.graph.GUI;
+import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.graph.GUI.Press;
 import dk.sebsa.amber.graph.Sprite;
 import dk.sebsa.amber.math.Rect;
@@ -24,6 +25,7 @@ public class Inspector {
 	private int i;
 	private List<ComponentAttributes> ca = new ArrayList<ComponentAttributes>();
 	private int offsetY = 0;
+	private int scroll = 0;
 	public Sprite windowStyle;
 	public Sprite on, off;
 	
@@ -38,6 +40,12 @@ public class Inspector {
 		if(inspected == null) return;
 	
 		if(inspected instanceof Entity) {
+			// Scroll
+			int addition = 144 + 26;
+			
+			for(i = 0; i < ca.size(); i++) addition += ca.get(i).height + (windowStyle.padding.y + windowStyle.padding.height) + 2;
+			scroll = Renderer.setScrollView(addition, scroll);
+			
 			// Get Selected
 			Entity selected = (Entity) inspected;
 
@@ -177,6 +185,7 @@ public class Inspector {
 	}
 	
 	public void setAttributes(Object o) {
+		scroll = 0;
 		ca.clear();
 		if(o instanceof Entity) {
 			List<Component> c = ((Entity) o).getComponents();

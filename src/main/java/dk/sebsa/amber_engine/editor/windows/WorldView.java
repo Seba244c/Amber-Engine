@@ -5,6 +5,7 @@ import java.util.List;
 
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.graph.GUI;
+import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
 import dk.sebsa.amber_engine.Main;
@@ -12,20 +13,44 @@ import dk.sebsa.amber_engine.editor.Editor;
 
 public class WorldView {
 	private int i;
+	private int scroll = 0;
 	private List<String> poupStrings = new ArrayList<>();
 	public Entity copiedEntity;
 	
 	public WorldView() {
 		poupStrings.add("Duplicate");
-		poupStrings.add("Delete");
 		poupStrings.add("Copy");
 		poupStrings.add("Paste");
+		poupStrings.add("Delete");
 	}
 	
 	public void render(Rect r) {
+		// Scroll
+		List<Entity> scrollList = new ArrayList<Entity>();
+		int offsetY = 0;
+		
+		scrollList.add(Entity.master());
+		while(scrollList.size() > 0) {
+			Entity entity = scrollList.get(0);
+			List<Entity> children = entity.getChildren();
+			if(children.size() > 0 && entity.isExpanded()) {
+				for(i = 0; i < children.size(); i++) {
+					scrollList.add(0, children.get(i));
+				}
+			}
+			if(entity == Entity.master()) {
+				scrollList.remove(scrollList.size() - 1);
+				continue;
+			}
+			
+			offsetY += 20;
+			scrollList.remove(entity);
+		}
+		scroll = Renderer.setScrollView(offsetY, scroll);
+		
 		// Render
 		List<Entity> updateList = new ArrayList<Entity>();
-		int offsetY = 0;
+		offsetY = 0;
 		
 		updateList.add(Entity.master());
 		while(updateList.size() > 0) {
@@ -65,7 +90,7 @@ public class WorldView {
 			}
 			if(!entity.isEnabled()) GUI.textColor = prevColor;
 			
-			clickRect.set(0, (r.y+offsetY), r.width, 20);
+			clickRect.set(0, (r.y+offsetY) - scroll, r.width, 20);
 			
 			if(clickRect.inRect(Main.input.getMousePosition()) && !GUI.hasPopup()) {
 				if(Main.input.isButtonPressed(0)) Editor.setSelected(entity);

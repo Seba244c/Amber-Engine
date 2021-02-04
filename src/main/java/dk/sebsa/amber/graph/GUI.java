@@ -158,8 +158,9 @@ public class GUI {
 	
 	private static Press button(String text, Rect r, Sprite normalStyle, Sprite hoverStyle, boolean center, int layer) {
 		Rect rf = r.copy();
-		Rect a = Renderer.area;
-		rf.addPosition(a);
+		GUIArea a = Renderer.getArea();
+		rf.addPosition(a.rect);
+		rf.y -= a.getScroll();
 		
 		float x = 0;
 		float y = 0;

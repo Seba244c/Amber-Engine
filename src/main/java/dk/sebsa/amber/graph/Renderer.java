@@ -22,8 +22,10 @@ public class Renderer {
 	private static Matrix4x4 projection;
 	private static FBO fbo;
 	private static Matrix4x4 ortho;
-	private static List<Rect> areas = new ArrayList<>();
-	public static Rect area;
+	
+	private static int area = 0;
+	private static List<GUIArea> areas = new ArrayList<>();
+	
 	private static Window window;
 	
 	public static void init(Input input, Window win) {
@@ -110,8 +112,8 @@ public class Renderer {
 		
 		// Area
 		areas.clear();
-		areas.add(window.getRect().copy());
-		area = areas.get(areas.size()-1);
+		areas.add(new GUIArea(window.getRect().copy()));
+		area = 0;
 	}
 	
 	public static void unprepare() {
@@ -125,13 +127,15 @@ public class Renderer {
 	
 	public static void drawTextureWithTextCoords(Texture tex, Rect drawRect, Rect uvRect, Color c) {
 		// Draw areasd
-		Rect a = areas.get(areas.size()-1);
-		Rect r = a.getIntersection(new Rect(drawRect.x + a.x, (drawRect.y + a.y), drawRect.width, drawRect.height));
+		GUIArea a = areas.get(area);
+		if(a.rect == null) return;
+		
+		Rect r = a.rect.getIntersection(new Rect(drawRect.x + a.rect.x, (drawRect.y + a.rect.y) - a.getScroll(), drawRect.width, drawRect.height));
 		if(r == null) return;
 		
 		// uvreact
-		float x = uvRect.x + ((((r.x - drawRect.x) - a.x) / drawRect.width) * uvRect.width);
-		float y = uvRect.y + ((((r.y - drawRect.y) - a.y) / drawRect.height) * uvRect.height);
+		float x = uvRect.x + ((((r.x - drawRect.x) - a.rect.x) / drawRect.width) * uvRect.width);
+		float y = uvRect.y + ((((r.y - drawRect.y) - (a.rect.y - a.getScroll())) / drawRect.height) * uvRect.height);
 		Rect u = new Rect(x, y, (r.width / drawRect.width) * uvRect.width, (r.height / drawRect.height) * uvRect.height);
 		
 		// Draw
@@ -150,14 +154,26 @@ public class Renderer {
 		fbo = new FBO(width, height);
 	}
 	
+	public static int setScrollView(int scrollMax, int offset) {
+		GUIArea a = areas.get(area);
+		a.maxScroll = scrollMax;
+		return a.scroll(offset);
+	}
+	
 	public static void beginArea(Rect r) {
-		areas.add(area.getIntersection(new Rect(area.x + r.x, (area.y + r.y), r.width, r.height)));
-		area = areas.get(areas.size()-1);
+		GUIArea a = areas.get(area);
+		areas.add(new GUIArea(a.rect.getIntersection(new Rect(a.rect.x + r.x, (a.rect.y + r.y) - a.getScroll(), r.width, r.height))));
+		area += 1;
 	}
 	
 	public static void endArea() {
-		areas.remove(areas.size()-1);
-		area = areas.get(areas.size()-1);
+		if(areas.size() == 1) return;
+		areas.remove(area);
+		area -= 1;
+	}
+	
+	public static GUIArea getArea() {
+		return areas.get(area);
 	}
 }
 

@@ -3,7 +3,7 @@
   "download": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/main/stable/amber_engine-0.1.0.jar",
   "updater": "https://github.com/Seba244c/Amber-Engine-Files/raw/main/updater/updater-2.jar",
   
-  "name-0.1.1": "The Physics update",
+  "name-0.1.1": "The Moving update",
   "changeLog-0.1.1": [
     "Changed BootLoad picture",
     "Add input layering system",
@@ -13,7 +13,8 @@
     "Added Entity rendering depth system",
     "Added asset store button",
     "Added delete component button",
-    "Fixed playmode bugs"
+    "Fixed playmode bugs",
+    "ADDED SCROLLING"
    ],
   
   "name-0.1.0": "Editor v.1",
