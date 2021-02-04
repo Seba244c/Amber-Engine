@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import dk.sebsa.amber.entity.Component;
+import dk.sebsa.amber.math.Mathf;
 import dk.sebsa.amber.math.Matrix4x4;
 import dk.sebsa.amber.math.Vector2f;
 import dk.sebsa.amber.util.Logger;
@@ -19,11 +20,18 @@ public class Entity {
 	public String name = "New Entity";
 	
 	private byte dirty = 1;
+	
+	// Transform vv
 	private Vector2f position = new Vector2f();
 	private Vector2f scale = new Vector2f(1, 1);
 	private float rotation = 0;
+	private Vector2f localPosition = new Vector2f();
+	private Vector2f localScale = new Vector2f(1, 1);
+	private float localRotation = 0;
+	// Transform AA
 	
 	private Matrix4x4 matrix = new Matrix4x4();
+	private static Matrix4x4 temp = new Matrix4x4();
 	private List<Component> components = new ArrayList<Component>();
 	private String id;
 	
@@ -34,6 +42,8 @@ public class Entity {
 	private boolean expanded = false;
 	
 	private static Entity master = new Entity(false).setExpanded(true);;
+	
+	//private Collider collider;
 	
 	public Entity(boolean addToWorlView) {
 		id = UUID.randomUUID().toString();
@@ -104,6 +114,7 @@ public class Entity {
 	}
 
 	public Entity getParent() {
+		if(parent == master) return null;
 		return parent;
 	}
 
@@ -112,14 +123,15 @@ public class Entity {
 	}
 	
 	public void parent(Entity e) {		
+		if(e == null) e = master;
 		if(parent != null) {
-			if(!parent.equals(e)) parent.removeChild(this);
+			if(parent != e) parent.removeChild(this);
 			else return;
 		}
-		
 		parent = e;
 		parent.children.add(this);
-		setInline(parent.getInline() + 1);
+		setInline(parent.inline + 1);
+		recalculateLocalTransformation();
 	}
 	
 	public void removeChild(Entity e) {
@@ -176,26 +188,54 @@ public class Entity {
 	public List<Component> getComponents() {
 		return components;
 	}
-
-	public final Vector2f getPosition() { return position; }
-	public void setPosition(Vector2f p) {
-		position.set(p);
+	
+	// -------------------------- TRANSFORM
+	// POS
+	public final Vector2f getPosition() {return position;}
+	public void setPosition(Vector2f v) {setPosition(v.x, v.y);}
+	public void setPosition(float x, float y){position.set(x, y); recalculateLocalTransformation();}
+	public final Vector2f getLocalPosition() {return localPosition;}
+	public void setLocalPosition(Vector2f v) {setLocalPosition(v.x, v.y);}
+	public void setLocalPosition(float x, float y) {localPosition.set(x, y); recalculateGlobalTransformations();}
+	public void move(Vector2f v) { setPosition(position.add(v)); }
+	public void move(float x, float y) { move(new Vector2f(x, y)); }
+	// Scale
+	public final Vector2f getScale() {return scale;}
+	public void setScale(Vector2f v) {setScale(v.x, v.y);}
+	public void setScale(float x, float y) {scale.set(x, y); recalculateLocalTransformation();}
+	public final Vector2f getLocalScale() {return localScale;}
+	public void setLocalScale(Vector2f v) {setLocalScale(v.x, v.y);}
+	public void setLocalScale(float x, float y) {localScale.set(x, y); recalculateGlobalTransformations();}
+	// ROT
+	public final float getRotation() {return rotation;}
+	public void setRotation(float v) {rotation = Mathf.wrap(v, 0, 360); recalculateLocalTransformation();}
+	public final float getLocalRotation() {return localRotation;}
+	public void setLocalRotation(float v) {localRotation = Mathf.wrap(v, 0, 360); recalculateGlobalTransformations();}
+	// Recalculate
+	private void recalculateLocalTransformation()
+	{
 		dirty = 1;
+		matrix.setDirty(true);
+		localScale = scale.div(parent.scale);
+		localRotation = Mathf.wrap(rotation - parent.rotation, 0, 360);
+		temp.setTransformation(null, -parent.rotation, new Vector2f(1, 1).div(parent.scale));
+		localPosition.set(temp.transformPoint(position.sub(parent.position)));
+		
+		for(int i = 0; i < children.size(); i++) children.get(i).recalculateGlobalTransformations();
 	}
-	public void setPosition(float x, float y) {
-		position.set(x, y);
+	private void recalculateGlobalTransformations()
+	{
 		dirty = 1;
+		matrix.setDirty(true);
+		scale = parent.scale.mul(localScale);
+		rotation = Mathf.wrap(parent.rotation + localRotation, 0, 360);
+		position.set(parent.getMatrix().transformPoint(localPosition));
+		
+		for(int i = 0; i < children.size(); i++) children.get(i).recalculateGlobalTransformations();
 	}
 	
-	public final Vector2f getScale() { return scale; }
-	public void setScale(Vector2f s) { scale.set(s); }
-	public void setScale(float x, float y) { scale.set(x, y); }
-
-	public final float getRotation() { return rotation; }
-	public void setRotation(float r)  {
-		rotation = r;
-		dirty = 1;
-	}
+	public static void recalculate() {for(int i = 0; i < master.children.size(); i++) master.children.get(i).recalculateGlobalTransformations();}
+	// -------------------------- TRANSFORM END
 	
 	public final boolean isDirty() {
 		return dirty == 1;
@@ -203,11 +243,8 @@ public class Entity {
 	
 	public void resetDirty() {dirty = 0;}
 	
-	public void updateMatrix() {
-		matrix.setTransform(position, rotation);
-	}
-	
 	public final Matrix4x4 getMatrix() {
+		if(matrix.isDirt()) matrix.setTransformation(position, rotation, scale); matrix.setDirty(false);
 		return matrix;
 	}
 

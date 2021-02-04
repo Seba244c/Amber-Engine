@@ -6,6 +6,10 @@ import org.joml.Math;
 
 public class Matrix4x4 {
 	private float[][] m = new float[4][4];
+	private boolean dirty = false;
+	
+	public boolean isDirt() { return dirty; }
+	public void setDirty(boolean dirty) { this.dirty = dirty; }
 	
 	public Matrix4x4() {
 		setIdentity();
@@ -44,13 +48,23 @@ public class Matrix4x4 {
 		return matrix;
 	}
 	
-	public void setTransform(Vector2f p, float r) {
-		float radians = (float) Math.toRadians(r);
-		float cos = (float) Math.cos(radians);
-		float sin = (float) Math.sin(radians);
+	public void setTransformation(Vector2f p, float r, Vector2f s)
+	{
+		float radians = (float)Math.toRadians(r);
+		float cos = (float)Math.cos(radians);
+		float sin = (float)Math.sin(radians);
 		
-		m[0][0] = cos; m[0][1] = sin; m[0][3] = p.x;
-		m[1][0] = -sin; m[1][1] = cos; m[1][3] = p.y;
+		m[0][0] = cos * s.x; m[0][1] = sin * s.y; 
+		m[1][0] = -sin * s.x; m[1][1] = cos * s.y; 
+		if(p != null) {m[0][3] = p.x; m[1][3] = p.y;}
+	}
+	
+	public Vector2f transformPoint(Vector2f v)
+	{
+		Vector2f p = new Vector2f();
+		p.x = m[0][3] + (m[0][0] * v.x + -m[1][0] * v.y);
+		p.y = m[1][3] + (-m[0][1] * v.x + m[1][1] * v.y);
+		return p;
 	}
 }
 

@@ -58,6 +58,7 @@ public class WorldManager {
 				}
 				else if(line.startsWith("<p")) e.parent(Entity.find(split[1]));
 			}
+			Entity.recalculate();
 			
 			br.close();
 			fr.close();
@@ -121,7 +122,7 @@ public class WorldManager {
 			
 			List<Component> c = e.getComponents();
 			for(int i = 0; i < c.size(); i++) { writeComponent(c.get(i), fw); }
-			if(e.getParent() != master) {
+			if(e.getParent() != null) {
 				fw.write("\t<p id=\"" + e.getParent().getId() + "\">\n</e>\n");
 			} else fw.write("</e>\n");
 			entities.remove(e);
@@ -145,7 +146,7 @@ public class WorldManager {
 					Vector2f v = (Vector2f) field.get(c);
 					line += v.x + " " + v.y;
 				} else if(t[t.length - 1].equals("Sprite")) {
-					line += ((Sprite) field.get(c)).name;
+					if(field.get(c) != null) line += ((Sprite) field.get(c)).name;
 				} else line += field.get(c);
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();

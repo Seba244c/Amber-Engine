@@ -14,7 +14,9 @@
     "Added asset store button",
     "Added delete component button",
     "Fixed playmode bugs",
-    "ADDED SCROLLING"
+    "ADDED SCROLLING",
+    "Added other assets to inscpector",
+    "Added proper parenting"
    ],
   
   "name-0.1.0": "Editor v.1",

@@ -61,9 +61,9 @@ public class Inspector {
 				EngineRenderer.setOverlay(new Tags());
 			}
 			
-			selected.setPosition(GUI.vectorField(new Rect(0, 48, r.width, 22), "Position", selected.getPosition(), 100, 0));
-			selected.setScale(GUI.vectorField(new Rect(0, 72, r.width, 22), "Scale", selected.getScale(), 100, 0));
-			selected.setRotation(GUI.floatField(new Rect(0, 96, r.width, 22), "Rotation", selected.getRotation(), 100, 0));
+			selected.setLocalPosition(GUI.vectorField(new Rect(0, 48, r.width, 22), "Position", selected.getLocalPosition(), 100, 0));
+			selected.setLocalScale(GUI.vectorField(new Rect(0, 72, r.width, 22), "Scale", selected.getLocalScale(), 100, 0));
+			selected.setLocalRotation(GUI.floatField(new Rect(0, 96, r.width, 22), "Rotation", selected.getLocalRotation(), 100, 0));
 			selected.depth = GUI.floatField(new Rect(0, 120, r.width, 22), "Depth", selected.depth, 100, 0);
 			
 			selected.setEnabled(GUI.toggle(selected.isEnabled(), r.width-16, offsetY+3f, on, off, 0));

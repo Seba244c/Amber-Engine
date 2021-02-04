@@ -13,7 +13,6 @@ public class SpriteRenderer extends Component {
 	public void setUniforms() {
 		sprite.material.shader.setUniform("anchor", anchor);
 		
-		if(entity.isDirty()) { entity.updateMatrix(); }
 		sprite.material.shader.setUniform("transformMatrix", entity.getMatrix());
 		sprite.material.shader.setUniform("objectScale", entity.getScale());
 		
