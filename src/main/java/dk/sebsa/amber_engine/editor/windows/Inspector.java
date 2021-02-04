@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.lwjgl.util.tinyfd.TinyFileDialogs;
 
+import dk.sebsa.amber.Asset;
 import dk.sebsa.amber.Entity;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.ComponentImporter;
@@ -38,8 +39,11 @@ public class Inspector {
 	public void render(Rect r) {
 		Object inspected = Editor.getInspected();
 		if(inspected == null) return;
-	
-		if(inspected instanceof Entity) {
+		
+		if(inspected instanceof Asset) {
+			Asset selected = (Asset) inspected;
+			selected.render(r);
+		} else if(inspected instanceof Entity) {
 			// Scroll
 			int addition = 144 + 26;
 			

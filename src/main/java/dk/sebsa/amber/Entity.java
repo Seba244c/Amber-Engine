@@ -264,6 +264,7 @@ public class Entity {
 		e.position = position;
 		e.scale = scale;
 		e.rotation = rotation;
+		e.depth = depth;
 		
 		// Components
 		for(Component c : components) {
