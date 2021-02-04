@@ -146,7 +146,7 @@ public class Entity {
 	public void removeChild(int v) {
 		if(v >= children.size()) return;
 		Entity e = children.get(v);
-		e.parent(master);
+		
 		children.remove(v);
 		e.inline = 0;
 	}
