@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import dk.sebsa.amber.entity.Component;
+import dk.sebsa.amber.entity.components.phys.Collider;
 import dk.sebsa.amber.math.Mathf;
 import dk.sebsa.amber.math.Matrix4x4;
 import dk.sebsa.amber.math.Vector2f;
@@ -43,7 +44,7 @@ public class Entity {
 	
 	private static Entity master = new Entity(false).setExpanded(true);;
 	
-	//private Collider collider;
+	private Collider collider;
 	
 	public Entity(boolean addToWorlView) {
 		id = UUID.randomUUID().toString();
@@ -171,13 +172,19 @@ public class Entity {
 	}
 	
 	public void removeComponent(Component c) {
+		if(c == collider) collider = null;
 		components.remove(c);
 	}
 	
 	public Component addComponent(Component c) {
 		if(c == null) { Logger.errorLog("Entity",  name, "Could not find component!"); return null; }
-		c.init(this);
+		else if(c instanceof Collider) {
+			if(collider != null) {
+				Logger.errorLog("Entity",  name, "Only one collider pr entity!"); return null;
+			} else collider = (Collider) c;
+		}
 		components.add(c);
+		c.init(this);
 		return c;
 	}
 
@@ -318,5 +325,19 @@ public class Entity {
 			child.duplicate(e, (byte) 0);
 		}
 		return e;
+	}
+	
+	public void callTriggerCallback() {
+		for(int i = 0; i < components.size(); i++) {
+			Component component = components.get(i);
+			component.onTrigger();
+		}
+	}
+	
+	public void callCollisionCallback() {
+		for(int i = 0; i < components.size(); i++) {
+			Component component = components.get(i);
+			component.onCollision();
+		}
 	}
 }

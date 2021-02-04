@@ -59,6 +59,7 @@ public class WorldManager {
 				else if(line.startsWith("<p")) e.parent(Entity.find(split[1]));
 			}
 			Entity.recalculate();
+			for(Entity entity : Entity.getInstances()) entity.resetDirty();
 			
 			br.close();
 			fr.close();

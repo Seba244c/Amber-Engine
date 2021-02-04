@@ -24,6 +24,10 @@ import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 
 import dk.sebsa.amber.entity.components.SpriteRenderer;
+import dk.sebsa.amber.entity.components.phys.AABBCollider;
+import dk.sebsa.amber.entity.components.phys.BoxCollider;
+import dk.sebsa.amber.entity.components.phys.CircleCollider;
+import dk.sebsa.amber.entity.components.phys.LineCollider;
 
 public class ComponentImporter {
 	private static List<Component> importedClasses = new ArrayList<Component>();
@@ -34,10 +38,13 @@ public class ComponentImporter {
 	public static void init() {
 		// Add all Amber components
 		importedClasses.add(new SpriteRenderer());
+		importedClasses.add(new AABBCollider());
+		importedClasses.add(new BoxCollider());
+		importedClasses.add(new LineCollider());
+		importedClasses.add(new CircleCollider());
 	}
 	
-	public static Component importClass(String path)
-	{
+	public static Component importClass(String path) {
 		InputStream stream = null;
 		try {stream = new FileInputStream(path);}
 		catch (FileNotFoundException e) {e.printStackTrace();}

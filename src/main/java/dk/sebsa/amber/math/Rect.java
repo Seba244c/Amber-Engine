@@ -69,4 +69,14 @@ public class Rect {
 	public Rect copy() {
 		return new Rect(x, y, width, height);
 	}
+	
+	public Rect(Vector2f pos, Vector2f scale) {
+		x = pos.x;
+		y = pos.y;
+		width = scale.x;
+		height = scale.y;
+	}
+	
+	public boolean contains(Vector2f v) {return v.x > x && v.x < x + width && v.y > y && v.y < y + height;}
+	public Vector2f getSize() {return new Vector2f(width, height);}
 }

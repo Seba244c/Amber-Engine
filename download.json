@@ -16,7 +16,9 @@
     "Fixed playmode bugs",
     "ADDED SCROLLING",
     "Added other assets to inscpector",
-    "Added proper parenting"
+    "Added proper parenting",
+    "Added delete KEY functionality",
+    "Added Colliders"
    ],
   
   "name-0.1.0": "Editor v.1",

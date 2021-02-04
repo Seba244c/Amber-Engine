@@ -12,6 +12,7 @@ import dk.sebsa.amber.AssetManager;
 import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.entity.ComponentImporter;
 import dk.sebsa.amber.entity.WorldManager;
+import dk.sebsa.amber.entity.components.phys.Collider;
 import dk.sebsa.amber.entity.TagManager;
 import dk.sebsa.amber.entity.World;
 import dk.sebsa.amber.graph.GUI;
@@ -54,6 +55,7 @@ public class Main {
 	public static final String editorVersion = Main.class.getPackage().getImplementationVersion();
 	public static ArrayList<Image> swingIcon = new ArrayList<Image>();
 	public static ArrayList<Image> swingIconLite = new ArrayList<Image>();
+	private static boolean prevFrame = false;
 	
 	private static boolean close = false;
 	
@@ -168,12 +170,24 @@ public class Main {
 			
 			// Logic
 			if(inPlayMode) {
+				if(prevFrame == false) Collider.clearFrame();
 				Component.updateAll();
+				Component.lateUpdateAll();
+				
 				sm.updateListenerPosition(new Vector2f(0, 0));
+			} else {
+				prevFrame = false;
 			}
 			
 			// Render
+			Component.willRenderAll();
 			EngineRenderer.renderScreen();
+			
+			// Phys
+			if(inPlayMode) {
+				Collider.compareCollisions();
+				Collider.clearFrame();
+			}
 			
 			// Lates
 			input.late();
@@ -181,6 +195,8 @@ public class Main {
 			if(window.shouldClose()) prepareForClose();
 			
 			glfwSwapBuffers(window.windowId);
+			
+			prevFrame = true;
 		}
 	}
 	

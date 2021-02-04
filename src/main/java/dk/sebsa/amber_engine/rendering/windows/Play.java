@@ -1,6 +1,5 @@
 package dk.sebsa.amber_engine.rendering.windows;
 
-import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.math.Rect;
@@ -17,7 +16,7 @@ public class Play extends Window {
 		// Render menubar, components and popups
 		Renderer.prepare();
 		Editor.menubar.render();
-		Component.willRenderAll();
+		
 		GUI.drawPopup();
 		return false;
 	}

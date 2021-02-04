@@ -35,8 +35,21 @@ public abstract class Component extends Asset {
 	public void update() {
 		// Occurs on every frame before rendering
 	}
+	
+	public void lateUpdate() {
+		// Occurs after update
+	}
 	public void onWillRender() {
 		// When ready to render
+	}
+	
+	public void onCollision() {
+		// Calls on Collision
+	
+	}
+	
+	public void onTrigger() {
+		// calls on trigger
 	}
 	
 	public final Entity getOwner() {
@@ -52,6 +65,14 @@ public abstract class Component extends Asset {
 		for(i = 0; i < instances.size(); i++) {
 			c = instances.get(i);
 			if(c.isEnabled() && c.entity.isEnabled()) c.update();
+		}
+	}
+	
+	public static void lateUpdateAll() {
+		Component c;
+		for(i = 0; i < instances.size(); i++) {
+			c = instances.get(i);
+			if(c.isEnabled() && c.entity.isEnabled()) c.lateUpdate();
 		}
 	}
 	

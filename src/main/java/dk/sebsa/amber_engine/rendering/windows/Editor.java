@@ -1,6 +1,5 @@
 package dk.sebsa.amber_engine.rendering.windows;
 
-import dk.sebsa.amber.entity.Component;
 import dk.sebsa.amber.graph.GUI;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.math.Rect;
@@ -16,7 +15,6 @@ public class Editor extends Window {
 		// Render editor
 		Renderer.prepare();
 		if(!Main.inPlayMode) dk.sebsa.amber_engine.editor.Editor.render();
-		Component.willRenderAll();
 		GUI.drawPopup();
 		return false;
 	}
