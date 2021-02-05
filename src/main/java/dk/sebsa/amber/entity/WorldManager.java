@@ -20,7 +20,6 @@ public class WorldManager {
 	public static final World getWorld() {
 		return currentWorld;
 	}
-	
 
 	public static void openWorld(World world)  {
 		currentWorld = world;
@@ -56,7 +55,7 @@ public class WorldManager {
 					}
 					
 				}
-				else if(line.startsWith("<p")) e.parent(Entity.find(split[1]));
+				else if(line.startsWith("<p")) e.parent(Entity.getEntity(split[1]));
 			}
 			Entity.recalculate();
 			for(Entity entity : Entity.getInstances()) entity.resetDirty();

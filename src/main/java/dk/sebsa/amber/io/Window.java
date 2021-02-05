@@ -3,7 +3,7 @@ package dk.sebsa.amber.io;
 import dk.sebsa.amber.graph.Renderer;
 import dk.sebsa.amber.math.Color;
 import dk.sebsa.amber.math.Rect;
-import dk.sebsa.amber.util.FileUtil;
+import dk.sebsa.amber.util.FileUtils;
 import dk.sebsa.amber.util.Logger;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -277,8 +277,8 @@ public class Window {
 			ByteBuffer icon16;
 			ByteBuffer icon32;
 			try {
-			icon16 = FileUtil.ioResourceToByteBuffer(path, 2048);
-			icon32 = FileUtil.ioResourceToByteBuffer(path, 4096);
+			icon16 = FileUtils.ioResourceToByteBuffer(path, 2048);
+			icon32 = FileUtils.ioResourceToByteBuffer(path, 4096);
 			} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

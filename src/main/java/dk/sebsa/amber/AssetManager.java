@@ -1,6 +1,7 @@
 package dk.sebsa.amber;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +26,12 @@ import dk.sebsa.amber.graph.Texture;
 import dk.sebsa.amber.sound.AudioClip;
 import dk.sebsa.amber_engine.Main;
 
+/**
+ * @author Sebsa
+ * @since Before 0.1.0
+ * 
+ * The AssetManager automaticly loads all internal and external assets
+ */
 public class AssetManager {
 	private static Class<AssetManager> clazz = AssetManager.class;
 	private static ClassLoader cl = clazz.getClassLoader();
@@ -39,6 +46,10 @@ public class AssetManager {
 	private static List<String> worlds = new ArrayList<String>();
 	private static int i = 0;
 	
+	/**
+	 * @author Sebsa
+	 * All the types of asset
+	 */
 	public enum Asset {
 		Sprite,
 		Shader,
@@ -50,6 +61,11 @@ public class AssetManager {
 		Script
 	}
 	
+	/**
+	 * Finds the list associated with the param type
+	 * @param type The Asset type wich to return
+	 * @return Returns the list associated with the param type
+	 */
 	public static List<?> typeToList(Asset type) {
 		if(type.equals(Asset.Sprite)) return Sprite.getSprites();
 		else if(type.equals(Asset.Shader)) return Shader.getShaders();
@@ -62,6 +78,11 @@ public class AssetManager {
 		return null;
 	}
 	
+	/**
+	 * Returns the Asset enum representation of a asset class
+	 * @param asset An asset wich to evalualte
+	 * @return the Asset enum representation of a asset class
+	 */
 	public static Asset assetToE(dk.sebsa.amber.Asset asset) {
 		if(asset.getClass().equals(Sprite.class)) return Asset.Sprite;
 		else if(asset.getClass().equals(Shader.class)) return Asset.Shader;
@@ -74,6 +95,11 @@ public class AssetManager {
 		return null;
 	}
 	
+	/**
+	 * Loads ALL jar assets and external assets and intializes them
+	 * @param externalDir The folder wich the external assets is located in
+	 * @throws IOException If an file is not found or could not be loaded
+	 */
 	public static void loadAllResources(String externalDir) throws IOException {
 		int i = 0;
 		initResourcePaths(externalDir);
@@ -107,6 +133,10 @@ public class AssetManager {
 		if(!worlds.isEmpty()) for(i = 0; i < worlds.size(); i++) new World(worlds.get(i));
 	}
 	
+	/**
+	 * Finds ALL jar assets and external assets
+	 * @param externalDir The folder wich the external assets is located in
+	 */
 	private static void initResourcePaths(String externalDir) {
 		URL dirUrl = cl.getResource("dk/sebsa/amber_engine");
 		String protocol = dirUrl.getProtocol();
@@ -118,6 +148,12 @@ public class AssetManager {
 		
 	}
 	
+	/**
+	 * This function is called if the program is run from an jar, loads all internal and external assets
+	 * @param externalDir The folder wich the external assets is located in
+	 * @throws UnsupportedEncodingException
+	 * @throws IOException If an file is not found or could not be loaded
+	 */
 	private static void importFromJar(String externalDir) throws UnsupportedEncodingException, IOException {
 		// Loads the engine resources from a jar
 		Main.loadingScreen.setStatus("Loading internal assets", 0);
@@ -180,6 +216,13 @@ public class AssetManager {
 		worlds.addAll(importFromExternalDir("worlds", 1, externalDir));
 	}
 
+	/**
+	 * The actual method wich finds the internal(jar) assets
+	 * @param path The sub folder wich to loacte assets from
+	 * @param useExt Wether the file extension should be used
+	 * @return A list of asset file locatuions
+	 * @throws IOException If an file is not found or could not be loaded
+	 */
 	private static List<String> importFromLocalDir(String path, int useExt) throws IOException {
 		List<String> paths = new ArrayList<String>();
 		InputStream in = cl.getResourceAsStream(path);
@@ -198,6 +241,12 @@ public class AssetManager {
 		return paths;
 	}
 	
+	/**
+	 * @param path The sub folder wich to loacte assets from
+	 * @param useExt Wether the file extension should be used
+	 * @param externalDir The folder wich the path lies in
+	 * @return A list of asset file locatuions
+	 */
 	private static List<String> importFromExternalDir(String path, int useExt, String externalDir) {
 		List<String> paths = new ArrayList<String>();
 		File dir = new File(externalDir + path);
@@ -211,6 +260,9 @@ public class AssetManager {
 		return paths;
 	}
 	
+	/**
+	 * Cleans up all assets with a cleanup function
+	 */
 	public static void cleanUpAll() {
 		for(Shader s : Shader.getShaders()) { s.cleanup(); }
 		Texture.cleanup();
