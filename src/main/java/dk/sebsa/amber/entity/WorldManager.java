@@ -85,12 +85,12 @@ public class WorldManager {
 		Entity e = new Entity(split[1]);
 		
 		String[] tSplit = split[3].split(" ");
-		e.setPosition(Float.parseFloat(tSplit[0]), Float.parseFloat(tSplit[1]));
+		e.setLocalPosition(Float.parseFloat(tSplit[0]), Float.parseFloat(tSplit[1]));
 		
 		tSplit = split[5].split(" ");
-		e.setPosition(Float.parseFloat(tSplit[0]), Float.parseFloat(tSplit[1]));
+		e.setLocalScale(Float.parseFloat(tSplit[0]), Float.parseFloat(tSplit[1]));
 		
-		e.setRotation(Float.parseFloat(split[7]));
+		e.setLocalRotation(Float.parseFloat(split[7]));
 		e.setId(split[9]);
 		
 		e.depth = Float.parseFloat(split[11]);
@@ -159,9 +159,9 @@ public class WorldManager {
 
 	private static void writeTransform(Entity e, FileWriter fw) throws IOException {
 		String line = "<e name=\"" + e.name + "\" ";
-		line += "pos=\"" + e.getPosition().x + " " + e.getPosition().y + "\" ";
-		line += "scale=\"" + e.getScale().x + " " + e.getScale().y + "\" ";
-		line += "r=\"" + e.getRotation() + "\" ";
+		line += "pos=\"" + e.getLocalPosition().x + " " + e.getLocalPosition().y + "\" ";
+		line += "scale=\"" + e.getLocalScale().x + " " + e.getLocalScale().y + "\" ";
+		line += "r=\"" + e.getLocalRotation() + "\" ";
 		line += "i=\"" + e.getId() + "\" ";
 		line += "d=\"" + e.depth + "\" ";
 		line += "t=\"" + e.tag + "\">\n";
