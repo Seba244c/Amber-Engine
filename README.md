@@ -1,3 +1,6 @@
+# **This is now archived together with the rest of the Amber Project.**
+## This was only my second attempt at a game engine, please visit Spellbook-Studios/Spellbook
+
 # Amber-Engine
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a2842cdd9155413aa2d62e5515cc5e81)](https://app.codacy.com/gh/Seba244c/Amber-Engine?utm_source=github.com&utm_medium=referral&utm_content=Seba244c/Amber-Engine&utm_campaign=Badge_Grade)
